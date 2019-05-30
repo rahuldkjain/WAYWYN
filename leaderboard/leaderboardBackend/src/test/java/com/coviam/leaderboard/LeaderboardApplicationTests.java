@@ -1,4 +1,4 @@
-package com.coviam.leaderboard.leaderboard;
+package com.coviam.leaderboard;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
