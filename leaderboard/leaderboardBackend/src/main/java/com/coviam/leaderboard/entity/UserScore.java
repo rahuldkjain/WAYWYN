@@ -1,10 +1,13 @@
 package com.coviam.leaderboard.entity;
 
+import com.coviam.leaderboard.pkclasses.UserScorePK;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-@Entity
+@Entity @IdClass(UserScorePK.class)
 @Table(name="user_score")
 public class UserScore{
     @Id
