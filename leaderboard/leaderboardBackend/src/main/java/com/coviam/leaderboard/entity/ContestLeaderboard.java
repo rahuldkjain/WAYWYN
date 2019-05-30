@@ -3,26 +3,27 @@ package com.coviam.leaderboard.entity;
 import com.coviam.leaderboard.pkclasses.ContestLeaderboardPK;
 
 import javax.persistence.Entity;
+
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity @IdClass(ContestLeaderboardPK.class)
-@Table(name="ContestLeaderboard")
+@Table(name="contest_leaderboard")
 public class ContestLeaderboard {
 
     @Id int userId;
     @Id int contestId;
     String username;
     int score;
-    int user_rank;
+    int userRank;
 
-    public ContestLeaderboard(int userId, int contestId, String username, int score, int user_rank) {
+    public ContestLeaderboard(int userId, int contestId, String username, int score, int userRank) {
         this.userId = userId;
         this.contestId = contestId;
         this.username = username;
         this.score = score;
-        this.user_rank = user_rank;
+        this.userRank = userRank;
     }
 
     public ContestLeaderboard() {
@@ -60,11 +61,11 @@ public class ContestLeaderboard {
         this.score = score;
     }
 
-    public int getUser_rank() {
-        return user_rank;
+    public int getUserRank() {
+        return userRank;
     }
 
-    public void setUser_rank(int user_rank) {
-        this.user_rank = user_rank;
+    public void setUserRank(int userRank) {
+        this.userRank = userRank;
     }
 }
