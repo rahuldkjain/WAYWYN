@@ -49,7 +49,7 @@ public class LeaderboardController {
         JSONObject response = getJSONResponse(data);
         return response;
     }
-    @PostMapping("/dynamic")
+    @PostMapping(value = "/dynamic", consumes = "application/json")
     public JSONObject insertDynamicData(@RequestBody CMSDynamicRequest cmsDynamicRequest){
         Object data = dynamicLeaderboardService.insertDynamicData(cmsDynamicRequest);
         JSONObject response = getJSONResponse(data);

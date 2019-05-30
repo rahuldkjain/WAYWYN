@@ -1,5 +1,6 @@
 package com.coviam.leaderboard.model;
 
+import java.sql.Date;
 import java.util.List;
 
 public class CMSDynamicRequest {
@@ -7,15 +8,19 @@ public class CMSDynamicRequest {
     public String type;
     public Integer contestId;
     public Integer qId;
-    public List response;
-    public boolean skip;
+    public Date date;
+    public List<UserDynamicResponse> response;
 
-    public boolean isSkip() {
-        return skip;
+    public CMSDynamicRequest(String category, String type, Integer contestId, Integer qId, Date date, List<UserDynamicResponse> response) {
+        this.category = category;
+        this.type = type;
+        this.contestId = contestId;
+        this.qId = qId;
+        this.date = date;
+        this.response = response;
     }
 
-    public void setSkip(boolean skip) {
-        this.skip = skip;
+    public CMSDynamicRequest() {
     }
 
     public String getCategory() {
@@ -50,12 +55,20 @@ public class CMSDynamicRequest {
         this.qId = qId;
     }
 
-    public List getResponse() {
+    public List<UserDynamicResponse> getResponse() {
         return response;
     }
 
-    public void setResponse(List response) {
+    public void setResponse(List<UserDynamicResponse> response) {
         this.response = response;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
@@ -65,6 +78,7 @@ public class CMSDynamicRequest {
                 ", type='" + type + '\'' +
                 ", contestId=" + contestId +
                 ", qId=" + qId +
+                ", date=" + date +
                 ", response=" + response +
                 '}';
     }

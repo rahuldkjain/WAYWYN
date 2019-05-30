@@ -56,7 +56,7 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
                     questionRepository.save(question);
                 }
             }
-            
+
         }
         if(!cmsStaticRequest.isSkip()){
             score+=5;
@@ -65,7 +65,6 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
         UserScore userScore=new UserScore(cmsStaticRequest.getUserId(),cmsStaticRequest.getContestId(),cmsStaticRequest.getUsername(),score);
         userScoreRepository.save(userScore);
 
-        //
         return "success";
     }
 }
