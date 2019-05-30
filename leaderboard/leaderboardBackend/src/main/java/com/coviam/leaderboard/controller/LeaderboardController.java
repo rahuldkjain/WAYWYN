@@ -1,5 +1,5 @@
 package com.coviam.leaderboard.controller;
-import com.coviam.leaderboard.entity.CMSRequest;
+import com.coviam.leaderboard.model.CMSRequest;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
