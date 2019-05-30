@@ -3,7 +3,7 @@ package com.coviam.leaderboard.model;
 import java.sql.Date;
 import java.util.List;
 
-public class CMSRequest {
+public class CMSStaticRequest {
     public String category;
     public String type;
     public Integer contestId;
@@ -79,7 +79,7 @@ public class CMSRequest {
 
     @Override
     public String toString() {
-        return "CMSRequest{" +
+        return "CMSStaticRequest{" +
                 "category='" + category + '\'' +
                 ", type='" + type + '\'' +
                 ", contestId=" + contestId +
