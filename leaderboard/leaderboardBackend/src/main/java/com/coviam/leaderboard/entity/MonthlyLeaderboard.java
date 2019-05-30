@@ -1,36 +1,38 @@
 package com.coviam.leaderboard.entity;
 
-import com.coviam.leaderboard.pkclasses.DailyLeaderboardPK;
+import com.coviam.leaderboard.pkclasses.MonthlyLeaderboardPK;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-@Entity @IdClass(DailyLeaderboardPK.class)
-@Table(name="daily_leaderboard")
-public class DailyLeaderboard {
-    @Id int dayId;
-    @Id String username;
+@Entity @IdClass(MonthlyLeaderboardPK.class)
+@Table(name="monthly_leaderboard")
+public class MonthlyLeaderboard {
+    @Id
+    int monthId;
+    @Id
+    String username;
     int score;
     int userRank;
 
-    public DailyLeaderboard(int dayId, String username, int score, int userRank) {
-        this.dayId = dayId;
+    public MonthlyLeaderboard(int monthId, String username, int score, int userRank) {
+        this.monthId = monthId;
         this.username = username;
         this.score = score;
         this.userRank = userRank;
     }
 
-    public DailyLeaderboard() {
+    public MonthlyLeaderboard() {
     }
 
-    public int getDayId() {
-        return dayId;
+    public int getMonthId() {
+        return monthId;
     }
 
-    public void setDayId(int dayId) {
-        this.dayId = dayId;
+    public void setMonthId(int monthId) {
+        this.monthId = monthId;
     }
 
     public String getUsername() {
