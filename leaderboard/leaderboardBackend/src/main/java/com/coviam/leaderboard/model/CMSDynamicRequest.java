@@ -8,6 +8,15 @@ public class CMSDynamicRequest {
     public Integer contestId;
     public Integer qId;
     public List response;
+    public boolean skip;
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
 
     public String getCategory() {
         return category;

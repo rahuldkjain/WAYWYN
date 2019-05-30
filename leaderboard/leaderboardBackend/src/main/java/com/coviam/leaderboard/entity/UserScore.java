@@ -8,7 +8,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity @IdClass(UserScorePK.class)
-@Table(name="user_score")
+@Table(name="UserScore")
 public class UserScore{
     @Id
     Integer userId;
@@ -23,6 +23,9 @@ public class UserScore{
         this.contestId = contestId;
         this.username = username;
         this.score = score;
+    }
+
+    public UserScore() {
     }
 
     public Integer getUserId() {

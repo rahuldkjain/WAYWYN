@@ -8,7 +8,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity @IdClass(WeeklyLeaderboardPK.class)
-@Table(name="weekly_leaderboard")
+@Table(name="WeeklyLeaderboard")
 public class WeeklyLeaderboard {
     @Id int weekId;
     @Id String username;

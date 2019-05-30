@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import java.sql.Date;
 
 @Entity
-@Table(name="contest")
+@Table(name="Contest")
 public class Contest {
     @Id
     int contestId;

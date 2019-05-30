@@ -37,7 +37,7 @@ public class LeaderboardController {
         return response;
     }
 
-    @PostMapping("/static")
+    @PostMapping(value = "/static", consumes = "application/json")
     public JSONObject insertStaticData(@RequestBody CMSStaticRequest cmsStaticRequest){
         String data = staticLeaderboardService.insertStaticData(cmsStaticRequest);
         JSONObject response = getJSONResponse(data);

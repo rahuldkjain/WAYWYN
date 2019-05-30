@@ -1,30 +1,32 @@
 package com.coviam.leaderboard.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="question")
+@Table(name="Question")
 public class Question {
     @Id
-    int questionId;
+    @Column(name = "questionId")
+    int qId;
     int correct_count;
 
-    public Question(int questionId, int correct_count) {
-        this.questionId = questionId;
+    public Question(int qId, int correct_count) {
+        this.qId = qId;
         this.correct_count = correct_count;
     }
 
     public Question() {
     }
 
-    public int getQuestionId() {
-        return questionId;
+    public int getqId() {
+        return qId;
     }
 
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
+    public void setqId(int qId) {
+        this.qId = qId;
     }
 
     public int getCorrect_count() {

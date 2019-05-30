@@ -8,10 +8,34 @@ public class CMSStaticRequest {
     public String type;
     public Integer contestId;
     public Date contestEndDate;
-    public InternalError userId;
+    public Integer userId;
     public String username;
-    public String endDate;
-    public List questions;
+    public Date endDate;
+    public boolean skip;
+    public List<UserQuestionResponse> questions;
+
+    public CMSStaticRequest() {
+    }
+
+    public CMSStaticRequest(String category, String type, Integer contestId, Date contestEndDate, Integer userId, String username, Date endDate, boolean skip, List<UserQuestionResponse> questions) {
+        this.category = category;
+        this.type = type;
+        this.contestId = contestId;
+        this.contestEndDate = contestEndDate;
+        this.userId = userId;
+        this.username = username;
+        this.endDate = endDate;
+        this.skip = skip;
+        this.questions = questions;
+    }
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
 
     public String getCategory() {
         return category;
@@ -45,11 +69,11 @@ public class CMSStaticRequest {
         this.contestEndDate = contestEndDate;
     }
 
-    public InternalError getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(InternalError userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -61,19 +85,19 @@ public class CMSStaticRequest {
         this.username = username;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
-    public List getQuestions() {
+    public List<UserQuestionResponse> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List questions) {
+    public void setQuestions(List<UserQuestionResponse> questions) {
         this.questions = questions;
     }
 
@@ -88,6 +112,7 @@ public class CMSStaticRequest {
                 ", username='" + username + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", questions=" + questions +
+                ", skip=" + skip +
                 '}';
     }
 }

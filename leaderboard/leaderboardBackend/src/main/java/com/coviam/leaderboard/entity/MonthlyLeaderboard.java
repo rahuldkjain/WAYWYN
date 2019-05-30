@@ -8,7 +8,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity @IdClass(MonthlyLeaderboardPK.class)
-@Table(name="monthly_leaderboard")
+@Table(name="MonthlyLeaderboard")
 public class MonthlyLeaderboard {
     @Id
     int monthId;
