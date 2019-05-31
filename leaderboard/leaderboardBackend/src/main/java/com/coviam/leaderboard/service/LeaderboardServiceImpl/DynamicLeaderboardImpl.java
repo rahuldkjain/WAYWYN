@@ -40,13 +40,14 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
             if(userScoreRepositoryDynamic.exists(new UserScorePK(response.getUserId(),cmsDynamicRequest.getContestId()))){
                 UserScore userScore=userScoreRepositoryDynamic.findOne(new UserScorePK(response.getUserId(),cmsDynamicRequest.getContestId()));
                 userScore.setScore(userScore.getScore()+response.getScore());
+                userScore.setUserEndDate(cmsDynamicRequest.getDate());
                 userScoreRepositoryDynamic.save(userScore);
                 if(response.getScore()>0){
                     correctCount+=1;
                 }
             }
             else{
-                UserScore userScore=new UserScore(response.getUserId(),cmsDynamicRequest.getContestId(),response.getUsername(),response.getScore());
+                UserScore userScore=new UserScore(response.getUserId(),cmsDynamicRequest.getContestId(),response.getUsername(),response.getScore(),cmsDynamicRequest.getDate());
                 userScoreRepositoryDynamic.save(userScore);
                 if(response.getScore()>0){
                     correctCount+=1;

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import java.sql.Date;
 
 @Entity @IdClass(UserScorePK.class)
 @Table(name="UserScore")
@@ -17,12 +18,15 @@ public class UserScore{
 
     String username;
     Integer score;
+    Date userEndDate;
 
-    public UserScore(Integer userId, Integer contestId, String username, Integer score) {
+
+    public UserScore(Integer userId, Integer contestId, String username, Integer score, Date userEndDate) {
         this.userId = userId;
         this.contestId = contestId;
         this.username = username;
         this.score = score;
+        this.userEndDate = userEndDate;
     }
 
     public UserScore() {
@@ -60,4 +64,11 @@ public class UserScore{
         this.score = score;
     }
 
+    public Date getUserEndDate() {
+        return userEndDate;
+    }
+
+    public void setUserEndDate(Date userEndDate) {
+        this.userEndDate = userEndDate;
+    }
 }

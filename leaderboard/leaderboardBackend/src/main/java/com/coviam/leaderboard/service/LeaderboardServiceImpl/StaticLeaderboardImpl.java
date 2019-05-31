@@ -62,7 +62,7 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
             score+=5;
         }
         //updates user score
-        UserScore userScore=new UserScore(cmsStaticRequest.getUserId(),cmsStaticRequest.getContestId(),cmsStaticRequest.getUsername(),score);
+        UserScore userScore=new UserScore(cmsStaticRequest.getUserId(),cmsStaticRequest.getContestId(),cmsStaticRequest.getUsername(),score,cmsStaticRequest.getEndDate());
         userScoreRepository.save(userScore);
 
         return "success";
