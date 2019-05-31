@@ -11,6 +11,9 @@ public class UserScorePK implements Serializable {
         this.contestId = contestId;
     }
 
+    public UserScorePK() {
+    }
+
     public Integer getUserId() {
         return userId;
     }

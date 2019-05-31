@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class ContestLeaderboardPK implements Serializable {
     int userId;
-    int ContestId;
+    int contestId;
 
     public ContestLeaderboardPK(int userId, int contestId) {
         this.userId = userId;
-        ContestId = contestId;
+        this.contestId = contestId;
     }
 
     public ContestLeaderboardPK() {
@@ -23,10 +23,10 @@ public class ContestLeaderboardPK implements Serializable {
     }
 
     public int getContestId() {
-        return ContestId;
+        return contestId;
     }
 
     public void setContestId(int contestId) {
-        ContestId = contestId;
+        this.contestId = contestId;
     }
 }
