@@ -1,9 +1,6 @@
 package com.coviam.leaderboard.scheduler;
 
-import com.coviam.leaderboard.entity.Contest;
-import com.coviam.leaderboard.entity.ContestLeaderboard;
-import com.coviam.leaderboard.entity.DailyLeaderboard;
-import com.coviam.leaderboard.entity.UserScore;
+import com.coviam.leaderboard.entity.*;
 import com.coviam.leaderboard.queryresult.UserAggregateScore;
 import com.coviam.leaderboard.repository.*;
 import org.springframework.beans.BeanUtils;
@@ -85,13 +82,6 @@ public class SchedulerTasks {
             userScoreList.add(aggregateScore);
         }
 
-//        for(Object object:userScoreObjectList){
-//            UserAggregateScore aggregateScore=new UserAggregateScore();
-//            UserAggregateScore score1=(UserAggregateScore) object;
-////            aggregateScore.setScore();
-//            userScoreList.add(aggregateScore);
-//        }
-
         long epoch=System.currentTimeMillis()/1000/60/60/24;
         List<DailyLeaderboard> dailyLeaderboards=new ArrayList<DailyLeaderboard>();
         int rank=0;
@@ -117,14 +107,68 @@ public class SchedulerTasks {
         return ;
     }
 
-    @Scheduled(fixedRate = 2000)
-    public List updateWeeklyLeaderboard(){
-        return null;
+    @Scheduled(fixedRate = 6000)
+    public void updateWeeklyLeaderboard(){
+        System.out.println("hi i am in update weekly");
+        long today=System.currentTimeMillis()/1000/60/60/24;
+        long weekId=System.currentTimeMillis()/1000/60/60/24/7;
+        long startdate=weekId*7;
+        System.out.println(today+"   -------"+startdate);
+
+        List<Object> dailyLeaderboardlist=dailyLeaderboardRepository.findByUserIdGroupByDateRange(startdate,today);
+        Iterator iterator=dailyLeaderboardlist.iterator();
+        List<WeeklyLeaderboard> weeklyLeaderboardList=new ArrayList<WeeklyLeaderboard>();
+
+        int rank=0;
+        int previousScore=-1;
+        while (iterator.hasNext()){
+            Object[] object=(Object[]) iterator.next();
+            WeeklyLeaderboard weeklyLeaderboard=new WeeklyLeaderboard();
+            weeklyLeaderboard.setUsername(String.valueOf(object[0]));
+            weeklyLeaderboard.setScore(Integer.parseInt(String.valueOf(object[1])));
+            weeklyLeaderboard.setWeekId((int)weekId);
+            if(Integer.parseInt(String.valueOf(object[1]))!=previousScore){
+                weeklyLeaderboard.setUserRank(++rank);
+            }else{
+                weeklyLeaderboard.setUserRank(rank);
+            }
+            previousScore=weeklyLeaderboard.getScore();
+            weeklyLeaderboardList.add(weeklyLeaderboard);
+        }
+        weeklyLeaderboardRepository.save(weeklyLeaderboardList);
+        return ;
     }
 
-    @Scheduled(fixedRate = 2000)
-    public List updateMonthlyLeaderboard(){
-        return null;
+    @Scheduled(fixedRate = 8000)
+    public void updateMonthlyLeaderboard(){
+        System.out.println("hi i am in update monthly");
+        long todayWeek=System.currentTimeMillis()/1000/60/60/24/7;
+        long monthId=System.currentTimeMillis()/1000/60/60/24/7/4;
+        long startWeek=monthId*4;
+        System.out.println(todayWeek+"   -------"+startWeek);
+
+        List<Object> weeklyLeaderboardlist=weeklyLeaderboardRepository.findByUserIdGroupByDateRange(startWeek,todayWeek);
+        Iterator iterator=weeklyLeaderboardlist.iterator();
+        List<MonthlyLeaderboard> monthlyLeaderboardList=new ArrayList<MonthlyLeaderboard>();
+
+        int rank=0;
+        int previousScore=-1;
+        while (iterator.hasNext()){
+            Object[] object=(Object[]) iterator.next();
+            MonthlyLeaderboard monthlyLeaderboard=new MonthlyLeaderboard();
+            monthlyLeaderboard.setUsername(String.valueOf(object[0]));
+            monthlyLeaderboard.setScore(Integer.parseInt(String.valueOf(object[1])));
+            monthlyLeaderboard.setMonthId((int)monthId);
+            if(Integer.parseInt(String.valueOf(object[1]))!=previousScore){
+                monthlyLeaderboard.setUserRank(++rank);
+            }else{
+                monthlyLeaderboard.setUserRank(rank);
+            }
+            previousScore=monthlyLeaderboard.getScore();
+            monthlyLeaderboardList.add(monthlyLeaderboard);
+        }
+        monthlyLeaderboardRepository.save(monthlyLeaderboardList);
+        return ;
     }
 
 }

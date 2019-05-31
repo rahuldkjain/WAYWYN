@@ -17,6 +17,6 @@ public interface UserScoreRepository extends CrudRepository<UserScore,UserScoreP
 
 
     List<UserScore> findAllByUserEndDate(Date dateVal);
-    @Query(value = "select user_id,username,sum(score) as score from user_score us where us.user_end_date=?1 group by user_id,username",nativeQuery = true)
+    @Query(value = "select user_id,username,sum(score) as score from user_score us where us.user_end_date=?1 group by user_id,username order by sum(score) desc;",nativeQuery = true)
     List<Object> findScoreSumGroupByUserId(Date dateVal);
 }
