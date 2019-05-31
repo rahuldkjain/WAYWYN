@@ -1,23 +1,30 @@
 package com.waywyn.userresponse.DTO;
 
 import java.util.Date;
+import java.util.HashMap;
 
-public class UserContestDTO {
-    private int ucId;
+public class UserResultToLeaderboardDTO {
     private int userId;
     private String username;
     private int contestId;
-    private boolean skipFlag = false;
+    private boolean skipFlag;
     private Date endDate;
     private String type = "static";
     private String category;
+    private HashMap<Integer,Integer> questions;
 
-    public int getUcId() {
-        return ucId;
-    }
-
-    public void setUcId(int ucId) {
-        this.ucId = ucId;
+    @Override
+    public String toString() {
+        return "UserResultToLeaderboardDTO{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", contestId=" + contestId +
+                ", skipFlag=" + skipFlag +
+                ", endDate=" + endDate +
+                ", type='" + type + '\'' +
+                ", category='" + category + '\'' +
+                ", questions=" + questions +
+                '}';
     }
 
     public int getUserId() {
@@ -76,17 +83,11 @@ public class UserContestDTO {
         this.category = category;
     }
 
-    @Override
-    public String toString() {
-        return "UserContestDTO{" +
-                "ucId=" + ucId +
-                ", userId=" + userId +
-                ", username='" + username + '\'' +
-                ", contestId=" + contestId +
-                ", skipFlag=" + skipFlag +
-                ", endDate=" + endDate +
-                ", type='" + type + '\'' +
-                ", category='" + category + '\'' +
-                '}';
+    public HashMap<Integer, Integer> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(HashMap<Integer, Integer> questions) {
+        this.questions = questions;
     }
 }
