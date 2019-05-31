@@ -4,6 +4,7 @@ import com.coviam.leaderboard.model.CMSStaticRequest;
 import com.coviam.leaderboard.service.LeaderboardServiceImpl.DynamicLeaderboardImpl;
 import com.coviam.leaderboard.service.LeaderboardServiceImpl.OverallLeaderboardImpl;
 import com.coviam.leaderboard.service.LeaderboardServiceImpl.StaticLeaderboardImpl;
+import com.coviam.leaderboard.service.ReportServiceImpl.ReportServiceImpl;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,9 @@ public class LeaderboardController {
 
     @Autowired
     OverallLeaderboardImpl overallLeaderboardService;
+
+    @Autowired
+    ReportServiceImpl reportService;
 
     @GetMapping("/static")
     public JSONObject getStaticLeaderboard(@RequestParam Integer userId, @RequestParam Integer contestId){
@@ -69,6 +73,34 @@ public class LeaderboardController {
     @GetMapping("/monthly")
     public JSONObject getMonthlyLeaderboard(){
         Object data = overallLeaderboardService.getMonthlyLeaderboard();
+        JSONObject response = getJSONResponse(data);
+        return response;
+    }
+
+    @GetMapping("/reports/topquestion")
+    public JSONObject getTopQuestions(){
+        Object data = reportService.mostCorrectlyAnswered();
+        JSONObject response = getJSONResponse(data);
+        return response;
+    }
+
+    @GetMapping("/reports/activeusers")
+    public JSONObject getActiveUsers(@RequestParam Integer contestId){
+        Object data = reportService.numberOfActiveUsers(contestId);
+        JSONObject response = getJSONResponse(data);
+        return response;
+    }
+
+    @GetMapping("/reports/activecontests")
+    public JSONObject getActiveContests(){
+        Object data = reportService.numberOfActiveContests();
+        JSONObject response = getJSONResponse(data);
+        return response;
+    }
+
+    @GetMapping("/reports/winners")
+    public JSONObject getWinners(@RequestParam Integer contestId){
+        Object data = reportService.getWinners(contestId);
         JSONObject response = getJSONResponse(data);
         return response;
     }
