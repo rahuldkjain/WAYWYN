@@ -20,7 +20,6 @@ public class LeaderboardController {
         return response;
     }
 
-
     @Autowired
     DynamicLeaderboardImpl dynamicLeaderboardService;
 

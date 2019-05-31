@@ -6,8 +6,8 @@ import java.io.Serializable;
 
 public class DailyLeaderboardPK implements Serializable {
 
-    int dayId;
-    String username;
+    private int dayId;
+    private String username;
 
     public DailyLeaderboardPK(int dayId, String username) {
         this.dayId = dayId;

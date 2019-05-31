@@ -28,8 +28,7 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
 
     @Override
     public List<ContestLeaderboard> getStaticLeaderboard(Integer userId, Integer contestId) {
-
-
+        //todo same in overall as well.
         return null;
     }
 
@@ -46,14 +45,14 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
             score+=response.getScore();
             if(response.getScore()>0){
                 //updates question correctcount
-                if(questionRepository.findOne(response.getqId())!=null){
-                    Question question=questionRepository.findOne(response.getqId());
+                Question question=questionRepository.findOne(response.getqId());
+                if(question!=null){
                     Question question1=new Question(response.getqId(),question.getCorrect_count()+1);
                     questionRepository.save(question1);
                 }
                 else{
-                    Question question=new Question(response.getqId(),1);
-                    questionRepository.save(question);
+                    Question question1=new Question(response.getqId(),1);
+                    questionRepository.save(question1);
                 }
             }
 

@@ -37,8 +37,8 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
         int correctCount=0;
         List<UserDynamicResponse> responses=cmsDynamicRequest.getResponse();
         for(UserDynamicResponse response:responses){
-            if(userScoreRepositoryDynamic.exists(new UserScorePK(response.getUserId(),cmsDynamicRequest.getContestId()))){
-                UserScore userScore=userScoreRepositoryDynamic.findOne(new UserScorePK(response.getUserId(),cmsDynamicRequest.getContestId()));
+            UserScore userScore=userScoreRepositoryDynamic.findOne(new UserScorePK(response.getUserId(),cmsDynamicRequest.getContestId()));
+            if(userScore!=null){
                 userScore.setScore(userScore.getScore()+response.getScore());
                 userScore.setUserEndDate(cmsDynamicRequest.getDate());
                 userScoreRepositoryDynamic.save(userScore);
@@ -47,23 +47,21 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
                 }
             }
             else{
-                UserScore userScore=new UserScore(response.getUserId(),cmsDynamicRequest.getContestId(),response.getUsername(),response.getScore(),cmsDynamicRequest.getDate());
-                userScoreRepositoryDynamic.save(userScore);
+                UserScore userScore2=new UserScore(response.getUserId(),cmsDynamicRequest.getContestId(),response.getUsername(),response.getScore(),cmsDynamicRequest.getDate());
+                userScoreRepositoryDynamic.save(userScore2);
                 if(response.getScore()>0){
                     correctCount+=1;
                 }
             }
         }
         //question table
-        if(questionRepositoryDynamic.exists(cmsDynamicRequest.getqId())){
-            Question question=questionRepositoryDynamic.findOne(cmsDynamicRequest.getqId());
+        Question question=questionRepositoryDynamic.findOne(cmsDynamicRequest.getqId());
+        if(question!=null){
             question.setCorrect_count(question.getCorrect_count()+correctCount);
             questionRepositoryDynamic.save(question);
         }else {
             questionRepositoryDynamic.save(new Question(cmsDynamicRequest.getqId(),correctCount));
         }
-
-
         return "success";
     }
 
