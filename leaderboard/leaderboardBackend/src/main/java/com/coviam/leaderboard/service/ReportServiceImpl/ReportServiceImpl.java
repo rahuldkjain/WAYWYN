@@ -32,8 +32,8 @@ public class ReportServiceImpl implements ReportService {
         List<Question> questionList = questionRepository.findMaxCountQuestions();
         List<QuestionDetails> questionDetailsList = new ArrayList<QuestionDetails>();
         for(Question question: questionList){
-            if(questionDetailsRepository.findOne(question.getqId())!=null){
-                QuestionDetails questionDetails = questionDetailsRepository.findOne(question.getqId());
+            QuestionDetails questionDetails = questionDetailsRepository.findByQuestionId(question.getqId());
+            if(questionDetails != null){
                 questionDetailsList.add(questionDetails);
             }
         }

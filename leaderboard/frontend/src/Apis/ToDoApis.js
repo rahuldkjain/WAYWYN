@@ -30,5 +30,8 @@ export default {
     },
     getActiveContestList(callback){
       MakeApis.makeGetContestRequest("/api/leaderboard/reports/activecontests", callback)
+    },
+    getTopQuestionsList(callback){
+      MakeApis.makeGetContestRequest("/api/leaderboard/reports/topquestion", callback)
     }
 }

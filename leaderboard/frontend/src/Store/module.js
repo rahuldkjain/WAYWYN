@@ -11,7 +11,8 @@ export default {
         numOfCorrectlyAnsweredQuestions: 0,
         numOfWronglyAnsweredQuestions: 0,
         contestWinners: [],
-        activeContests: []
+        activeContests: [],
+        topQuestions: []
     },
     getters: {
         getContestLeaderBoard : (state) =>state.contest_leader_board,
@@ -23,7 +24,8 @@ export default {
         getNumOfCorrectlyAnsweredQuestions: (state)=> state.numOfCorrectlyAnsweredQuestions,
         getNumOfWronglyAnsweredQuestions: (state)=> state.numOfWronglyAnsweredQuestions,
         getWinnersOfContest: (state)=> state.contestWinners,
-        getActiveContests: (state) => state.activeContests
+        getActiveContests: (state) => state.activeContests,
+        getTopQuestions: (state) => state.topQuestions
     },
     mutations: {
         SET_CONTEST_LEADER_BOARD: (state,result)=>{
@@ -60,7 +62,9 @@ export default {
         SET_ACTIVE_CONTESTS: (state, result) => {
             state.activeContests = result.data
         },
-
+        SET_TOP_QUESTIONS: (state, result) => {
+            state.topQuestions = result.data
+        }
 
     },
     actions: {
@@ -114,5 +118,10 @@ export default {
             context.commit('SET_ACTIVE_CONTESTS',result.data)
           })
         },
+        fetchTopQuestions: (context) => {
+          ToDoApis.getTopQuestionsList((result)=>{
+            context.commit('SET_TOP_QUESTIONS', result.data)
+          })
+        }
   }
 }
