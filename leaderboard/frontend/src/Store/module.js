@@ -14,7 +14,7 @@ export default {
         activeContests: []
     },
     getters: {
-        getContestLeaderBoard : (state) =>state.leader_board,
+        getContestLeaderBoard : (state) =>state.contest_leader_board,
         getDailyLeaderBoard : (state) =>state.daily_leader_board,
         getWeeklyLeaderBoard : (state) =>state.weekly_leader_board,
         getMonthlyLeaderBoard : (state) =>state.monthly_leader_board,
@@ -27,7 +27,7 @@ export default {
     },
     mutations: {
         SET_CONTEST_LEADER_BOARD: (state,result)=>{
-            state.leader_board=result.data;
+            state.contest_leader_board=result.data;
 
         },
         SET_DAILY_LEADER_BOARD: (state,result)=>{
@@ -59,13 +59,14 @@ export default {
         },
         SET_ACTIVE_CONTESTS: (state, result) => {
             state.activeContests = result.data
-        }
+        },
+
 
     },
     actions: {
         fetchContestLeaderBoard:(context,contestId) =>{
             ToDoApis.getContestLeaderBoard((result)=>{
-                context.commit('SET_LEADER_BOARD',result)
+                context.commit('SET_CONTEST_LEADER_BOARD',result.data)
             },contestId)
         },
         fetchDailyLeaderBoard:(context)=>{
@@ -105,7 +106,7 @@ export default {
         },
         fetchWinnersOfContest: (context,contestId)=>{
             ToDoApis.getWinnersOfContest((result)=>{
-                context.commit('SET_WINNERS_OF_CONTEST',result)
+                context.commit('SET_WINNERS_OF_CONTEST',result.data)
             },contestId)
         },
         fetchActiveContests: (context)=>{

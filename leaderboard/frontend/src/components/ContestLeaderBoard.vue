@@ -7,63 +7,22 @@
 import { mapGetters } from 'vuex';
 export default {
     data(){
-        return {
-            leaderBoards: [
-                {
-                    userId: 1,
-                    contestId: 1,
-                    username: "abc",
-                    score: 20,
-                    user_rank: 1
-                },
-                {
-                    userId: 1,
-                    contestId: 1,
-                    username: "abc",
-                    score: 20,
-                    user_rank: 1
-                },
-                {
-                    userId: 1,
-                    contestId: 1,
-                    username: "abc",
-                    score: 20,
-                    user_rank: 1
-                },
-                {
-                    userId: 1,
-                    contestId: 1,
-                    username: "abc",
-                    score: 20,
-                    user_rank: 1
-                },
-                {
-                    userId: 1,
-                    contestId: 1,
-                    username: "abc",
-                    score: 20,
-                    user_rank: 1
-                }
-                ,{
-                    userId: 1,
-                    contestId: 1,
-                    username: "abc",
-                    score: 20,
-                    user_rank: 1
-                },
-                {
-                    userId: 1,
-                    contestId: 1,
-                    username: "abc",
-                    score: 20,
-                    user_rank: 1
-                }
-            ]
-        }
+        return{
+        leaderBoards: []
+      }
+    },
+    created() {
+      this.$store.dispatch('fetchContestLeaderBoard',this.$route.params.contestId)
+    },
+    watch: {
+      getContestLeaderBoard: function(newValue, oldValue){
+          this.leaderBoards = newValue
+      },
     },
     computed: {
         ...mapGetters(['getContestLeaderBoard'])
     }
+    
 }
 </script>
 <style>
