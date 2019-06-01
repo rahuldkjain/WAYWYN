@@ -1,5 +1,6 @@
 package com.coviam.leaderboard.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,21 +9,22 @@ import javax.persistence.Table;
 @Table(name="QuestionDetails")
 public class QuestionDetails {
     @Id
+    @Column(name = "question_id")
     int questionId;
-    String question_text;
-    String answer;
-    String difficultyLevel;
-    String categoryOfQuestion;
-    String answerType;
-    String questionType;
-    String binaryFilePath;
-    String optionA;
-    String optionB;
-    String optionC;
+    @Column(name = "question_text")String questionText;
+    @Column(name = "answer")String answer;
+    @Column(name = "difficulty_level")String difficultyLevel;
+    @Column(name = "category_of_question")String categoryOfQuestion;
+    @Column(name = "answer_type")String answerType;
+    @Column(name = "question_type")String questionType;
+    @Column(name = "binary_file_path")String binaryFilePath;
+    @Column(name = "option_a")String optionA;
+    @Column(name = "option_b")String optionB;
+    @Column(name = "option_c")String optionC;
 
-    public QuestionDetails(int questionId, String question_text, String answer, String difficultyLevel, String categoryOfQuestion, String answerType, String questionType, String binaryFilePath, String optionA, String optionB, String optionC) {
+    public QuestionDetails(int questionId, String questionText, String answer, String difficultyLevel, String categoryOfQuestion, String answerType, String questionType, String binaryFilePath, String optionA, String optionB, String optionC) {
         this.questionId = questionId;
-        this.question_text = question_text;
+        this.questionText = questionText;
         this.answer = answer;
         this.difficultyLevel = difficultyLevel;
         this.categoryOfQuestion = categoryOfQuestion;
@@ -45,12 +47,12 @@ public class QuestionDetails {
         this.questionId = questionId;
     }
 
-    public String getQuestion_text() {
-        return question_text;
+    public String getQuestionText() {
+        return questionText;
     }
 
-    public void setQuestion_text(String question_text) {
-        this.question_text = question_text;
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
 
     public String getAnswer() {
@@ -129,7 +131,7 @@ public class QuestionDetails {
     public String toString() {
         return "QuestionDetails{" +
                 "questionId=" + questionId +
-                ", question_text='" + question_text + '\'' +
+                ", questionText='" + questionText + '\'' +
                 ", answer='" + answer + '\'' +
                 ", difficultyLevel='" + difficultyLevel + '\'' +
                 ", categoryOfQuestion='" + categoryOfQuestion + '\'' +
