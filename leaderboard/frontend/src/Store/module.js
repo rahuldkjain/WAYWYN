@@ -10,10 +10,12 @@ export default {
         numOfActiveContests: 0,
         numOfCorrectlyAnsweredQuestions: 0,
         numOfWronglyAnsweredQuestions: 0,
-        contestWinners: []
+        contestWinners: [],
+        activeContests: [],
+        topQuestions: []
     },
     getters: {
-        getContestLeaderBoard : (state) =>state.leader_board,
+        getContestLeaderBoard : (state) =>state.contest_leader_board,
         getDailyLeaderBoard : (state) =>state.daily_leader_board,
         getWeeklyLeaderBoard : (state) =>state.weekly_leader_board,
         getMonthlyLeaderBoard : (state) =>state.monthly_leader_board,
@@ -21,24 +23,26 @@ export default {
         getNumOfActiveContests: (state)=> state.numOfActiveContests,
         getNumOfCorrectlyAnsweredQuestions: (state)=> state.numOfCorrectlyAnsweredQuestions,
         getNumOfWronglyAnsweredQuestions: (state)=> state.numOfWronglyAnsweredQuestions,
-        getWinnersOfContest: (state)=> state.contestWinners
+        getWinnersOfContest: (state)=> state.contestWinners,
+        getActiveContests: (state) => state.activeContests,
+        getTopQuestions: (state) => state.topQuestions
     },
     mutations: {
         SET_CONTEST_LEADER_BOARD: (state,result)=>{
-            state.leader_board=result.data;
-            
+            state.contest_leader_board=result.data;
+
         },
         SET_DAILY_LEADER_BOARD: (state,result)=>{
             state.daily_leader_board=result.data;
-            
+
         },
         SET_MONTHLY_LEADER_BOARD: (state,result)=>{
             state.monthly_leader_board=result.data;
-            
+
         },
         SET_WEEKLY_LEADER_BOARD: (state,result)=>{
             state.weekly_leader_board=result.data;
-            
+
         },
         SET_NUM_OF_ACTIVE_USERS: (state,result)=>{
             state.numOfActiveUsers=result.data;
@@ -54,13 +58,19 @@ export default {
         },
         SET_WINNERS_OF_CONTEST: (state, result)=>{
             state.contestWinners=result.data
+        },
+        SET_ACTIVE_CONTESTS: (state, result) => {
+            state.activeContests = result.data
+        },
+        SET_TOP_QUESTIONS: (state, result) => {
+            state.topQuestions = result.data
         }
 
     },
     actions: {
         fetchContestLeaderBoard:(context,contestId) =>{
             ToDoApis.getContestLeaderBoard((result)=>{
-                context.commit('SET_LEADER_BOARD',result)
+                context.commit('SET_CONTEST_LEADER_BOARD',result.data)
             },contestId)
         },
         fetchDailyLeaderBoard:(context)=>{
@@ -100,8 +110,18 @@ export default {
         },
         fetchWinnersOfContest: (context,contestId)=>{
             ToDoApis.getWinnersOfContest((result)=>{
-                context.commit('SET_WINNERS_OF_CONTEST',result)
+                context.commit('SET_WINNERS_OF_CONTEST',result.data)
             },contestId)
+        },
+        fetchActiveContests: (context)=>{
+          ToDoApis.getActiveContestList((result)=>{
+            context.commit('SET_ACTIVE_CONTESTS',result.data)
+          })
+        },
+        fetchTopQuestions: (context) => {
+          ToDoApis.getTopQuestionsList((result)=>{
+            context.commit('SET_TOP_QUESTIONS', result.data)
+          })
         }
   }
 }

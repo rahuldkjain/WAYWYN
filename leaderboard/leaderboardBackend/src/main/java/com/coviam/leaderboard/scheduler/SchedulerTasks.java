@@ -3,13 +3,18 @@ package com.coviam.leaderboard.scheduler;
 import com.coviam.leaderboard.entity.*;
 import com.coviam.leaderboard.queryresult.UserAggregateScore;
 import com.coviam.leaderboard.repository.*;
-import org.springframework.beans.BeanUtils;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +33,12 @@ public class SchedulerTasks {
     DailyLeaderboardRepository  dailyLeaderboardRepository;
     @Autowired
     UserScoreRepository userScoreRepository;
+    @Autowired
+    ContestRepository contestRepository;
+    @Autowired
+    QuestionRepository questionRepository;
+    @Autowired
+    QuestionDetailsRepository questionDetailsRepository;
 
     @Scheduled(fixedRate = 2000)
     public void updateContestLeaderboard(){
@@ -169,5 +180,155 @@ public class SchedulerTasks {
         monthlyLeaderboardRepository.save(monthlyLeaderboardList);
         return ;
     }
+
+    @Scheduled(fixedRate = 2000)
+    public ResponseEntity updateStaticContestDetails(){
+
+        ResponseEntity returnVal=addStaticContestsToDB();
+        if(returnVal.equals(HttpStatus.OK)) {
+            return returnVal;
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @Scheduled(fixedRate = 3000)
+    public ResponseEntity updateDynamicContestDetails(){
+        ResponseEntity returnVal=addDynamicContestsToDB();
+        if(!returnVal.equals(HttpStatus.OK)){
+            return returnVal;
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @Scheduled(fixedRate = 10000)
+    public ResponseEntity updateQuestionDetails(){
+        ResponseEntity returnVal=addQuestionDetails();
+        if(!returnVal.equals(HttpStatus.OK)){
+            return returnVal;
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    private ResponseEntity addQuestionDetails() {
+        System.out.println("================ i am adding to question details");
+        List<Contest> contestList= (List<Contest>) contestRepository.findAll();
+        RestTemplate restTemplate = new RestTemplate();
+
+        for(Contest contest:contestList){
+            String cmsContesturl = "http://10.177.7.130:8080/contest";
+            ResponseEntity<String> response;
+            try{
+                response = restTemplate.getForEntity(cmsContesturl + "/getquestionanswerofcontest?contestId="+contest.getContestId(), String.class);
+            }catch(Exception ex){
+                ex.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            List<QuestionDetails> questionList=new ArrayList<QuestionDetails>();
+            try {
+                JsonNode jsonArray = mapper.readTree(response.getBody());
+                for(JsonNode j: jsonArray) {
+//                System.out.println("####" + j.get("contestName"));
+                    QuestionDetails question=new QuestionDetails();
+                    question.setAnswer(j.get("answer").toString().replaceAll("^\"|\"$", ""));
+                    question.setAnswerType(j.get("answerType").toString().replaceAll("^\"|\"$", ""));
+                    question.setBinaryFilePath(j.get("binaryFilePath").toString().replaceAll("^\"|\"$", ""));
+                    String category=j.get("categoryOfQuestion").toString();
+                    if(category!=null){
+                        question.setCategoryOfQuestion(category.replaceAll("^\"|\"$", ""));
+                    }else{
+                        question.setCategoryOfQuestion("nil");
+                    }
+                    question.setDifficultyLevel(j.get("difficultyLevel").toString().replaceAll("^\"|\"$", ""));
+                    question.setOptionA(j.get("optionA").toString().replaceAll("^\"|\"$", ""));
+                    question.setOptionB(j.get("optionB").toString().replaceAll("^\"|\"$", ""));
+                    question.setOptionC(j.get("optionC").toString().replaceAll("^\"|\"$", ""));
+                    question.setQuestionId(Integer.parseInt(j.get("questionId").toString()));
+                    question.setQuestionText(j.get("questionText").toString().replaceAll("^\"|\"$", ""));
+                    question.setQuestionType(j.get("questionType").toString().replaceAll("^\"|\"$", ""));
+                    System.out.println(question.toString());
+                    questionList.add(question);
+                }
+                questionDetailsRepository.save(questionList);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    private ResponseEntity addDynamicContestsToDB() {
+        RestTemplate restTemplate = new RestTemplate();
+        String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
+        ResponseEntity<String> response;
+        try{
+            response = restTemplate.getForEntity(cmsContesturl + "/dynamic", String.class);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        List<Contest> contestList=new ArrayList<Contest>();
+        try {
+            JsonNode jsonArray = mapper.readTree(response.getBody());
+            for(JsonNode j: jsonArray) {
+                System.out.println("####" + j.get("contestName"));
+                Contest contest=new Contest();
+                contest.setCategory(j.get("categoryName").toString().replaceAll("^\"|\"$", ""));
+                contest.setContestId(Integer.parseInt(j.get("contestId").toString()));
+                contest.setType(j.get("contestType").toString().replaceAll("^\"|\"$", ""));
+                long Date=Long.parseLong(j.get("endTimeOfContest").toString().replaceAll("^\"|\"$", ""));
+                java.util.Date date=new java.util.Date(Date);
+                java.sql.Date endDate=new Date(date.getTime());
+                contest.setDate(endDate);
+                contest.setContestName(j.get("contestName").toString());
+                contestList.add(contest);
+            }
+            contestRepository.save(contestList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private ResponseEntity addStaticContestsToDB() {
+        RestTemplate restTemplate = new RestTemplate();
+        String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
+        ResponseEntity<String> response;
+        try{
+            response = restTemplate.getForEntity(cmsContesturl + "/static", String.class);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        List<Contest> contestList=new ArrayList<Contest>();
+        try {
+            JsonNode jsonArray = mapper.readTree(response.getBody());
+            for(JsonNode j: jsonArray) {
+                System.out.println("####" + j.get("contestName"));
+                Contest contest=new Contest();
+                contest.setCategory(j.get("categoryName").toString().replaceAll("^\"|\"$", ""));
+                contest.setContestId(Integer.parseInt(j.get("contestId").toString()));
+                contest.setType(j.get("contestType").toString().replaceAll("^\"|\"$", ""));
+                long Date=Long.parseLong(j.get("endTimeOfContest").toString());
+                java.util.Date date=new java.util.Date(Date);
+                java.sql.Date endDate=new Date(date.getTime());
+                contest.setDate(endDate);
+                contest.setContestName(j.get("contestName").toString().replaceAll("^\"|\"$", ""));
+                contestList.add(contest);
+            }
+            contestRepository.save(contestList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 }
