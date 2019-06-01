@@ -35,7 +35,7 @@ public class UserResponseServiceImpl implements UserResponseService {
             userContest.setUsername(userResponseDTO.getUsername());
 
 
-            //to add type and category from contest microservice
+            //Rest template to add type and category from contest microservice
             ContestDefinitionDTO contestDefinitionDTO;
             url = "http://ip:port/sd?contestId="+userContest.getContestId();
             RestTemplate restTemplate = new RestTemplate();

@@ -1,9 +1,7 @@
 package com.waywyn.userresponse.repository;
 
 import com.waywyn.userresponse.entity.UserContest;
-import com.waywyn.userresponse.entity.UserResponse;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,4 +12,6 @@ public interface UserContestRepository extends MongoRepository<UserContest, Inte
 
 
     ArrayList<UserContest> getByUserId(int userId);
+
+    ArrayList<UserContest> getByContestId(int contestId);
 }

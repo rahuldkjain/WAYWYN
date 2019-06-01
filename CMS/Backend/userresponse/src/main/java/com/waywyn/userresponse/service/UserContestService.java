@@ -4,6 +4,7 @@ import com.waywyn.userresponse.DTO.ContestDefinitionDTO;
 import com.waywyn.userresponse.DTO.UserContestDTO;
 import com.waywyn.userresponse.DTO.UserResultDTO;
 import com.waywyn.userresponse.DTO.UserResultRecieveDTO;
+import com.waywyn.userresponse.entity.DynamicTimeTrack;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ public interface UserContestService {
 
 
     UserResultDTO userResult(UserResultRecieveDTO userResultRecieveDTO);
+
+    String dynamicQuesResult(DynamicTimeTrack dynamicTimeTrack);
 
     ArrayList<ContestDefinitionDTO> userActive(int userId);
 }
