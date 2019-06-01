@@ -13,6 +13,15 @@ public class Contest {
     String type;
     String category;
     Date date;
+    String contestName;
+
+    public Contest(int contestId, String type, String category, Date date, String contestName) {
+        this.contestId = contestId;
+        this.type = type;
+        this.category = category;
+        this.date = date;
+        this.contestName = contestName;
+    }
 
     public Contest(int contestId, String type, String category, Date date) {
         this.contestId = contestId;
@@ -54,5 +63,13 @@ public class Contest {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getContestName() {
+        return contestName;
+    }
+
+    public void setContestName(String contestName) {
+        this.contestName = contestName;
     }
 }

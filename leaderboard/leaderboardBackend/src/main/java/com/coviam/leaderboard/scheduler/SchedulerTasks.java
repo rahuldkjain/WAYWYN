@@ -3,13 +3,22 @@ package com.coviam.leaderboard.scheduler;
 import com.coviam.leaderboard.entity.*;
 import com.coviam.leaderboard.queryresult.UserAggregateScore;
 import com.coviam.leaderboard.repository.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +37,8 @@ public class SchedulerTasks {
     DailyLeaderboardRepository  dailyLeaderboardRepository;
     @Autowired
     UserScoreRepository userScoreRepository;
+    @Autowired
+    ContestRepository contestRepository;
 
     @Scheduled(fixedRate = 2000)
     public void updateContestLeaderboard(){
@@ -170,14 +181,88 @@ public class SchedulerTasks {
         return ;
     }
 
-    @Scheduled(fixedRate = 20000)
-    public void updateContestAndQuestionDetails(){
+    @Scheduled(fixedRate = 2000)
+    public ResponseEntity updateContestAndQuestionDetails(){
 
+        ResponseEntity returnVal=addStaticContestsToDB();
+        if(!returnVal.equals(HttpStatus.OK)){
+            return returnVal;
+        }
+        returnVal=addDynamicContestsToDB();
 
-
-
-
-        return;
+        return new ResponseEntity(HttpStatus.OK);
     }
+
+    private ResponseEntity addDynamicContestsToDB() {
+        RestTemplate restTemplate = new RestTemplate();
+        String cmsContesturl = "http://10.177.7.130:8080/contest/getdetails";
+        ResponseEntity<String> response;
+        try{
+            response = restTemplate.getForEntity(cmsContesturl + "/dynamic", String.class);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        List<Contest> contestList=new ArrayList<Contest>();
+        try {
+            JsonNode jsonArray = mapper.readTree(response.getBody());
+            for(JsonNode j: jsonArray) {
+                System.out.println("####" + j.get("contestName"));
+                Contest contest=new Contest();
+                contest.setCategory(j.get("categoryName").toString());
+                contest.setContestId(Integer.parseInt(j.get("contestId").toString()));
+                contest.setType(j.get("contestType").toString());
+                long Date=Long.parseLong(j.get("endTimeOfContest").toString());
+                java.util.Date date=new java.util.Date(Date);
+                java.sql.Date endDate=new Date(date.getTime());
+                contest.setDate(endDate);
+                contest.setContestName(j.get("contestName").toString());
+                contestList.add(contest);
+            }
+            contestRepository.save(contestList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private ResponseEntity addStaticContestsToDB() {
+        RestTemplate restTemplate = new RestTemplate();
+        String cmsContesturl = "http://10.177.7.130:8080/contest/getdetails";
+        ResponseEntity<String> response;
+        try{
+            response = restTemplate.getForEntity(cmsContesturl + "/static", String.class);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        List<Contest> contestList=new ArrayList<Contest>();
+        try {
+            JsonNode jsonArray = mapper.readTree(response.getBody());
+            for(JsonNode j: jsonArray) {
+                System.out.println("####" + j.get("contestName"));
+                Contest contest=new Contest();
+                contest.setCategory(j.get("categoryName").toString());
+                contest.setContestId(Integer.parseInt(j.get("contestId").toString()));
+                contest.setType(j.get("contestType").toString());
+                long Date=Long.parseLong(j.get("endTimeOfContest").toString());
+                java.util.Date date=new java.util.Date(Date);
+                java.sql.Date endDate=new Date(date.getTime());
+                contest.setDate(endDate);
+                contest.setContestName(j.get("contestName").toString());
+                contestList.add(contest);
+            }
+            contestRepository.save(contestList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 }
