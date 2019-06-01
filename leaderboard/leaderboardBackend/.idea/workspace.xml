@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a6afbf61-77b7-46f8-bc2b-7a727fb91d2f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/coviam/leaderboard/entity/QuestionDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/coviam/leaderboard/entity/QuestionDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/coviam/leaderboard/scheduler/SchedulerTasks.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/coviam/leaderboard/scheduler/SchedulerTasks.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,8 +18,8 @@
       <file leaf-file-name="SchedulerTasks.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="296" selection-start-line="296" selection-end-line="296" />
+            <state relative-caret-position="70">
+              <caret line="276" column="103" selection-start-line="276" selection-start-column="103" selection-end-line="276" selection-end-column="103" />
               <folding>
                 <element signature="e#9187#9204#0" expanded="true" />
                 <element signature="e#8963#8972#0" expanded="true" />
@@ -220,8 +217,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/repository/ContestLeaderboardRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/DynamicLeaderboardImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/Contest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java" />
       </list>
     </option>
   </component>
@@ -465,6 +462,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="727" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -943,8 +941,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="296" selection-start-line="296" selection-end-line="296" />
+        <state relative-caret-position="70">
+          <caret line="276" column="103" selection-start-line="276" selection-start-column="103" selection-end-line="276" selection-end-column="103" />
           <folding>
             <element signature="e#9187#9204#0" expanded="true" />
             <element signature="e#8963#8972#0" expanded="true" />
