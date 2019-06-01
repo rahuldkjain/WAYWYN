@@ -124,4 +124,21 @@ public class QuestionDetails {
     public void setOptionC(String optionC) {
         this.optionC = optionC;
     }
+
+    @Override
+    public String toString() {
+        return "QuestionDetails{" +
+                "questionId=" + questionId +
+                ", question_text='" + question_text + '\'' +
+                ", answer='" + answer + '\'' +
+                ", difficultyLevel='" + difficultyLevel + '\'' +
+                ", categoryOfQuestion='" + categoryOfQuestion + '\'' +
+                ", answerType='" + answerType + '\'' +
+                ", questionType='" + questionType + '\'' +
+                ", binaryFilePath='" + binaryFilePath + '\'' +
+                ", optionA='" + optionA + '\'' +
+                ", optionB='" + optionB + '\'' +
+                ", optionC='" + optionC + '\'' +
+                '}';
+    }
 }

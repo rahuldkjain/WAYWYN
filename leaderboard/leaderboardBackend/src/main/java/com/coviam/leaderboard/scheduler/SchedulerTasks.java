@@ -39,6 +39,10 @@ public class SchedulerTasks {
     UserScoreRepository userScoreRepository;
     @Autowired
     ContestRepository contestRepository;
+    @Autowired
+    QuestionRepository questionRepository;
+    @Autowired
+    QuestionDetailsRepository questionDetailsRepository;
 
     @Scheduled(fixedRate = 2000)
     public void updateContestLeaderboard(){
@@ -182,20 +186,81 @@ public class SchedulerTasks {
     }
 
     @Scheduled(fixedRate = 2000)
-    public ResponseEntity updateContestAndQuestionDetails(){
+    public ResponseEntity updateStaticContestDetails(){
 
         ResponseEntity returnVal=addStaticContestsToDB();
+        if(returnVal.equals(HttpStatus.OK)) {
+            return returnVal;
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @Scheduled(fixedRate = 3000)
+    public ResponseEntity updateDynamicContestDetails(){
+        ResponseEntity returnVal=addDynamicContestsToDB();
         if(!returnVal.equals(HttpStatus.OK)){
             return returnVal;
         }
-        returnVal=addDynamicContestsToDB();
-
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @Scheduled(fixedRate = 4000)
+    public ResponseEntity updateQuestionDetails(){
+        ResponseEntity returnVal=addQuestionDetails();
+        if(!returnVal.equals(HttpStatus.OK)){
+            return returnVal;
+        }
         return new ResponseEntity(HttpStatus.OK);
     }
 
+
+    private ResponseEntity addQuestionDetails() {
+        System.out.println("================ i am adding to question details");
+        RestTemplate restTemplate = new RestTemplate();
+        String cmsContesturl = "http://10.177.7.130:8080/contest";
+        ResponseEntity<String> response;
+        try{
+            response = restTemplate.getForEntity(cmsContesturl + "/getquestionanswerofcontest?contestId=1", String.class);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        List<QuestionDetails> questionList=new ArrayList<QuestionDetails>();
+        try {
+            JsonNode jsonArray = mapper.readTree(response.getBody());
+            for(JsonNode j: jsonArray) {
+//                System.out.println("####" + j.get("contestName"));
+                QuestionDetails question=new QuestionDetails();
+                question.setAnswer(j.get("answer").toString().replaceAll("^\"|\"$", ""));
+                question.setAnswerType(j.get("answerType").toString().replaceAll("^\"|\"$", ""));
+                question.setBinaryFilePath(j.get("binaryFilePath").toString().replaceAll("^\"|\"$", ""));
+                String category=j.get("categoryOfQuestion").toString();
+                if(category!=null){
+                    question.setCategoryOfQuestion(category.replaceAll("^\"|\"$", ""));
+                }else{
+                    question.setCategoryOfQuestion("nil");
+                }
+                question.setDifficultyLevel(j.get("difficultyLevel").toString().replaceAll("^\"|\"$", ""));
+                question.setOptionA(j.get("optionA").toString().replaceAll("^\"|\"$", ""));
+                question.setOptionB(j.get("optionB").toString().replaceAll("^\"|\"$", ""));
+                question.setOptionC(j.get("optionC").toString().replaceAll("^\"|\"$", ""));
+                question.setQuestionId(Integer.parseInt(j.get("questionId").toString()));
+                question.setQuestion_text(j.get("questionText").toString().replaceAll("^\"|\"$", ""));
+                question.setQuestionType(j.get("questionType").toString().replaceAll("^\"|\"$", ""));
+                System.out.println(question.toString());
+                questionList.add(question);
+            }
+            questionDetailsRepository.save(questionList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
     private ResponseEntity addDynamicContestsToDB() {
         RestTemplate restTemplate = new RestTemplate();
-        String cmsContesturl = "http://10.177.7.130:8080/contest/getdetails";
+        String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;
         try{
             response = restTemplate.getForEntity(cmsContesturl + "/dynamic", String.class);
@@ -230,7 +295,7 @@ public class SchedulerTasks {
 
     private ResponseEntity addStaticContestsToDB() {
         RestTemplate restTemplate = new RestTemplate();
-        String cmsContesturl = "http://10.177.7.130:8080/contest/getdetails";
+        String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;
         try{
             response = restTemplate.getForEntity(cmsContesturl + "/static", String.class);

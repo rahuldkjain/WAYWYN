@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6afbf61-77b7-46f8-bc2b-7a727fb91d2f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/Contest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/Contest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -18,12 +19,67 @@
       <file leaf-file-name="SchedulerTasks.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="200" column="74" selection-start-line="200" selection-start-column="74" selection-end-line="200" selection-end-column="74" />
+            <state relative-caret-position="111">
+              <caret line="251" selection-start-line="251" selection-end-line="251" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#9187#9204#0" expanded="true" />
                 <element signature="e#8963#8972#0" expanded="true" />
                 <element signature="e#8807#8816#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuestionDetails.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="111">
+              <caret line="128" column="18" selection-start-line="128" selection-start-column="18" selection-end-line="128" selection-end-column="18" />
+              <folding>
+                <element signature="e#1229#1230#0" expanded="true" />
+                <element signature="e#1262#1263#0" expanded="true" />
+                <element signature="e#1311#1312#0" expanded="true" />
+                <element signature="e#1355#1356#0" expanded="true" />
+                <element signature="e#1395#1396#0" expanded="true" />
+                <element signature="e#1431#1432#0" expanded="true" />
+                <element signature="e#1489#1490#0" expanded="true" />
+                <element signature="e#1539#1540#0" expanded="true" />
+                <element signature="e#1572#1573#0" expanded="true" />
+                <element signature="e#1601#1602#0" expanded="true" />
+                <element signature="e#1645#1646#0" expanded="true" />
+                <element signature="e#1681#1682#0" expanded="true" />
+                <element signature="e#1723#1724#0" expanded="true" />
+                <element signature="e#1761#1762#0" expanded="true" />
+                <element signature="e#1823#1824#0" expanded="true" />
+                <element signature="e#1877#1878#0" expanded="true" />
+                <element signature="e#1922#1923#0" expanded="true" />
+                <element signature="e#1963#1964#0" expanded="true" />
+                <element signature="e#2031#2032#0" expanded="true" />
+                <element signature="e#2091#2092#0" expanded="true" />
+                <element signature="e#2128#2129#0" expanded="true" />
+                <element signature="e#2161#2162#0" expanded="true" />
+                <element signature="e#2213#2214#0" expanded="true" />
+                <element signature="e#2257#2258#0" expanded="true" />
+                <element signature="e#2296#2297#0" expanded="true" />
+                <element signature="e#2331#2332#0" expanded="true" />
+                <element signature="e#2387#2388#0" expanded="true" />
+                <element signature="e#2435#2436#0" expanded="true" />
+                <element signature="e#2476#2477#0" expanded="true" />
+                <element signature="e#2513#2514#0" expanded="true" />
+                <element signature="e#2573#2574#0" expanded="true" />
+                <element signature="e#2625#2626#0" expanded="true" />
+                <element signature="e#2659#2660#0" expanded="true" />
+                <element signature="e#2689#2690#0" expanded="true" />
+                <element signature="e#2735#2736#0" expanded="true" />
+                <element signature="e#2773#2774#0" expanded="true" />
+                <element signature="e#2807#2808#0" expanded="true" />
+                <element signature="e#2837#2838#0" expanded="true" />
+                <element signature="e#2883#2884#0" expanded="true" />
+                <element signature="e#2921#2922#0" expanded="true" />
+                <element signature="e#2955#2956#0" expanded="true" />
+                <element signature="e#2985#2986#0" expanded="true" />
+                <element signature="e#3031#3032#0" expanded="true" />
+                <element signature="e#3069#3070#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -44,7 +100,7 @@
       <file leaf-file-name="DynamicLeaderboardImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/DynamicLeaderboardImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-777">
+            <state relative-caret-position="-530">
               <caret line="35" column="156" selection-start-line="35" selection-start-column="156" selection-end-line="35" selection-end-column="156" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -86,19 +142,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DynamicLeaderboardService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/DynamicLeaderboardService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="OverallLeaderboardImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/OverallLeaderboardImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
+            <state relative-caret-position="430">
               <caret line="54" column="98" selection-start-line="54" selection-start-column="98" selection-end-line="54" selection-end-column="98" />
             </state>
           </provider>
@@ -169,9 +216,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/OverallLeaderboardService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/OverallLeaderboardImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/repository/ContestLeaderboardRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/DynamicLeaderboardImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/Contest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java" />
       </list>
     </option>
@@ -427,7 +474,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3920635" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3920635" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="4" />
@@ -438,12 +485,32 @@
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info id="Designer" order="4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3920635" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32698414" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25767368" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -654,9 +721,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -692,10 +756,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="31" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="e#532#533#0" expanded="true" />
-            <element signature="e#562#563#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -724,58 +784,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-830">
-          <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
-          <folding>
-            <element signature="e#1262#1263#0" expanded="true" />
-            <element signature="e#1311#1312#0" expanded="true" />
-            <element signature="e#1355#1356#0" expanded="true" />
-            <element signature="e#1395#1396#0" expanded="true" />
-            <element signature="e#1431#1432#0" expanded="true" />
-            <element signature="e#1489#1490#0" expanded="true" />
-            <element signature="e#1539#1540#0" expanded="true" />
-            <element signature="e#1572#1573#0" expanded="true" />
-            <element signature="e#1601#1602#0" expanded="true" />
-            <element signature="e#1645#1646#0" expanded="true" />
-            <element signature="e#1681#1682#0" expanded="true" />
-            <element signature="e#1723#1724#0" expanded="true" />
-            <element signature="e#1761#1762#0" expanded="true" />
-            <element signature="e#1823#1824#0" expanded="true" />
-            <element signature="e#1877#1878#0" expanded="true" />
-            <element signature="e#1922#1923#0" expanded="true" />
-            <element signature="e#1963#1964#0" expanded="true" />
-            <element signature="e#2031#2032#0" expanded="true" />
-            <element signature="e#2091#2092#0" expanded="true" />
-            <element signature="e#2128#2129#0" expanded="true" />
-            <element signature="e#2161#2162#0" expanded="true" />
-            <element signature="e#2213#2214#0" expanded="true" />
-            <element signature="e#2257#2258#0" expanded="true" />
-            <element signature="e#2296#2297#0" expanded="true" />
-            <element signature="e#2331#2332#0" expanded="true" />
-            <element signature="e#2387#2388#0" expanded="true" />
-            <element signature="e#2435#2436#0" expanded="true" />
-            <element signature="e#2476#2477#0" expanded="true" />
-            <element signature="e#2513#2514#0" expanded="true" />
-            <element signature="e#2573#2574#0" expanded="true" />
-            <element signature="e#2625#2626#0" expanded="true" />
-            <element signature="e#2659#2660#0" expanded="true" />
-            <element signature="e#2689#2690#0" expanded="true" />
-            <element signature="e#2735#2736#0" expanded="true" />
-            <element signature="e#2773#2774#0" expanded="true" />
-            <element signature="e#2807#2808#0" expanded="true" />
-            <element signature="e#2837#2838#0" expanded="true" />
-            <element signature="e#2883#2884#0" expanded="true" />
-            <element signature="e#2921#2922#0" expanded="true" />
-            <element signature="e#2955#2956#0" expanded="true" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3031#3032#0" expanded="true" />
-            <element signature="e#3069#3070#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -827,7 +835,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/OverallLeaderboardImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
+        <state relative-caret-position="430">
           <caret line="54" column="98" selection-start-line="54" selection-start-column="98" selection-end-line="54" selection-end-column="98" />
         </state>
       </provider>
@@ -871,7 +879,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/DynamicLeaderboardImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-777">
+        <state relative-caret-position="-530">
           <caret line="35" column="156" selection-start-line="35" selection-start-column="156" selection-end-line="35" selection-end-column="156" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -879,12 +887,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/QuestionDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="128" column="18" selection-start-line="128" selection-start-column="18" selection-end-line="128" selection-end-column="18" />
+          <folding>
+            <element signature="e#1229#1230#0" expanded="true" />
+            <element signature="e#1262#1263#0" expanded="true" />
+            <element signature="e#1311#1312#0" expanded="true" />
+            <element signature="e#1355#1356#0" expanded="true" />
+            <element signature="e#1395#1396#0" expanded="true" />
+            <element signature="e#1431#1432#0" expanded="true" />
+            <element signature="e#1489#1490#0" expanded="true" />
+            <element signature="e#1539#1540#0" expanded="true" />
+            <element signature="e#1572#1573#0" expanded="true" />
+            <element signature="e#1601#1602#0" expanded="true" />
+            <element signature="e#1645#1646#0" expanded="true" />
+            <element signature="e#1681#1682#0" expanded="true" />
+            <element signature="e#1723#1724#0" expanded="true" />
+            <element signature="e#1761#1762#0" expanded="true" />
+            <element signature="e#1823#1824#0" expanded="true" />
+            <element signature="e#1877#1878#0" expanded="true" />
+            <element signature="e#1922#1923#0" expanded="true" />
+            <element signature="e#1963#1964#0" expanded="true" />
+            <element signature="e#2031#2032#0" expanded="true" />
+            <element signature="e#2091#2092#0" expanded="true" />
+            <element signature="e#2128#2129#0" expanded="true" />
+            <element signature="e#2161#2162#0" expanded="true" />
+            <element signature="e#2213#2214#0" expanded="true" />
+            <element signature="e#2257#2258#0" expanded="true" />
+            <element signature="e#2296#2297#0" expanded="true" />
+            <element signature="e#2331#2332#0" expanded="true" />
+            <element signature="e#2387#2388#0" expanded="true" />
+            <element signature="e#2435#2436#0" expanded="true" />
+            <element signature="e#2476#2477#0" expanded="true" />
+            <element signature="e#2513#2514#0" expanded="true" />
+            <element signature="e#2573#2574#0" expanded="true" />
+            <element signature="e#2625#2626#0" expanded="true" />
+            <element signature="e#2659#2660#0" expanded="true" />
+            <element signature="e#2689#2690#0" expanded="true" />
+            <element signature="e#2735#2736#0" expanded="true" />
+            <element signature="e#2773#2774#0" expanded="true" />
+            <element signature="e#2807#2808#0" expanded="true" />
+            <element signature="e#2837#2838#0" expanded="true" />
+            <element signature="e#2883#2884#0" expanded="true" />
+            <element signature="e#2921#2922#0" expanded="true" />
+            <element signature="e#2955#2956#0" expanded="true" />
+            <element signature="e#2985#2986#0" expanded="true" />
+            <element signature="e#3031#3032#0" expanded="true" />
+            <element signature="e#3069#3070#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="200" column="74" selection-start-line="200" selection-start-column="74" selection-end-line="200" selection-end-column="74" />
+        <state relative-caret-position="111">
+          <caret line="251" selection-start-line="251" selection-end-line="251" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#9187#9204#0" expanded="true" />
             <element signature="e#8963#8972#0" expanded="true" />
             <element signature="e#8807#8816#0" expanded="true" />
           </folding>
