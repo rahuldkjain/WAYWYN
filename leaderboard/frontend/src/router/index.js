@@ -7,7 +7,8 @@ import reports from '@/components/reports';
 import winners from '@/components/winners';
 import ContestLeaderBoard from '@/components/ContestLeaderBoard' ;
 import WinnersDisplayComponent from '@/components/WinnersDisplayComponent';
-import ContestList from "@/components/ContestList"
+import ContestList from "@/components/ContestList";
+import WinnerLeaderBoard from "@/components/WinnerLeaderBoard";
 
 Vue.use(Router)
 
@@ -41,12 +42,17 @@ export default new Router({
       component: winners,
     },
     {
+      path: '/winnerboard/:contestId',
+      name: 'WinnerLeaderBoard',
+      component: WinnerLeaderBoard,
+    },
+    {
       path: '/contests',
       name: 'contests',
       component: ContestList,
     },
     {
-      path: '/contestleaderbopard',
+      path: '/contestleaderboard/:contestId',
       name: 'ContestLeaderBoard',
       component: ContestLeaderBoard,
     },
