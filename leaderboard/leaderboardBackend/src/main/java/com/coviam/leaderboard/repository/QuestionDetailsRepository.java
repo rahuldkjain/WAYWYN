@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QuestionDetailsRepository extends CrudRepository<QuestionDetails,Integer> {
 
+    QuestionDetails findByQuestionId(int questionId);
 }
 
