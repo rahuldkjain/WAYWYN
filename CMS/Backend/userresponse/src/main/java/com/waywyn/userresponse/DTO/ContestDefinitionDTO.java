@@ -3,20 +3,20 @@ package com.waywyn.userresponse.DTO;
 public class ContestDefinitionDTO {
     private int contestId;
     private String contestName;
-    private int numberOfskipsAllowed;
-    private int totalQuestions;
+    private int skipsAllowed;
+    private int totalQuestionsInContest;
     private String contestType;
-    private String categoryOfContest;
+    private String categoryName;
 
     @Override
     public String toString() {
         return "ContestDefinitionDTO{" +
                 "contestId=" + contestId +
                 ", contestName='" + contestName + '\'' +
-                ", numberOfskipsAllowed=" + numberOfskipsAllowed +
-                ", totalQuestions=" + totalQuestions +
+                ", numberOfskipsAllowed=" + skipsAllowed +
+                ", totalQuestions=" + totalQuestionsInContest +
                 ", contestType='" + contestType + '\'' +
-                ", categoryOfContest='" + categoryOfContest + '\'' +
+                ", categoryOfContest='" + categoryName + '\'' +
                 '}';
     }
 
@@ -44,27 +44,27 @@ public class ContestDefinitionDTO {
         this.contestName = contestName;
     }
 
-    public int getNumberOfskipsAllowed() {
-        return numberOfskipsAllowed;
+    public int getSkipsAllowed() {
+        return skipsAllowed;
     }
 
-    public void setNumberOfskipsAllowed(int numberOfskipsAllowed) {
-        this.numberOfskipsAllowed = numberOfskipsAllowed;
+    public void setSkipsAllowed(int skipsAllowed) {
+        this.skipsAllowed = skipsAllowed;
     }
 
-    public int getTotalQuestions() {
-        return totalQuestions;
+    public int getTotalQuestionsInContest() {
+        return totalQuestionsInContest;
     }
 
-    public void setTotalQuestions(int totalQuestions) {
-        this.totalQuestions = totalQuestions;
+    public void setTotalQuestionsInContest(int totalQuestionsInContest) {
+        this.totalQuestionsInContest = totalQuestionsInContest;
     }
 
-    public String getCategoryOfContest() {
-        return categoryOfContest;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoryOfContest(String categoryOfContest) {
-        this.categoryOfContest = categoryOfContest;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

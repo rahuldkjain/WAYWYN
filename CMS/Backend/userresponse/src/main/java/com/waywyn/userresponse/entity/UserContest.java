@@ -1,6 +1,7 @@
 package com.waywyn.userresponse.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -8,6 +9,9 @@ import java.util.Date;
 @Document(collection = UserContest.COLLECTION_NAME)
 public class UserContest {
     public static final String COLLECTION_NAME = "usercontest";
+    @Transient
+    public static final String SEQUENCE_NAME = "usercontest";
+
     @Id
     private int ucId;
     private int userId;

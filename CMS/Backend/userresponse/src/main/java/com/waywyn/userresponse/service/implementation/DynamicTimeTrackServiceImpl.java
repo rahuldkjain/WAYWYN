@@ -21,17 +21,17 @@ public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
     public String addTime(DynamicTimeTrackDTO dynamicTimeTrackDTO) {
         DynamicTimeTrack dynamicTimeTrack = dynamicTimeTrackRepository.findByContestIdAndQuestionId(dynamicTimeTrackDTO.getContestId(),dynamicTimeTrackDTO.getQuestionId());
         if(dynamicTimeTrack != null) {
-            System.out.println("Throw already exist exception");
+            System.out.println("Throw already exist exception in addTime");
         }
         BeanUtils.copyProperties(dynamicTimeTrackDTO,dynamicTimeTrack);
         dynamicTimeTrack.setResultDone(false);
         dynamicTimeTrack = dynamicTimeTrackRepository.save(dynamicTimeTrack);
         if(dynamicTimeTrack == null) {
-            System.out.println("throw error");
-            return "Error";
+            System.out.println("throw error in addTime");
+            return "Error in addTime";
         }
         else {
-            return "Data Successfully Stored";
+            return "Data Successfully Stored in addTime";
         }
     }
 
@@ -40,7 +40,7 @@ public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
         Date date = new Date();
         DynamicTimeTrack dynamicTimeTrack = dynamicTimeTrackRepository.findByResultDoneAndStartTimeLessThanAndEndTimeGreaterThan(false,date,date);
         if(dynamicTimeTrack == null) {
-            System.out.println("throw error");
+            System.out.println("throw error in getQuestion");
         }
         return dynamicTimeTrack;
     }
@@ -50,10 +50,10 @@ public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
         ArrayList<DynamicTimeTrack> dynamicTimeTrack = dynamicTimeTrackRepository.findByResultDone(false);
         if(dynamicTimeTrack == null) {
             dynamicTimeTrackRepository.deleteAll();
-            return "Entries Deleted";
+            return "Entries Deleted in deleteAll";
         }
         else {
-            return "Few Question remaining to delete";
+            return "Few Question remaining to delete in deleteAll";
         }
     }
 
