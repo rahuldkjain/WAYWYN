@@ -9,7 +9,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity @IdClass(ContestLeaderboardPK.class)
-@Table(name="contest_leaderboard")
+@Table(name="ContestLeaderboard")
 public class ContestLeaderboard {
 
     @Id int userId;

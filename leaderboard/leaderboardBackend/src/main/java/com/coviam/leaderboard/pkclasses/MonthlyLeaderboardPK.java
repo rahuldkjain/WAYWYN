@@ -3,16 +3,12 @@ package com.coviam.leaderboard.pkclasses;
 import java.io.Serializable;
 
 public class MonthlyLeaderboardPK implements Serializable {
-    int monthId;
-    String username;
-    int score;
-    int userRank;
+    private int monthId;
+    private String username;
 
-    public MonthlyLeaderboardPK(int monthId, String username, int score, int userRank) {
+    public MonthlyLeaderboardPK(int monthId, String username) {
         this.monthId = monthId;
         this.username = username;
-        this.score = score;
-        this.userRank = userRank;
     }
 
     public MonthlyLeaderboardPK() {
@@ -34,19 +30,4 @@ public class MonthlyLeaderboardPK implements Serializable {
         this.username = username;
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public int getUserRank() {
-        return userRank;
-    }
-
-    public void setUserRank(int userRank) {
-        this.userRank = userRank;
-    }
 }

@@ -4,12 +4,12 @@ import java.sql.Date;
 import java.util.List;
 
 public class CMSDynamicRequest {
-    public String category;
-    public String type;
-    public Integer contestId;
-    public Integer qId;
-    public Date date;
-    public List<UserDynamicResponse> response;
+    private String category;
+    private String type;
+    private Integer contestId;
+    private Integer qId;
+    private Date date;
+    private List<UserDynamicResponse> response;
 
     public CMSDynamicRequest(String category, String type, Integer contestId, Integer qId, Date date, List<UserDynamicResponse> response) {
         this.category = category;

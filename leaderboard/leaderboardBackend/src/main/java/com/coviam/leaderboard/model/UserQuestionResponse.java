@@ -1,8 +1,8 @@
 package com.coviam.leaderboard.model;
 
 public class UserQuestionResponse {
-    Integer qId;
-    Integer score;
+    private Integer qId;
+    private Integer score;
 
     public UserQuestionResponse(Integer qId, Integer score) {
         this.qId = qId;

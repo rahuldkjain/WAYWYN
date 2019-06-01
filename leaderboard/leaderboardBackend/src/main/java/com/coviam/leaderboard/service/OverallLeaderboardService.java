@@ -8,7 +8,12 @@ import com.coviam.leaderboard.entity.WeeklyLeaderboard;
 import java.util.List;
 
 public interface OverallLeaderboardService {
+
     List<DailyLeaderboard> getDailyLeaderboard();
+
     List<WeeklyLeaderboard> getWeeklyLeaderboard();
+
     List<MonthlyLeaderboard> getMonthlyLeaderboard();
+
+    List<ContestLeaderboard> getContestLeaderboard(Integer contestId);
 }

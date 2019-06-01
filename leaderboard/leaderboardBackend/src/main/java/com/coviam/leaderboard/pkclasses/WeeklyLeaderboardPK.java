@@ -3,8 +3,8 @@ package com.coviam.leaderboard.pkclasses;
 import java.io.Serializable;
 
 public class WeeklyLeaderboardPK implements Serializable {
-    int weekId;
-    String username;
+    private int weekId;
+    private String username;
 
     public WeeklyLeaderboardPK(int weekId, String username) {
         this.weekId = weekId;

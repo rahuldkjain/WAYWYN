@@ -3,8 +3,8 @@ package com.coviam.leaderboard.pkclasses;
 import java.io.Serializable;
 
 public class ContestLeaderboardPK implements Serializable {
-    int userId;
-    int contestId;
+    private int userId;
+    private int contestId;
 
     public ContestLeaderboardPK(int userId, int contestId) {
         this.userId = userId;

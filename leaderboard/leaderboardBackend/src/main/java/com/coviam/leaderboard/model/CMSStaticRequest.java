@@ -4,15 +4,15 @@ import java.sql.Date;
 import java.util.List;
 
 public class CMSStaticRequest {
-    public String category;
-    public String type;
-    public Integer contestId;
-    public Date contestEndDate;
-    public Integer userId;
-    public String username;
-    public Date endDate;
-    public boolean skip;
-    public List<UserQuestionResponse> questions;
+    private String category;
+    private String type;
+    private Integer contestId;
+    private Date contestEndDate;
+    private Integer userId;
+    private String username;
+    private Date endDate;
+    private boolean skip;
+    private List<UserQuestionResponse> questions;
 
     public CMSStaticRequest() {
     }

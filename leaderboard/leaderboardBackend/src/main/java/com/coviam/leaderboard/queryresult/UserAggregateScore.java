@@ -1,9 +1,9 @@
 package com.coviam.leaderboard.queryresult;
 
 public class UserAggregateScore {
-    Integer user_id;
-    Integer score;
-    String username;
+    private Integer user_id;
+    private Integer score;
+    private String username;
 
     public UserAggregateScore(Integer user_id, Integer score, String username) {
         this.user_id = user_id;

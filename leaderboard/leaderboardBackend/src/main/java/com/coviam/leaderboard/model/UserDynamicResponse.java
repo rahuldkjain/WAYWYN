@@ -1,9 +1,9 @@
 package com.coviam.leaderboard.model;
 
 public class UserDynamicResponse {
-    Integer userId;
-    String username;
-    Integer score;
+    private Integer userId;
+    private String username;
+    private Integer score;
 
     public UserDynamicResponse(Integer userId, String username, Integer score) {
         this.userId = userId;

@@ -28,8 +28,6 @@ public class SchedulerTasks {
     DailyLeaderboardRepository  dailyLeaderboardRepository;
     @Autowired
     UserScoreRepository userScoreRepository;
-    @Autowired
-    ContestRepository contestRepository;
 
     @Scheduled(fixedRate = 2000)
     public void updateContestLeaderboard(){
@@ -64,7 +62,7 @@ public class SchedulerTasks {
 
     @Scheduled(fixedRate = 4000)
     public void updateDailyLeaderboard(){
-        System.out.println("hi i am in update daily");
+//        System.out.println("hi i am in update daily");
         java.util.Date today=new java.util.Date();
         Date dateVal=new Date(today.getTime());
 
@@ -109,11 +107,11 @@ public class SchedulerTasks {
 
     @Scheduled(fixedRate = 6000)
     public void updateWeeklyLeaderboard(){
-        System.out.println("hi i am in update weekly");
+//        System.out.println("hi i am in update weekly");
         long today=System.currentTimeMillis()/1000/60/60/24;
         long weekId=System.currentTimeMillis()/1000/60/60/24/7;
         long startdate=weekId*7;
-        System.out.println(today+"   -------"+startdate);
+//        System.out.println(today+"   -------"+startdate);
 
         List<Object> dailyLeaderboardlist=dailyLeaderboardRepository.findByUserIdGroupByDateRange(startdate,today);
         Iterator iterator=dailyLeaderboardlist.iterator();
@@ -167,6 +165,7 @@ public class SchedulerTasks {
             previousScore=monthlyLeaderboard.getScore();
             monthlyLeaderboardList.add(monthlyLeaderboard);
         }
+
         monthlyLeaderboardRepository.save(monthlyLeaderboardList);
         return ;
     }
