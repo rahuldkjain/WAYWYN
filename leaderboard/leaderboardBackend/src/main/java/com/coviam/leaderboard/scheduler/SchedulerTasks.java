@@ -170,4 +170,14 @@ public class SchedulerTasks {
         return ;
     }
 
+    @Scheduled(fixedRate = 20000)
+    public void updateContestAndQuestionDetails(){
+
+
+
+
+
+        return;
+    }
+
 }
