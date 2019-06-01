@@ -271,10 +271,10 @@ public class SchedulerTasks {
             for(JsonNode j: jsonArray) {
                 System.out.println("####" + j.get("contestName"));
                 Contest contest=new Contest();
-                contest.setCategory(j.get("categoryName").toString());
+                contest.setCategory(j.get("categoryName").toString().replaceAll("^\"|\"$", ""));
                 contest.setContestId(Integer.parseInt(j.get("contestId").toString()));
-                contest.setType(j.get("contestType").toString());
-                long Date=Long.parseLong(j.get("endTimeOfContest").toString());
+                contest.setType(j.get("contestType").toString().replaceAll("^\"|\"$", ""));
+                long Date=Long.parseLong(j.get("endTimeOfContest").toString().replaceAll("^\"|\"$", ""));
                 java.util.Date date=new java.util.Date(Date);
                 java.sql.Date endDate=new Date(date.getTime());
                 contest.setDate(endDate);
@@ -306,14 +306,14 @@ public class SchedulerTasks {
             for(JsonNode j: jsonArray) {
                 System.out.println("####" + j.get("contestName"));
                 Contest contest=new Contest();
-                contest.setCategory(j.get("categoryName").toString());
+                contest.setCategory(j.get("categoryName").toString().replaceAll("^\"|\"$", ""));
                 contest.setContestId(Integer.parseInt(j.get("contestId").toString()));
-                contest.setType(j.get("contestType").toString());
+                contest.setType(j.get("contestType").toString().replaceAll("^\"|\"$", ""));
                 long Date=Long.parseLong(j.get("endTimeOfContest").toString());
                 java.util.Date date=new java.util.Date(Date);
                 java.sql.Date endDate=new Date(date.getTime());
                 contest.setDate(endDate);
-                contest.setContestName(j.get("contestName").toString());
+                contest.setContestName(j.get("contestName").toString().replaceAll("^\"|\"$", ""));
                 contestList.add(contest);
             }
             contestRepository.save(contestList);
