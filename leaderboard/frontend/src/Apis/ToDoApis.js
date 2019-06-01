@@ -27,5 +27,8 @@ export default {
     },
     getWinnersOfContest(callback, contestId){
         MakeApis.makeGetContestRequest(""+contestId,callback)
+    },
+    getActiveContestList(callback){
+      MakeApis.makeGetContestRequest("/api/leaderboard/reports/activecontests", callback)
     }
 }
