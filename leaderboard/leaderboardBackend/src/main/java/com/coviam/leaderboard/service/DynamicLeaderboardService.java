@@ -1,5 +1,6 @@
 package com.coviam.leaderboard.service;
 
+import com.coviam.leaderboard.entity.Winner;
 import com.coviam.leaderboard.model.CMSDynamicRequest;
 
 import java.util.List;
@@ -8,5 +9,5 @@ public interface DynamicLeaderboardService {
 
     String insertDynamicData(CMSDynamicRequest cmsDynamicRequest);
 
-    List<CMSDynamicRequest> getDynamicLeaderboard(Integer userId, Integer contestid);
+    List<Winner> getDynamicLeaderboard(Integer userId, Integer contestid, Integer noOfRecords);
 }

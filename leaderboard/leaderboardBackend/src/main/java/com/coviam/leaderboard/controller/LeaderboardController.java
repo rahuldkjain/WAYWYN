@@ -34,8 +34,8 @@ public class LeaderboardController {
     ReportServiceImpl reportService;
 
     @GetMapping("/static")
-    public JSONObject getStaticLeaderboard(@RequestParam Integer userId, @RequestParam Integer contestId){
-        Object data = staticLeaderboardService.getStaticLeaderboard(userId, contestId);
+    public JSONObject getStaticLeaderboard(@RequestParam Integer userId, @RequestParam Integer contestId,@RequestParam Integer noOfRecords){
+        Object data = staticLeaderboardService.getStaticLeaderboard(userId, contestId,noOfRecords);
         JSONObject response = getJSONResponse(data);
         return response;
     }
@@ -47,8 +47,8 @@ public class LeaderboardController {
         return response;
     }
     @GetMapping("/dynamic")
-    public JSONObject getDynamicLeaderboard(@RequestParam Integer userId, @RequestParam Integer contestId){
-        Object data = dynamicLeaderboardService.getDynamicLeaderboard(userId, contestId);
+    public JSONObject getDynamicLeaderboard(@RequestParam Integer userId, @RequestParam Integer contestId,@RequestParam Integer noOfRecords){
+        Object data = dynamicLeaderboardService.getDynamicLeaderboard(userId, contestId,noOfRecords);
         JSONObject response = getJSONResponse(data);
         return response;
     }
@@ -101,6 +101,12 @@ public class LeaderboardController {
     @GetMapping("/reports/winners")
     public JSONObject getWinners(@RequestParam Integer contestId){
         Object data = reportService.getWinners(contestId);
+        JSONObject response = getJSONResponse(data);
+        return response;
+    }
+    @GetMapping("/contest")
+    public JSONObject getContestLeaderboard(@RequestParam Integer contestId){
+        Object data = overallLeaderboardService.getContestLeaderboard(contestId);
         JSONObject response = getJSONResponse(data);
         return response;
     }

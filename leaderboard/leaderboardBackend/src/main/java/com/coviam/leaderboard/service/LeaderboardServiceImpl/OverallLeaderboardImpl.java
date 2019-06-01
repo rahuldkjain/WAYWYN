@@ -1,8 +1,10 @@
 package com.coviam.leaderboard.service.LeaderboardServiceImpl;
 
+import com.coviam.leaderboard.entity.ContestLeaderboard;
 import com.coviam.leaderboard.entity.DailyLeaderboard;
 import com.coviam.leaderboard.entity.MonthlyLeaderboard;
 import com.coviam.leaderboard.entity.WeeklyLeaderboard;
+import com.coviam.leaderboard.repository.ContestLeaderboardRepository;
 import com.coviam.leaderboard.repository.DailyLeaderboardRepository;
 import com.coviam.leaderboard.repository.MonthlyLeaderboardRepository;
 import com.coviam.leaderboard.repository.WeeklyLeaderboardRepository;
@@ -24,6 +26,9 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
     @Autowired
     MonthlyLeaderboardRepository monthlyLeaderboardRepository;
 
+    @Autowired
+    ContestLeaderboardRepository contestLeaderboardRepository;
+
     @Override
     public List<DailyLeaderboard> getDailyLeaderboard() {
         long dayId = System.currentTimeMillis()/1000/60/60/24;
@@ -43,5 +48,11 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
         long monthId = System.currentTimeMillis()/1000/60/60/24/7/4;
         List<MonthlyLeaderboard> monthlyLeaderboardList = monthlyLeaderboardRepository.findAllByOrderByUserRankAsc(monthId);
         return monthlyLeaderboardList;
+    }
+
+    @Override
+    public List<ContestLeaderboard> getContestLeaderboard(Integer contestId) {
+        List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllByContestId(contestId);
+        return contestLeaderboardList;
     }
 }

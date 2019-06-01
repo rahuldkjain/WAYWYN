@@ -165,6 +165,7 @@ public class SchedulerTasks {
             previousScore=monthlyLeaderboard.getScore();
             monthlyLeaderboardList.add(monthlyLeaderboard);
         }
+
         monthlyLeaderboardRepository.save(monthlyLeaderboardList);
         return ;
     }

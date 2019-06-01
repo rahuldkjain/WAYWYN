@@ -15,4 +15,5 @@ public interface OverallLeaderboardService {
 
     List<MonthlyLeaderboard> getMonthlyLeaderboard();
 
+    List<ContestLeaderboard> getContestLeaderboard(Integer contestId);
 }

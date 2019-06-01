@@ -1,11 +1,10 @@
 package com.coviam.leaderboard.service.LeaderboardServiceImpl;
 
-import com.coviam.leaderboard.entity.Contest;
-import com.coviam.leaderboard.entity.Question;
-import com.coviam.leaderboard.entity.UserScore;
+import com.coviam.leaderboard.entity.*;
 import com.coviam.leaderboard.model.CMSDynamicRequest;
 import com.coviam.leaderboard.model.UserDynamicResponse;
 import com.coviam.leaderboard.pkclasses.UserScorePK;
+import com.coviam.leaderboard.repository.ContestLeaderboardRepository;
 import com.coviam.leaderboard.repository.ContestRepository;
 import com.coviam.leaderboard.repository.QuestionRepository;
 import com.coviam.leaderboard.repository.UserScoreRepository;
@@ -13,6 +12,7 @@ import com.coviam.leaderboard.service.DynamicLeaderboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +26,9 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
 
     @Autowired
     UserScoreRepository userScoreRepositoryDynamic;
+
+    @Autowired
+    ContestLeaderboardRepository contestLeaderboardRepository;
 
     @Override
     public String insertDynamicData(CMSDynamicRequest cmsDynamicRequest) {
@@ -66,7 +69,35 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
     }
 
     @Override
-    public List<CMSDynamicRequest> getDynamicLeaderboard(Integer userId, Integer contestid) {
-        return null;
+    public List<Winner> getDynamicLeaderboard(Integer userId, Integer contestId,Integer noOfrecords ) {
+        List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllBycontestIdOrderByUserRankAsc(contestId);
+        List<Winner> winnerList=new ArrayList<Winner>();
+        Winner userRecord=new Winner();
+        int noOfRecordsCopied=0;
+        boolean isUserFound=false;
+        for(ContestLeaderboard user:contestLeaderboardList){
+            if(noOfRecordsCopied>=20 && isUserFound){
+                break;
+            }
+            Winner winner=new Winner();
+            winner.setScore(user.getScore());
+            winner.setUsername(user.getUsername());
+            winner.setUserRank(user.getUserRank());
+            if(userId==user.getUserId()){
+                userRecord.setUsername(user.getUsername());
+                userRecord.setUserRank(user.getUserRank());
+                userRecord.setScore(user.getScore());
+                isUserFound=true;
+            }
+            if(noOfRecordsCopied<20){
+                winnerList.add(winner);
+            }
+            noOfRecordsCopied++;
+        }
+        if(userRecord!=null){
+            winnerList.add(userRecord);
+        }
+        return winnerList;
+
     }
 }
