@@ -47,12 +47,13 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
     public List<MonthlyLeaderboard> getMonthlyLeaderboard() {
         long monthId = System.currentTimeMillis()/1000/60/60/24/7/4;
         List<MonthlyLeaderboard> monthlyLeaderboardList = monthlyLeaderboardRepository.findAllByOrderByUserRankAsc(monthId);
+
         return monthlyLeaderboardList;
     }
 
     @Override
     public List<ContestLeaderboard> getContestLeaderboard(Integer contestId) {
-        List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllByContestId(contestId);
+        List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllBycontestIdOrderByUserRankAsc(contestId);
         return contestLeaderboardList;
     }
 }
