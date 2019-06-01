@@ -198,7 +198,7 @@ public class SchedulerTasks {
         }
         return new ResponseEntity(HttpStatus.OK);
     }
-    @Scheduled(fixedRate = 4000)
+    @Scheduled(fixedRate = 10000)
     public ResponseEntity updateQuestionDetails(){
         ResponseEntity returnVal=addQuestionDetails();
         if(!returnVal.equals(HttpStatus.OK)){
@@ -210,46 +210,51 @@ public class SchedulerTasks {
 
     private ResponseEntity addQuestionDetails() {
         System.out.println("================ i am adding to question details");
+        List<Contest> contestList= (List<Contest>) contestRepository.findAll();
         RestTemplate restTemplate = new RestTemplate();
-        String cmsContesturl = "http://10.177.7.130:8080/contest";
-        ResponseEntity<String> response;
-        try{
-            response = restTemplate.getForEntity(cmsContesturl + "/getquestionanswerofcontest?contestId=1", String.class);
-        }catch(Exception ex){
-            ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        List<QuestionDetails> questionList=new ArrayList<QuestionDetails>();
-        try {
-            JsonNode jsonArray = mapper.readTree(response.getBody());
-            for(JsonNode j: jsonArray) {
-//                System.out.println("####" + j.get("contestName"));
-                QuestionDetails question=new QuestionDetails();
-                question.setAnswer(j.get("answer").toString().replaceAll("^\"|\"$", ""));
-                question.setAnswerType(j.get("answerType").toString().replaceAll("^\"|\"$", ""));
-                question.setBinaryFilePath(j.get("binaryFilePath").toString().replaceAll("^\"|\"$", ""));
-                String category=j.get("categoryOfQuestion").toString();
-                if(category!=null){
-                    question.setCategoryOfQuestion(category.replaceAll("^\"|\"$", ""));
-                }else{
-                    question.setCategoryOfQuestion("nil");
-                }
-                question.setDifficultyLevel(j.get("difficultyLevel").toString().replaceAll("^\"|\"$", ""));
-                question.setOptionA(j.get("optionA").toString().replaceAll("^\"|\"$", ""));
-                question.setOptionB(j.get("optionB").toString().replaceAll("^\"|\"$", ""));
-                question.setOptionC(j.get("optionC").toString().replaceAll("^\"|\"$", ""));
-                question.setQuestionId(Integer.parseInt(j.get("questionId").toString()));
-                question.setQuestionText(j.get("questionText").toString().replaceAll("^\"|\"$", ""));
-                question.setQuestionType(j.get("questionType").toString().replaceAll("^\"|\"$", ""));
-                System.out.println(question.toString());
-                questionList.add(question);
+
+        for(Contest contest:contestList){
+            String cmsContesturl = "http://10.177.7.130:8080/contest";
+            ResponseEntity<String> response;
+            try{
+                response = restTemplate.getForEntity(cmsContesturl + "/getquestionanswerofcontest?contestId="+contest.getContestId(), String.class);
+            }catch(Exception ex){
+                ex.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            questionDetailsRepository.save(questionList);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+            ObjectMapper mapper = new ObjectMapper();
+            List<QuestionDetails> questionList=new ArrayList<QuestionDetails>();
+            try {
+                JsonNode jsonArray = mapper.readTree(response.getBody());
+                for(JsonNode j: jsonArray) {
+//                System.out.println("####" + j.get("contestName"));
+                    QuestionDetails question=new QuestionDetails();
+                    question.setAnswer(j.get("answer").toString().replaceAll("^\"|\"$", ""));
+                    question.setAnswerType(j.get("answerType").toString().replaceAll("^\"|\"$", ""));
+                    question.setBinaryFilePath(j.get("binaryFilePath").toString().replaceAll("^\"|\"$", ""));
+                    String category=j.get("categoryOfQuestion").toString();
+                    if(category!=null){
+                        question.setCategoryOfQuestion(category.replaceAll("^\"|\"$", ""));
+                    }else{
+                        question.setCategoryOfQuestion("nil");
+                    }
+                    question.setDifficultyLevel(j.get("difficultyLevel").toString().replaceAll("^\"|\"$", ""));
+                    question.setOptionA(j.get("optionA").toString().replaceAll("^\"|\"$", ""));
+                    question.setOptionB(j.get("optionB").toString().replaceAll("^\"|\"$", ""));
+                    question.setOptionC(j.get("optionC").toString().replaceAll("^\"|\"$", ""));
+                    question.setQuestionId(Integer.parseInt(j.get("questionId").toString()));
+                    question.setQuestionText(j.get("questionText").toString().replaceAll("^\"|\"$", ""));
+                    question.setQuestionType(j.get("questionType").toString().replaceAll("^\"|\"$", ""));
+                    System.out.println(question.toString());
+                    questionList.add(question);
+                }
+                questionDetailsRepository.save(questionList);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+            }
         }
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
