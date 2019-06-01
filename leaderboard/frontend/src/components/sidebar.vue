@@ -9,26 +9,29 @@
         <!-- <router-link class="sidebar__nav-item" to="/leaderboard/map">
             <i class="material-icons">star</i> Contest Leaderboard
         </router-link> -->
-        
+
         <!--
         <router-link  class="sidebar__nav-item" to="/leaderboard/user">
             <i class="material-icons">person</i> Personal Leaderboard
         </router-link>
         -->
          <router-link  class="sidebar__nav-item" to="/report">
-            <i class="material-icons">group</i> Reports 
+            <i class="material-icons">group</i> Reports
         </router-link>
 
+      <router-link  class="sidebar__nav-item" to="/contests">
+        <i class="material-icons">receipt</i> Contests
+      </router-link>
 
         <router-link  class="sidebar__nav-item" to="/winner">
-            <i class="material-icons">group</i> Winners 
+            <i class="material-icons">group</i> Winners
         </router-link>
     </nav>
     <hr class="sidebar__divider" />
-    <MapList /> 
+    <MapList />
 </aside>
 </template>
- 
+
 <script>
 import MapList from './mapList';
 export default {
@@ -43,7 +46,7 @@ components: {
 }
 };
 </script>
- 
+
 <style lang='scss' scoped>
 @import '../assets/_scss/_sidebar';
 </style>

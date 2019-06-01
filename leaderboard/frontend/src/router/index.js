@@ -6,7 +6,8 @@ import SeasonalLeaderboard from '@/components/seasonalLeaderboard';
 import reports from '@/components/reports';
 import winners from '@/components/winners';
 import ContestLeaderBoard from '@/components/ContestLeaderBoard' ;
-import WinnersDisplayComponent from '@/components/WinnersDisplayComponent'
+import WinnersDisplayComponent from '@/components/WinnersDisplayComponent';
+import ContestList from "@/components/ContestList"
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/winner',
       name: 'winners',
       component: winners,
+    },
+    {
+      path: '/contests',
+      name: 'contests',
+      component: ContestList,
     },
     {
       path: '/contestleaderbopard',
