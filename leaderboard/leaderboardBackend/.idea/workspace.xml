@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a6afbf61-77b7-46f8-bc2b-7a727fb91d2f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/controller/LeaderboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/controller/LeaderboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/OverallLeaderboardImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/OverallLeaderboardImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/OverallLeaderboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/OverallLeaderboardService.java" afterDir="false" />
-    </list>
+    <list default="true" id="a6afbf61-77b7-46f8-bc2b-7a727fb91d2f" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,56 +12,95 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LeaderboardController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/controller/LeaderboardController.java">
+      <file leaf-file-name="DynamicLeaderboardImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/DynamicLeaderboardImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="99" column="70" selection-start-line="99" selection-start-column="70" selection-end-line="99" selection-end-column="70" />
+            <state relative-caret-position="-44">
+              <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OverallLeaderboardService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/OverallLeaderboardService.java">
+      <file leaf-file-name="ReportServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/ReportServiceImpl/ReportServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+            <state relative-caret-position="252">
+              <caret line="43" column="13" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OverallLeaderboardImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/OverallLeaderboardImpl.java">
+      <file leaf-file-name="LeaderboardApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/LeaderboardApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="94" column="36" selection-start-line="94" selection-start-column="36" selection-end-line="94" selection-end-column="36" />
+            <state relative-caret-position="90">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MonthlyLeaderboardRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/repository/MonthlyLeaderboardRepository.java">
+      <file leaf-file-name="StaticLeaderboardService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/StaticLeaderboardService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="90">
+              <caret line="10" column="91" selection-start-line="10" selection-start-column="91" selection-end-line="10" selection-end-column="91" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MonthlyLeaderboard.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/MonthlyLeaderboard.java">
+      <file leaf-file-name="Contest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/Contest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-47">
+              <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReportService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/ReportService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContestLeaderboard.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/ContestLeaderboard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContestLeaderboardRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/repository/ContestLeaderboardRepository.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
-              <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DailyLeaderboardRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/repository/DailyLeaderboardRepository.java">
+      <file leaf-file-name="SchedulerTasks.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="65" />
+            <state relative-caret-position="-1187">
+              <caret line="137" column="52" lean-forward="true" selection-start-line="137" selection-start-column="52" selection-end-line="137" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserAggregateScore.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/queryresult/UserAggregateScore.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
@@ -137,6 +172,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -266,13 +302,22 @@
               <item name="leaderboardBackend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="leaderboard" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="ReportServiceImpl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="leaderboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="leaderboardBackend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -364,19 +409,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="724" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="726" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32698414" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info id="Image Layers" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3907496" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3920635" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="4" />
@@ -386,26 +430,46 @@
       <window_info id="UI Designer" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info id="Favorites" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39872408" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info id="Designer" order="4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3907496" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39872408" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32698414" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32698414" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26171243" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3920635" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25767368" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3920635" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -573,8 +637,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/LeaderboardApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+        <state relative-caret-position="90">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -643,15 +707,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/ContestLeaderboard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="18" column="17" lean-forward="true" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+        <state relative-caret-position="313">
+          <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/repository/ContestLeaderboardRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+        <state relative-caret-position="225">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
@@ -678,8 +742,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/queryresult/UserAggregateScore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="26" />
+        <state relative-caret-position="210">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
@@ -687,16 +751,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/entity/Contest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="25" column="76" selection-start-line="25" selection-start-column="76" selection-end-line="25" selection-end-column="76" />
+        <state relative-caret-position="-47">
+          <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -704,10 +765,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
-          <folding>
-            <element signature="e#2387#2388#0" expanded="true" />
-            <element signature="e#2447#2448#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -720,15 +777,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/ReportServiceImpl/ReportServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="59" column="24" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+        <state relative-caret-position="252">
+          <caret line="43" column="13" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/service/LeaderboardServiceImpl/DynamicLeaderboardImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-478">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="-44">
+          <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -758,18 +815,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/coviam/leaderboard/scheduler/SchedulerTasks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-731">
-          <caret line="85" column="37" lean-forward="true" selection-start-line="85" selection-start-column="37" selection-end-line="85" selection-end-column="37" />
-          <folding>
-            <element signature="e#1789#1809#0" expanded="true" />
-            <element signature="e#3429#3449#0" expanded="true" />
-            <element signature="e#4030#4048#0" expanded="true" />
-            <element signature="e#5600#5619#0" expanded="true" />
-            <element signature="e#7094#7114#0" expanded="true" />
-            <element signature="e#9724#9741#0" expanded="true" />
-            <element signature="e#12349#12358#0" expanded="true" />
-            <element signature="e#14108#14117#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-1187">
+          <caret line="137" column="52" lean-forward="true" selection-start-line="137" selection-start-column="52" selection-end-line="137" selection-end-column="52" />
         </state>
       </provider>
     </entry>

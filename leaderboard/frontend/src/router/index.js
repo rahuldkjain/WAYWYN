@@ -13,6 +13,8 @@ import WeeklyDashBoard from "@/components/WeeklyDashBoard";
 import DailyIds from "@/components/DailyIds";
 import MonthlyDashBoard from "@/components/MonthlyDashBoard";
 import DailyDashBoard from '@/components/DailyDashBoard'
+import WeeklyIds from "@/components/WeeklyIds";
+import MonthlyIds from "@/components/MonthlyIds";
 
 Vue.use(Router)
 
@@ -47,13 +49,13 @@ export default new Router({
     },
     {
       path: '/weekly',
-      name: 'WeeklyDashBoard',
-      component: WeeklyDashBoard
+      name: 'WeeklyIds',
+      component: WeeklyIds
     },
     {
       path: '/monthly',
-      name: 'MonthlyDashBoard',
-      component: MonthlyDashBoard
+      name: 'MonthlyIds',
+      component: MonthlyIds
     },
     {
       path: '/daily',
@@ -104,7 +106,18 @@ export default new Router({
       path: '/dailydashboard/:dayId',
       name: 'DailyDashBoard',
       component: DailyDashBoard
-    }
+    },
+    {
+      path: '/weeklydashboard/:weekId',
+      name: 'WeeklyDashBoard',
+      component: WeeklyDashBoard
+    },
+    {
+      path: '/monthlydashboard/:monthId',
+      name: 'MonthlyDashBoard',
+      component: MonthlyDashBoard
+    },
+
     // {
     //   path: '/leaderboard/seasonal/map/:mapid',
     //   name: 'Seasonal Map Leaderboard',

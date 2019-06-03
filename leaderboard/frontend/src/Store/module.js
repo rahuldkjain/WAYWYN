@@ -16,7 +16,9 @@ export default {
         dailyDashBoard: [],
         weeklyDashBoard:[],
         monthlyDashBoard: [],
-        dailyIds: []
+        dailyIds: [],
+        weeklyIds: [],
+        monthlyIds: []
     },
     getters: {
         getContestLeaderBoard : (state) =>state.contest_leader_board,
@@ -33,7 +35,9 @@ export default {
         getDailyDashBoard: (state)=> state.dailyDashBoard,
         getWeeklyDashBoard: (state)=> state.weeklyDashBoard,
         getMonthlyDashBoard: (state)=> state.monthlyDashBoard,
-        getDailyIds: (state) => state.dailyIds
+        getDailyIds: (state) => state.dailyIds,
+        getWeeklyIds: (state) => state.weeklyIds,
+        getMonthlyIds: (state) => state.monthlyIds
     },
     mutations: {
         SET_CONTEST_LEADER_BOARD: (state,result)=>{
@@ -84,6 +88,12 @@ export default {
         },
         SET_DAILY_IDS: (state, result)=>{
             state.dailyIds = result.data
+        },
+        SET_WEEKLY_IDS: (state, result)=>{
+            state.weeklyIds = result.data
+        },
+        SET_MONTHLY_IDS: (state, result)=>{
+            state.monthlyIds = result.data
         }
 
 
@@ -149,15 +159,15 @@ export default {
               context.commit('SET_DAILY_DASHBOARD', result.data)
             }, dayId)
           },
-          fetchWeeklyDashBoard: (context) => {
-            ToDoApis.getgetWeeklyDashBoard((result)=>{
+          fetchWeeklyDashBoard: (context,weekId) => {
+            ToDoApis.getWeeklyDashBoard((result)=>{
               context.commit('SET_WEEKLY_DASHBOARD', result.data)
-            })
+            },weekId)
           },
-          fetchMonthlyDashBoard: (context) => {
+          fetchMonthlyDashBoard: (context,monthId) => {
             ToDoApis.getMonthlyDashBoard((result)=>{
               context.commit('SET_MONTHLY_DASHBOARD', result.data)
-            })
+            },monthId)
           },
           fetchDailyIds: (context) => {
               ToDoApis.getDailyIds((result) =>{

@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-table striped hover :items="dailyDashBoards"></b-table>
-    
+        
     </div>
 </template>
 <script>

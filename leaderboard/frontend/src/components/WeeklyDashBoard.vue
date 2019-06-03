@@ -1,9 +1,26 @@
 <template>
-    <div>Hello Brother</div>
+    <div>
+        <b-table striped hover :items="weeklyDashBoards"></b-table>
+        
+    </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
-    name : 'WeeklyDashBoard'
+    name: 'WeeklyDashBoard',
+    data(){
+        return{
+            weeklyDashBoards: []
+        }
+    },
+    computed: {
+        ...mapGetters(['getWeeklyDashBoard'])
+    },
+    watch:{
+    getWeeklyDashBoard: function(newValue, oldValue){
+          this.weeklyDashBoards = newValue
+      },
+    }
 }
 </script>
 <style>

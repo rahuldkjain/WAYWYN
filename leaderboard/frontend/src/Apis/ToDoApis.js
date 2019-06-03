@@ -39,5 +39,19 @@ export default {
     },
     getDailyDashBoard(callback,dayId){
         MakeApis.makeGetOverallRequest("/api/leaderboard/dailylb?dayId="+dayId,callback)
+    },
+
+    getWeeklyIds(callback){
+        MakeApis.makeGetOverallRequest("/api/leaderboard/weekids", callback)
+    },
+    getWeeklyDashBoard(callback,weekId){
+        MakeApis.makeGetOverallRequest("/api/leaderboard/weeklylb?weekId="+weekId,callback)
+    },
+
+    getMonthlyIds(callback){
+        MakeApis.makeGetOverallRequest("/api/leaderboard/monthids", callback)
+    },
+    getMonthlyDashBoard(callback,monthId){
+        MakeApis.makeGetOverallRequest("/api/leaderboard/monthlylb?monthId="+monthId,callback)
     }
 }
