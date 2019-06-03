@@ -33,6 +33,7 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
     @Override
     public String insertDynamicData(CMSDynamicRequest cmsDynamicRequest) {
         //update contest table
+
         Contest contest=new Contest(cmsDynamicRequest.getContestId(),cmsDynamicRequest.getType(),cmsDynamicRequest.getCategory(),cmsDynamicRequest.getDate());
         contestRepositoryDynamic.save(contest);
 
