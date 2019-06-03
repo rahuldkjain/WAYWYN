@@ -1,11 +1,13 @@
 <template>
     <div>
-        <div v-for ="(ids,index) in monthlyIdsArray.length" :key="index">
-          <b-button @click="callMonthlyDashBoard(index)">Month {{index+1}}</b-button>
-           <p>{{formatToDate(index)}}</p>
+         <h1 style="text-align:center;color:pink">Monthly LeaderBoard</h1>
+         <b-row>
+        <b-col v-for ="(ids,index) in monthlyIdsArray.length" :key="index" style="text-align:center">
+          <b-button variant="primary" @click="callMonthlyDashBoard(index)" >Month {{index+1}}</b-button>
+           <!-- <p>{{formatToDate(index)}}</p> -->
 
-
-        </div>
+        </b-col>
+        </b-row>
     </div>
 </template>
 <script>

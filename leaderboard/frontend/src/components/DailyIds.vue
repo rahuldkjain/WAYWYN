@@ -1,11 +1,15 @@
 <template>
     <div>
-        <div v-for ="(ids,index) in dailyIdsArray.length" :key="index">
-          <b-button @click="callDailyDashBoard(index)">Day {{index+1}}</b-button>
-           <p>{{formatToDate(index)}}</p>
+        <h1 style="text-align:center;color:pink">Daily LeaderBoard</h1>
+        <br>
+        <b-row>
+        <b-col v-for ="(ids,index) in dailyIdsArray.length" :key="index" style="text-align:center">
+          <b-button variant="primary" @click="callDailyDashBoard(index)">Day {{index+1}}</b-button>
+           <!-- <p>{{formatToDate(index)}}</p> -->
 
 
-        </div>
+        </b-col>
+        </b-row>
     </div>
 </template>
 <script>

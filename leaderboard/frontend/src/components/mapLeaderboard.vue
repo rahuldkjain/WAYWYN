@@ -6,7 +6,7 @@
         </header>
         <!-- <div v-if="loading">Loading...</div> -->
         
-        <LeaderboardCard v-if="" 
+        <LeaderboardCard 
         class='map-leaderboard__weekly--card' 
         :rank="rank "
         :player="name"
@@ -95,6 +95,15 @@ export default {
         this.$store.dispatch('fetchDailyLeaderBoard')
         this.$store.dispatch('fetchWeeklyLeaderBoard')
         this.$store.dispatch('fetchMonthlyLeaderBoard')
+       setInterval(()=>{
+            this.$store.dispatch('fetchDailyLeaderBoard')
+        },2000)
+        setInterval(()=>{
+            this.$store.dispatch('fetchWeeklyLeaderBoard')
+        },2000)
+        setInterval(()=>{
+            this.$store.dispatch('fetchMonthlyLeaderBoard')
+        },2000)
 
     },
     components: {

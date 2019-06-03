@@ -1,11 +1,14 @@
 <template>
     <div>
-        <div v-for ="(ids,index) in weeklyIdsArray.length" :key="index">
-          <b-button @click="callWeeklyDashBoard(index)">Week {{index+1}}</b-button>
-           <p>{{formatToDate(index)}}</p>
+        <h1 style="text-align:center;color:pink">Weekly LeaderBoard</h1>
+        <br>
+        <b-row>
+        <b-col v-for ="(ids,index) in weeklyIdsArray.length" :key="index" style="text-align:center">
+          <b-button variant="primary" @click="callWeeklyDashBoard(index)">Week {{index+1}}</b-button>
+           <!-- <p>{{formatToDate(index)}}</p> -->
 
-
-        </div>
+        </b-col>
+        </b-row>
     </div>
 </template>
 <script>

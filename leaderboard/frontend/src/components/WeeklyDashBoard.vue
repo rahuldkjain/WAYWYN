@@ -1,6 +1,7 @@
 <template>
     <div>
-        <b-table striped hover :items="weeklyDashBoards"></b-table>
+        
+        <b-table striped hover :items="weeklyDashBoards" style="text-align:center"></b-table>
         
     </div>
 </template>
