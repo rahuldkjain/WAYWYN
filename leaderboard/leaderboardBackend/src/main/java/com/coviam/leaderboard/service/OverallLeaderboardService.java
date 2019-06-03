@@ -26,4 +26,6 @@ public interface OverallLeaderboardService {
     List<Integer> getDayIds();
 
     List<Integer> getMonthIds();
+
+    List<DailyLeaderboard> getDailyLeaderboardByDayId(Integer dayId);
 }

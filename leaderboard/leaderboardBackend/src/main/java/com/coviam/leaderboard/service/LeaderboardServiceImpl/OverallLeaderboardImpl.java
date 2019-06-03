@@ -88,4 +88,10 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
         List<Integer> monthIdList=monthlyLeaderboardRepository.findDistinctMonthId();
         return monthIdList;
     }
+
+    @Override
+    public List<DailyLeaderboard> getDailyLeaderboardByDayId(Integer dayId) {
+        List<DailyLeaderboard> dailyLeaderboardList= dailyLeaderboardRepository.findAllByOrderByUserRankAsc(dayId);
+        return dailyLeaderboardList;
+    }
 }

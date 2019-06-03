@@ -95,6 +95,18 @@ public class LeaderboardController {
         System.out.println("GET /daily : "+response.toJSONString());
         return response;
     }
+    @GetMapping("/dailylb")
+    public JSONObject getDailyLeaderboardByDayId(@RequestParam Integer dayId){
+        Object data = overallLeaderboardService.getDailyLeaderboardByDayId(dayId);
+        JSONObject response = getJSONResponse(data);
+        if(((List) data).isEmpty()){
+            response.replace("message","failure");
+            response.replace("error","No entry for today");
+            response.replace("code","200");
+        }
+        System.out.println("GET /daily : "+response.toJSONString());
+        return response;
+    }
     @GetMapping("/weekly")
     public JSONObject getWeeklyLeaderboard(){
         Object data = overallLeaderboardService.getWeeklyLeaderboard();
