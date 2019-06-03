@@ -61,11 +61,9 @@ public class SchedulerTasks {
             previousScore=user.getScore();
             contestLeaderboardList.add(contestLeaderboard);
         }
+        System.out.println("updateContestLeaderboardThread: ");
         for(UserScore user:userScoreList){
-            System.out.println(user.getUserId());
-        }
-        for(ContestLeaderboard contestLeaderboard:contestLeaderboardList){
-            System.out.println(contestLeaderboard.getUsername());
+            System.out.println(user.getUsername());
         }
         contestLeaderboardRepository.save(contestLeaderboardList);
         return ;
@@ -109,8 +107,9 @@ public class SchedulerTasks {
             previousScore=dailyLeaderboard.getScore();
             dailyLeaderboards.add(dailyLeaderboard);
         }
+        System.out.println("updateDailyLeaderboardThread: ");
         for(DailyLeaderboard dailyLeaderboard:dailyLeaderboards){
-            System.out.println("daily: "+dailyLeaderboard.getUsername());
+            System.out.println(dailyLeaderboard.getUsername());
         }
         dailyLeaderboardRepository.save(dailyLeaderboards);
         return ;
@@ -144,6 +143,10 @@ public class SchedulerTasks {
             previousScore=weeklyLeaderboard.getScore();
             weeklyLeaderboardList.add(weeklyLeaderboard);
         }
+        System.out.println("updateWeeklyLeaderboardThread: ");
+        for(WeeklyLeaderboard weeklyLeaderboard:weeklyLeaderboardList){
+            System.out.println(weeklyLeaderboard.getUsername());
+        }
         weeklyLeaderboardRepository.save(weeklyLeaderboardList);
         return ;
     }
@@ -176,7 +179,10 @@ public class SchedulerTasks {
             previousScore=monthlyLeaderboard.getScore();
             monthlyLeaderboardList.add(monthlyLeaderboard);
         }
-
+        System.out.println("updateMonthlyLeaderboardThread: ");
+        for(MonthlyLeaderboard monthlyLeaderboard:monthlyLeaderboardList){
+            System.out.println(monthlyLeaderboard.getUsername());
+        }
         monthlyLeaderboardRepository.save(monthlyLeaderboardList);
         return ;
     }
@@ -209,7 +215,7 @@ public class SchedulerTasks {
 
 
     private ResponseEntity addQuestionDetails() {
-        System.out.println("================ i am adding to question details");
+        System.out.println("addQuestionDetailsThread: ");
         List<Contest> contestList= (List<Contest>) contestRepository.findAll();
         RestTemplate restTemplate = new RestTemplate();
 
@@ -260,6 +266,7 @@ public class SchedulerTasks {
 
 
     private ResponseEntity addDynamicContestsToDB() {
+        System.out.println("addDynamicConteststoDBThread: ");
         RestTemplate restTemplate = new RestTemplate();
         String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;
@@ -274,7 +281,7 @@ public class SchedulerTasks {
         try {
             JsonNode jsonArray = mapper.readTree(response.getBody());
             for(JsonNode j: jsonArray) {
-                System.out.println("####" + j.get("contestName"));
+//                System.out.println("####" + j.get("contestName"));
                 Contest contest=new Contest();
                 contest.setCategory(j.get("categoryName").toString().replaceAll("^\"|\"$", ""));
                 contest.setContestId(Integer.parseInt(j.get("contestId").toString()));
@@ -284,6 +291,7 @@ public class SchedulerTasks {
                 java.sql.Date endDate=new Date(date.getTime());
                 contest.setDate(endDate);
                 contest.setContestName(j.get("contestName").toString());
+                System.out.println(contest.toString());
                 contestList.add(contest);
             }
             contestRepository.save(contestList);
@@ -295,6 +303,7 @@ public class SchedulerTasks {
     }
 
     private ResponseEntity addStaticContestsToDB() {
+        System.out.println("addStaticConteststoDBThread: ");
         RestTemplate restTemplate = new RestTemplate();
         String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;
@@ -309,7 +318,7 @@ public class SchedulerTasks {
         try {
             JsonNode jsonArray = mapper.readTree(response.getBody());
             for(JsonNode j: jsonArray) {
-                System.out.println("####" + j.get("contestName"));
+//                System.out.println("####" + j.get("contestName"));
                 Contest contest=new Contest();
                 contest.setCategory(j.get("categoryName").toString().replaceAll("^\"|\"$", ""));
                 contest.setContestId(Integer.parseInt(j.get("contestId").toString()));
@@ -319,6 +328,7 @@ public class SchedulerTasks {
                 java.sql.Date endDate=new Date(date.getTime());
                 contest.setDate(endDate);
                 contest.setContestName(j.get("contestName").toString().replaceAll("^\"|\"$", ""));
+                System.out.println(contest.toString());
                 contestList.add(contest);
             }
             contestRepository.save(contestList);
