@@ -5,12 +5,8 @@
   <b-row>
 
     <b-col cols="3" v-for="(item,index) in activeContests" v-bind:key="index">
-      <b-card title="Contest" style="text-align:center"   :header="item.contest_name"  border-variant="success">
+      <b-card  style="text-align:center"   :header="item.contestName"  border-variant="success">
 
-      <b-card-text>
-    <b>Contest Name :</b> {{item.contestName}}
-    {{item.score}}
-    </b-card-text>
     <b-card-text>
       <b>Contest ID :</b> {{item.contestId}}
       {{item.score}}
