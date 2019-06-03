@@ -1,5 +1,6 @@
 package com.coviam.leaderboard.service.LeaderboardServiceImpl;
 
+import com.coviam.leaderboard.dto.Winner;
 import com.coviam.leaderboard.entity.*;
 import com.coviam.leaderboard.model.CMSDynamicRequest;
 import com.coviam.leaderboard.model.UserDynamicResponse;
@@ -70,7 +71,7 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
     }
 
     @Override
-    public List<Winner> getDynamicLeaderboard(Integer userId, Integer contestId,Integer noOfrecords ) {
+    public List<Winner> getDynamicLeaderboard(Integer userId, Integer contestId, Integer noOfrecords ) {
         List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllBycontestIdOrderByUserRankAsc(contestId);
         List<Winner> winnerList=new ArrayList<Winner>();
         Winner userRecord=new Winner();

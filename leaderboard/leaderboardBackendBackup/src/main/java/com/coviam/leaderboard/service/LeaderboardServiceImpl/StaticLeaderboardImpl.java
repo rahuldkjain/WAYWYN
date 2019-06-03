@@ -1,5 +1,6 @@
 package com.coviam.leaderboard.service.LeaderboardServiceImpl;
 
+import com.coviam.leaderboard.dto.Winner;
 import com.coviam.leaderboard.entity.*;
 import com.coviam.leaderboard.model.CMSStaticRequest;
 import com.coviam.leaderboard.model.UserQuestionResponse;
@@ -29,7 +30,7 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
     ContestLeaderboardRepository contestLeaderboardRepository;
 
     @Override
-    public List<Winner> getStaticLeaderboard(Integer userId, Integer contestId,Integer noOfRecords) {
+    public List<Winner> getStaticLeaderboard(Integer userId, Integer contestId, Integer noOfRecords) {
 
         List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllBycontestIdOrderByUserRankAsc(contestId);
         List<Winner> winnerList=new ArrayList<Winner>();
