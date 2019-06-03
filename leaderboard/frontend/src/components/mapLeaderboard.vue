@@ -6,13 +6,16 @@
         </header>
         <!-- <div v-if="loading">Loading...</div> -->
         
-        <LeaderboardCard
+        <LeaderboardCard v-if="" 
         class='map-leaderboard__weekly--card' 
         :rank="rank "
         :player="name"
         :score="score"
         style="color:gray"
+
          />
+      
+
 
 
 
@@ -22,6 +25,7 @@
         :rank="record.userRank" 
         :player="record.username"
         :score="record.score"
+        
          />
 
     </div>

@@ -12,7 +12,11 @@ export default {
         numOfWronglyAnsweredQuestions: 0,
         contestWinners: [],
         activeContests: [],
-        topQuestions: []
+        topQuestions: [],
+        dailyDashBoard: [],
+        weeklyDashBoard:[],
+        monthlyDashBoard: [],
+        dailyIds: []
     },
     getters: {
         getContestLeaderBoard : (state) =>state.contest_leader_board,
@@ -25,7 +29,11 @@ export default {
         getNumOfWronglyAnsweredQuestions: (state)=> state.numOfWronglyAnsweredQuestions,
         getWinnersOfContest: (state)=> state.contestWinners,
         getActiveContests: (state) => state.activeContests,
-        getTopQuestions: (state) => state.topQuestions
+        getTopQuestions: (state) => state.topQuestions,
+        getDailyDashBoard: (state)=> state.dailyDashBoard,
+        getWeeklyDashBoard: (state)=> state.weeklyDashBoard,
+        getMonthlyDashBoard: (state)=> state.monthlyDashBoard,
+        getDailyIds: (state) => state.dailyIds
     },
     mutations: {
         SET_CONTEST_LEADER_BOARD: (state,result)=>{
@@ -64,7 +72,20 @@ export default {
         },
         SET_TOP_QUESTIONS: (state, result) => {
             state.topQuestions = result.data
+        },
+        SET_DAILY_DASHBOARD: (state, result)=>{
+            state.dailyDashBoard = result.data
+        },
+        SET_WEEKLY_DASHBOARD: (state, result)=>{
+            state.weeklyDashBoard = result.data
+        },
+        SET_MONTHLY_DASHBOARD: (state, result)=>{
+            state.monthlyDashBoard = result.data
+        },
+        SET_DAILY_IDS: (state, result)=>{
+            state.dailyIds = result.data
         }
+
 
     },
     actions: {
@@ -122,6 +143,36 @@ export default {
           ToDoApis.getTopQuestionsList((result)=>{
             context.commit('SET_TOP_QUESTIONS', result.data)
           })
-        }
+        },
+        fetchDailyDashBoard: (context, dayId) => {
+            ToDoApis.getDailyDashBoard((result)=>{
+              context.commit('SET_DAILY_DASHBOARD', result.data)
+            }, dayId)
+          },
+          fetchWeeklyDashBoard: (context) => {
+            ToDoApis.getgetWeeklyDashBoard((result)=>{
+              context.commit('SET_WEEKLY_DASHBOARD', result.data)
+            })
+          },
+          fetchMonthlyDashBoard: (context) => {
+            ToDoApis.getMonthlyDashBoard((result)=>{
+              context.commit('SET_MONTHLY_DASHBOARD', result.data)
+            })
+          },
+          fetchDailyIds: (context) => {
+              ToDoApis.getDailyIds((result) =>{
+                  context.commit('SET_DAILY_IDS', result.data)
+              })
+          },
+          fetchWeeklyIds: (context) =>{
+              ToDoApis.getWeeklyIds((result) =>{
+                  context.commit('SET_WEEKLY_IDS', result.data)
+              })
+          },
+          fetchMonthlyIds: (context) => {
+              ToDoApis.getMonthlyIds((result) => {
+                  context.commit('SET_MONTHLY_IDS', result.data)
+              })
+          }
   }
 }

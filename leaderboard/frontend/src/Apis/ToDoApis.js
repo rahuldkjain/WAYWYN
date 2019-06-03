@@ -33,5 +33,11 @@ export default {
     },
     getTopQuestionsList(callback){
       MakeApis.makeGetContestRequest("/api/leaderboard/reports/topquestion", callback)
+    },
+    getDailyIds(callback){
+        MakeApis.makeGetOverallRequest("/api/leaderboard/dayids", callback)
+    },
+    getDailyDashBoard(callback,dayId){
+        MakeApis.makeGetOverallRequest("/api/leaderboard/dailylb?dayId="+dayId,callback)
     }
 }

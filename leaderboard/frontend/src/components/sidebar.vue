@@ -1,5 +1,5 @@
 <template>
-<aside class='sidebar' >
+<aside class='sidebar' @mouseleave="toggleSidebar" >
     <header class="sidebar__header">
         <i @click="toggleSidebar" class="material-icons sidebar__close">close</i>
        <img src="https://badgeos.org/wp-content/uploads/edd/2013/11/leaderboard.png" alt="BB Logo" style="height:70px;width:70px;"><br>
@@ -26,6 +26,19 @@
         <router-link  class="sidebar__nav-item" to="/winner">
             <i class="material-icons">group</i> Winners
         </router-link>
+
+
+        <router-link  class="sidebar__nav-item" to="/daily">
+            <i class="material-icons">group</i> Daily DashBoard
+        </router-link>
+        <router-link  class="sidebar__nav-item" to="/weekly">
+            <i class="material-icons">group</i> Weekly DashBoard
+        </router-link>
+        <router-link  class="sidebar__nav-item" to="/monthly">
+            <i class="material-icons">group</i> Monthly DashBoard
+        </router-link>
+
+
     </nav>
     <hr class="sidebar__divider" />
     <MapList />

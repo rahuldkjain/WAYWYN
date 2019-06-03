@@ -9,6 +9,10 @@ import ContestLeaderBoard from '@/components/ContestLeaderBoard' ;
 import WinnersDisplayComponent from '@/components/WinnersDisplayComponent';
 import ContestList from "@/components/ContestList";
 import WinnerLeaderBoard from "@/components/WinnerLeaderBoard";
+import WeeklyDashBoard from "@/components/WeeklyDashBoard";
+import DailyIds from "@/components/DailyIds";
+import MonthlyDashBoard from "@/components/MonthlyDashBoard";
+import DailyDashBoard from '@/components/DailyDashBoard'
 
 Vue.use(Router)
 
@@ -40,6 +44,21 @@ export default new Router({
       path: '/winner',
       name: 'winners',
       component: winners,
+    },
+    {
+      path: '/weekly',
+      name: 'WeeklyDashBoard',
+      component: WeeklyDashBoard
+    },
+    {
+      path: '/monthly',
+      name: 'MonthlyDashBoard',
+      component: MonthlyDashBoard
+    },
+    {
+      path: '/daily',
+      name: 'DailyIds',
+      component: DailyIds
     },
     {
       path: '/winnerboard/:contestId',
@@ -81,6 +100,11 @@ export default new Router({
       name: 'Seasonal Leaderboard',
       component: SeasonalLeaderboard,
     },
+    {
+      path: '/dailydashboard/:dayId',
+      name: 'DailyDashBoard',
+      component: DailyDashBoard
+    }
     // {
     //   path: '/leaderboard/seasonal/map/:mapid',
     //   name: 'Seasonal Map Leaderboard',
