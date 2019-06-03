@@ -3,6 +3,7 @@
     <div class='leaderboard-card__info'>
         <span class='leaderboard-card__place'>{{ rank }}</span>
         <router-link class='leaderboard-card__player' :to="'/leaderboard/user/' + player.steamid64">
+      
             <div class='leaderboard-card__name'>
                {{ player }}
             </div>
