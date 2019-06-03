@@ -16,4 +16,7 @@ public interface DailyLeaderboardRepository extends CrudRepository<DailyLeaderbo
 
     @Query(value = "select * from daily_leaderboard where day_id = ?1 order by user_rank asc", nativeQuery = true)
     List<DailyLeaderboard> findAllByOrderByUserRankAsc(long dayId);
+
+    @Query(value = "select distinct day_id from daily_leaderboard",nativeQuery = true)
+    List<Integer> findDistinctDayId();
 }

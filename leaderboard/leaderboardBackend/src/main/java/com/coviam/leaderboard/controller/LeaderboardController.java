@@ -107,6 +107,19 @@ public class LeaderboardController {
         System.out.println("GET /weekly : "+response.toJSONString());
         return response;
     }
+    @GetMapping("/weeklylb")
+    public JSONObject getWeeklyLeaderboardByWeekId(@RequestParam Integer weekId){
+        Object data = overallLeaderboardService.getWeeklyLeaderboardByWeekId(weekId);
+        JSONObject response = getJSONResponse(data);
+        if(((List) data).isEmpty()){
+            response.replace("message","failure");
+            response.replace("error","No entry for the week");
+            response.replace("code","200");
+        }
+        System.out.println("GET /weeklylb : "+response.toJSONString());
+        return response;
+    }
+
     @GetMapping("/monthly")
     public JSONObject getMonthlyLeaderboard(){
         Object data = overallLeaderboardService.getMonthlyLeaderboard();
@@ -117,6 +130,18 @@ public class LeaderboardController {
             response.replace("code","200");
         }
         System.out.println("GET /monthly : "+response.toJSONString());
+        return response;
+    }
+    @GetMapping("/monthlylb")
+    public JSONObject getMonthlyLeaderboardByMonthId(@RequestParam Integer monthId){
+        Object data = overallLeaderboardService.getMonthlyLeaderboardByMonthId(monthId);
+        JSONObject response = getJSONResponse(data);
+        if(((List) data).isEmpty()){
+            response.replace("message","failure");
+            response.replace("error","No entry for the month");
+            response.replace("code","200");
+        }
+        System.out.println("GET /monthlylb : "+response.toJSONString());
         return response;
     }
 
@@ -178,6 +203,39 @@ public class LeaderboardController {
             response.replace("code","500");
         }
         System.out.println("GET /contest : "+response.toJSONString());
+        return response;
+    }
+    @GetMapping("/weekids")
+    public JSONObject getWeekIds(){
+        Object data = overallLeaderboardService.getWeekIds();
+        JSONObject response = getJSONResponse(data);
+        if(((List) data).isEmpty()){
+            response.replace("error","No data present");
+            response.replace("code","500");
+        }
+        System.out.println("GET /weekids : "+response.toJSONString());
+        return response;
+    }
+    @GetMapping("/dayids")
+    public JSONObject getDayIds(){
+        Object data = overallLeaderboardService.getDayIds();
+        JSONObject response = getJSONResponse(data);
+        if(((List) data).isEmpty()){
+            response.replace("error","No data present");
+            response.replace("code","500");
+        }
+        System.out.println("GET /dayids : "+response.toJSONString());
+        return response;
+    }
+    @GetMapping("/monthids")
+    public JSONObject getMonthIds(){
+        Object data = overallLeaderboardService.getMonthIds();
+        JSONObject response = getJSONResponse(data);
+        if(((List) data).isEmpty()){
+            response.replace("error","No data present");
+            response.replace("code","500");
+        }
+        System.out.println("GET /monthids : "+response.toJSONString());
         return response;
     }
 }

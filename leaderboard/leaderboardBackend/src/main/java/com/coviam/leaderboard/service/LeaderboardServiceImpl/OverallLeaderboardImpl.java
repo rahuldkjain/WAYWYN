@@ -12,6 +12,8 @@ import com.coviam.leaderboard.service.OverallLeaderboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -55,5 +57,35 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
     public List<ContestLeaderboard> getContestLeaderboard(Integer contestId) {
         List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllBycontestIdOrderByUserRankAsc(contestId);
         return contestLeaderboardList;
+    }
+
+    @Override
+    public List<WeeklyLeaderboard> getWeeklyLeaderboardByWeekId(Integer weekId) {
+        List<WeeklyLeaderboard> weeklyLeaderboardList =  weeklyLeaderboardRepository.findAllByOrderByUserRankAsc(weekId);
+        return weeklyLeaderboardList;
+    }
+
+    @Override
+    public List<MonthlyLeaderboard> getMonthlyLeaderboardByMonthId(Integer monthId) {
+        List<MonthlyLeaderboard> monthlyLeaderboardList = monthlyLeaderboardRepository.findAllByOrderByUserRankAsc(monthId);
+        return monthlyLeaderboardList;
+    }
+
+    @Override
+    public List<Integer> getWeekIds() {
+        List<Integer> weekIdList=weeklyLeaderboardRepository.findDistinctWeekId();
+        return weekIdList;
+    }
+
+    @Override
+    public List<Integer> getDayIds() {
+        List<Integer> dayIdList=dailyLeaderboardRepository.findDistinctDayId();
+        return dayIdList;
+    }
+
+    @Override
+    public List<Integer> getMonthIds() {
+        List<Integer> monthIdList=monthlyLeaderboardRepository.findDistinctMonthId();
+        return monthIdList;
     }
 }
