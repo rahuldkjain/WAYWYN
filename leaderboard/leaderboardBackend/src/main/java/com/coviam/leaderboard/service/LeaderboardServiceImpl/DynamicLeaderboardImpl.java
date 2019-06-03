@@ -77,7 +77,7 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
         int noOfRecordsCopied=0;
         boolean isUserFound=false;
         for(ContestLeaderboard user:contestLeaderboardList){
-            if(noOfRecordsCopied>=20 && isUserFound){
+            if(noOfRecordsCopied>=noOfrecords && isUserFound){
                 break;
             }
             Winner winner=new Winner();
@@ -90,7 +90,7 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
                 userRecord.setScore(user.getScore());
                 isUserFound=true;
             }
-            if(noOfRecordsCopied<20){
+            if(noOfRecordsCopied<noOfrecords){
                 winnerList.add(winner);
             }
             noOfRecordsCopied++;

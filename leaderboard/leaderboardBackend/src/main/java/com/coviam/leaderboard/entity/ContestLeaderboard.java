@@ -2,21 +2,17 @@ package com.coviam.leaderboard.entity;
 
 import com.coviam.leaderboard.pkclasses.ContestLeaderboardPK;
 
-import javax.persistence.Entity;
-
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity @IdClass(ContestLeaderboardPK.class)
 @Table(name="ContestLeaderboard")
 public class ContestLeaderboard {
 
-    @Id int userId;
-    @Id int contestId;
-    String username;
-    int score;
-    int userRank;
+    @Id @Column(name="user_id") int userId;
+    @Id @Column(name = "contest_id") int contestId;
+    @Column(name = "username") String username;
+    @Column(name="score") int score;
+    @Column(name = "user_rank") int userRank;
 
     public ContestLeaderboard(int userId, int contestId, String username, int score, int userRank) {
         this.userId = userId;

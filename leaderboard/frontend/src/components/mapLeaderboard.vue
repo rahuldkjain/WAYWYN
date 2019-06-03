@@ -6,22 +6,26 @@
         </header>
         <!-- <div v-if="loading">Loading...</div> -->
         
-        <LeaderboardCard
+        <LeaderboardCard 
         class='map-leaderboard__weekly--card' 
         :rank="rank "
         :player="name"
         :score="score"
         style="color:gray"
+
          />
+      
+
 
 
 
         <LeaderboardCard
-        class='map-leaderboard__weekly--card' v-for="(record, index) in getWeeklyLeaderBoard.data" 
+        class='map-leaderboard__weekly--card' v-for="(record, index) in weeklyLeaderBoard" 
         :key="'allTime' + index"
         :rank="record.userRank" 
         :player="record.username"
         :score="record.score"
+        
          />
 
     </div>
@@ -40,7 +44,7 @@
         style="color:gray"
          />
         <LeaderboardCard  
-        class='map-leaderboard__all-time--card' v-for="(record, index) in getDailyLeaderBoard.data" 
+        class='map-leaderboard__all-time--card' v-for="(record, index) in dailyLeaderBoard" 
         :key="'allTime' + index" 
         :rank="record.userRank" 
         :player="record.username"
@@ -63,7 +67,7 @@
         style="color:gray"
          />
         <LeaderboardCard  
-        class='map-leaderboard__monthly--card' v-for="(record, index) in getMonthlyLeaderBoard.data" 
+        class='map-leaderboard__monthly--card' v-for="(record, index) in monthlyLeaderBoard" 
         :key="'allTime' + index" 
         :rank="record.userRank" 
         :player="record.username"
@@ -82,15 +86,29 @@ export default {
     name: 'mapLeaderboard',
     data(){
         return {
-            rank: "rank",
-            name: "name",
-            score: "score"
+            rank: "Rank",
+            name: "Name",
+            score: "Score",
+            dailyLeaderBoard: [],
+            weeklyLeaderBoard: [],
+            monthlyLeaderBoard: []
+
         }
     },
     mounted(){
         this.$store.dispatch('fetchDailyLeaderBoard')
         this.$store.dispatch('fetchWeeklyLeaderBoard')
         this.$store.dispatch('fetchMonthlyLeaderBoard')
+        setInterval(()=>{
+                this.$store.dispatch('fetchDailyLeaderBoard')
+            },2000)
+        setInterval(()=>{
+            this.$store.dispatch('fetchWeeklyLeaderBoard')
+        },2000)
+        setInterval(()=>{
+            this.$store.dispatch('fetchMonthlyLeaderBoard')
+        },2000)
+        //this.weeklyLeaderBoardFetch()
 
     },
     components: {
@@ -98,6 +116,39 @@ export default {
     },
     computed: {
         ...mapGetters(['getDailyLeaderBoard','getWeeklyLeaderBoard','getMonthlyLeaderBoard'])
+    },
+    watch: {
+      getDailyLeaderBoard: function(newValue, oldValue){
+        newValue.data.forEach(day => {
+            if(this.dailyLeaderBoard.length < 10){
+                this.dailyLeaderBoard.push(day)
+            }
+        });
+      },
+      getWeeklyLeaderBoard: function(newValue, oldValue){
+        newValue.data.forEach(week => {
+            if(this.weeklyLeaderBoard.length < 10){
+                this.weeklyLeaderBoard.push(week)
+            }
+        });
+        
+      },
+      getMonthlyLeaderBoard: function(newValue, oldValue){
+        newValue.data.forEach(month => {
+            if(this.monthlyLeaderBoard.length < 10){
+                this.monthlyLeaderBoard.push(month)
+            }
+        });
+      }
+      
+    },
+    methods: {
+        weeklyLeaderBoardFetch(){
+            for(var index=0;index<this.$store.getters.getWeekyLeaderBoard.data.length && index<10;index++){
+        this.weeklyLeaderBoard[index]=this.$store.getters.getWeekyLeaderBoard.data[index]
+        console.log(this.$store.getters.getWeekyLeaderBoard)
+        }
+    }
     }
 };
 </script>

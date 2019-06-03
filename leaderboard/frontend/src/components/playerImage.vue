@@ -1,7 +1,7 @@
 <template>
 <div>
-    <!-- <img :class="className" v-if="loading" src='https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg' alt="Loading...">
-    <img :class="className" v-else :src='imgUrl' /> -->
+    <img :class="className" v-if="loading" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRZ0CLenc8ZCs6kgKYg0Pe2IhiSlNRygACCC1JzkKioGWFr-Ar7g' alt="Loading..." style="height:55px;width:45px">
+    <img :class="className" v-else :src='imgUrl' />
 </div>
 </template>
  

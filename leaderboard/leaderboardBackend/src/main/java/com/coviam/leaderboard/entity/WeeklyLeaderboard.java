@@ -2,18 +2,15 @@ package com.coviam.leaderboard.entity;
 
 import com.coviam.leaderboard.pkclasses.WeeklyLeaderboardPK;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity @IdClass(WeeklyLeaderboardPK.class)
 @Table(name="WeeklyLeaderboard")
 public class WeeklyLeaderboard {
-    @Id int weekId;
-    @Id String username;
-    int score;
-    int userRank;
+    @Id @Column(name="week_id") int weekId;
+    @Id @Column(name="username") String username;
+    @Column(name="score") int score;
+    @Column(name="user_rank") int userRank;
 
     public WeeklyLeaderboard() {
     }

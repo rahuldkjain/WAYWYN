@@ -1,5 +1,6 @@
 package com.coviam.leaderboard.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,11 +10,11 @@ import java.sql.Date;
 @Table(name="Contest")
 public class Contest {
     @Id
-    int contestId;
-    String type;
-    String category;
-    Date date;
-    String contestName;
+    @Column(name="contest_id") int contestId;
+    @Column(name ="type") String type;
+    @Column(name ="category")String category;
+    @Column(name ="date")Date date;
+    @Column(name ="contest_name")String contestName;
 
     public Contest(int contestId, String type, String category, Date date, String contestName) {
         this.contestId = contestId;
