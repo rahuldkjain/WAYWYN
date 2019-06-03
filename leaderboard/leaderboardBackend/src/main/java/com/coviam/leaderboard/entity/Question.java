@@ -11,7 +11,7 @@ public class Question {
     @Id
     @Column(name = "questionId")
     int qId;
-    int correct_count;
+    @Column(name="correct_count") int correct_count;
 
     public Question(int qId, int correct_count) {
         this.qId = qId;

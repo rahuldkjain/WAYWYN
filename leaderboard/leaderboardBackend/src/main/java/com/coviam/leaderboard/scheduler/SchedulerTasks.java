@@ -43,31 +43,61 @@ public class SchedulerTasks {
     @Scheduled(fixedRate = 2000)
     public void updateContestLeaderboard(){
         // logger.info("Current Thread : {}", Thread.currentThread().getName());
-        List<UserScore> userScoreList=userScoreRepository.findAllByOrderByScoreDesc();
-        List<ContestLeaderboard> contestLeaderboardList=new ArrayList<ContestLeaderboard>();
-        int rank =0;
-        int previousScore=-1;
-        for(UserScore user:userScoreList){
-            ContestLeaderboard contestLeaderboard=new ContestLeaderboard();
-            contestLeaderboard.setContestId(user.getContestId());
-            contestLeaderboard.setScore(user.getScore());
-            contestLeaderboard.setUserId(user.getUserId());
-            contestLeaderboard.setUsername(user.getUsername());
-            if(contestLeaderboard.getScore()!=previousScore){
-                contestLeaderboard.setUserRank(++rank);
-            }else {
-                contestLeaderboard.setUserRank(rank);
+        //todo for each contest
+        List<Integer> contests=userScoreRepository.findAllContests();
+        for(Integer contest:contests){
+            List<UserScore> userScoreList=userScoreRepository.findAllByOrderByScoreDescByContestId(contest);
+            List<ContestLeaderboard> contestLeaderboardList=new ArrayList<ContestLeaderboard>();
+            int rank =0;
+            int previousScore=-1;
+            for(UserScore user:userScoreList){
+                ContestLeaderboard contestLeaderboard=new ContestLeaderboard();
+                contestLeaderboard.setContestId(user.getContestId());
+                contestLeaderboard.setScore(user.getScore());
+                contestLeaderboard.setUserId(user.getUserId());
+                contestLeaderboard.setUsername(user.getUsername());
+                if(contestLeaderboard.getScore()!=previousScore){
+                    contestLeaderboard.setUserRank(++rank);
+                }else {
+                    contestLeaderboard.setUserRank(rank);
+                }
+                previousScore=user.getScore();
+                contestLeaderboardList.add(contestLeaderboard);
             }
-            previousScore=user.getScore();
-            contestLeaderboardList.add(contestLeaderboard);
+            System.out.println("\n\nupdateContestLeaderboardThread: ");
+            for(UserScore user:userScoreList){
+                System.out.println(user.getUsername());
+            }
+            contestLeaderboardRepository.save(contestLeaderboardList);
         }
-        System.out.println("updateContestLeaderboardThread: ");
-        for(UserScore user:userScoreList){
-            System.out.println(user.getUsername());
-        }
-        contestLeaderboardRepository.save(contestLeaderboardList);
+
         return ;
-    };
+
+//        List<UserScore> userScoreList=userScoreRepository.findAllByOrderByScoreDesc();
+//        List<ContestLeaderboard> contestLeaderboardList=new ArrayList<ContestLeaderboard>();
+//        int rank =0;
+//        int previousScore=-1;
+//        for(UserScore user:userScoreList){
+//            ContestLeaderboard contestLeaderboard=new ContestLeaderboard();
+//            contestLeaderboard.setContestId(user.getContestId());
+//            contestLeaderboard.setScore(user.getScore());
+//            contestLeaderboard.setUserId(user.getUserId());
+//            contestLeaderboard.setUsername(user.getUsername());
+//            if(contestLeaderboard.getScore()!=previousScore){
+//                contestLeaderboard.setUserRank(++rank);
+//            }else {
+//                contestLeaderboard.setUserRank(rank);
+//            }
+//            previousScore=user.getScore();
+//            contestLeaderboardList.add(contestLeaderboard);
+//        }
+//        System.out.println("\n\nupdateContestLeaderboardThread: ");
+//        for(UserScore user:userScoreList){
+//            System.out.println(user.getUsername());
+//        }
+//        contestLeaderboardRepository.save(contestLeaderboardList);
+//        return ;
+    }
 
     @Scheduled(fixedRate = 4000)
     public void updateDailyLeaderboard(){
@@ -107,7 +137,7 @@ public class SchedulerTasks {
             previousScore=dailyLeaderboard.getScore();
             dailyLeaderboards.add(dailyLeaderboard);
         }
-        System.out.println("updateDailyLeaderboardThread: ");
+        System.out.println("\n\nupdateDailyLeaderboardThread: ");
         for(DailyLeaderboard dailyLeaderboard:dailyLeaderboards){
             System.out.println(dailyLeaderboard.getUsername());
         }
@@ -143,7 +173,7 @@ public class SchedulerTasks {
             previousScore=weeklyLeaderboard.getScore();
             weeklyLeaderboardList.add(weeklyLeaderboard);
         }
-        System.out.println("updateWeeklyLeaderboardThread: ");
+        System.out.println("\n\nupdateWeeklyLeaderboardThread: ");
         for(WeeklyLeaderboard weeklyLeaderboard:weeklyLeaderboardList){
             System.out.println(weeklyLeaderboard.getUsername());
         }
@@ -153,7 +183,7 @@ public class SchedulerTasks {
 
     @Scheduled(fixedRate = 8000)
     public void updateMonthlyLeaderboard(){
-        System.out.println("hi i am in update monthly");
+//        System.out.println("hi i am in update monthly");
         long todayWeek=System.currentTimeMillis()/1000/60/60/24/7;
         long monthId=System.currentTimeMillis()/1000/60/60/24/7/4;
         long startWeek=monthId*4;
@@ -179,7 +209,7 @@ public class SchedulerTasks {
             previousScore=monthlyLeaderboard.getScore();
             monthlyLeaderboardList.add(monthlyLeaderboard);
         }
-        System.out.println("updateMonthlyLeaderboardThread: ");
+        System.out.println("\n\nupdateMonthlyLeaderboardThread: ");
         for(MonthlyLeaderboard monthlyLeaderboard:monthlyLeaderboardList){
             System.out.println(monthlyLeaderboard.getUsername());
         }
@@ -215,7 +245,7 @@ public class SchedulerTasks {
 
 
     private ResponseEntity addQuestionDetails() {
-        System.out.println("addQuestionDetailsThread: ");
+        System.out.println("\n\naddQuestionDetailsThread: ");
         List<Contest> contestList= (List<Contest>) contestRepository.findAll();
         RestTemplate restTemplate = new RestTemplate();
 
@@ -266,7 +296,7 @@ public class SchedulerTasks {
 
 
     private ResponseEntity addDynamicContestsToDB() {
-        System.out.println("addDynamicConteststoDBThread: ");
+        System.out.println("\n\naddDynamicConteststoDBThread: ");
         RestTemplate restTemplate = new RestTemplate();
         String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;
@@ -303,7 +333,7 @@ public class SchedulerTasks {
     }
 
     private ResponseEntity addStaticContestsToDB() {
-        System.out.println("addStaticConteststoDBThread: ");
+        System.out.println("\n\naddStaticConteststoDBThread: ");
         RestTemplate restTemplate = new RestTemplate();
         String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;

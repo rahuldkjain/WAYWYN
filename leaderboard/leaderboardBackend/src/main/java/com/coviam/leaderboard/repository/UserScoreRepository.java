@@ -20,4 +20,8 @@ public interface UserScoreRepository extends CrudRepository<UserScore,UserScoreP
 
     @Query(value = "select * from user_score where contest_id = ?1", nativeQuery = true)
     List<UserScore> findByContestId(Integer contestId);
+    @Query(value="select distinct contest_id from user_score",nativeQuery = true)
+    List<Integer> findAllContests();
+    @Query(value = "select * from user_score where contest_id=?1 order by score desc",nativeQuery = true)
+    List<UserScore> findAllByOrderByScoreDescByContestId(Integer contest);
 }

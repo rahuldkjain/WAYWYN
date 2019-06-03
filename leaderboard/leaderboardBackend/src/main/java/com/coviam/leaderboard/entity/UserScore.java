@@ -2,23 +2,20 @@ package com.coviam.leaderboard.entity;
 
 import com.coviam.leaderboard.pkclasses.UserScorePK;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity @IdClass(UserScorePK.class)
 @Table(name="UserScore")
 public class UserScore{
     @Id
-    Integer userId;
+    @Column(name="user_id") Integer userId;
     @Id
-    Integer contestId;
+    @Column(name="contest_id") Integer contestId;
 
-    String username;
-    Integer score;
-    Date userEndDate;
+    @Column(name="username") String username;
+    @Column(name="score") Integer score;
+    @Column(name = "user_end_date") Date userEndDate;
 
 
     public UserScore(Integer userId, Integer contestId, String username, Integer score, Date userEndDate) {
