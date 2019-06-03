@@ -21,6 +21,7 @@
           for(var index=0; index < newValue.length; index++){
             let contest = {
               contestId: newValue[index].contestId,
+              contestName: newValue[index].contestName,
               type: newValue[index].type,
               category: newValue[index].category,
               contestEndDate: newValue[index].date

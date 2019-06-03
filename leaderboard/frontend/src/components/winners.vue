@@ -8,7 +8,7 @@
       <b-card title="Contest" style="text-align:center"   :header="item.contest_name"  border-variant="success">
 
       <b-card-text>
-    <b>Contest Name :</b> {{item.contestname}}
+    <b>Contest Name :</b> {{item.contestName}}
     {{item.score}}
     </b-card-text>
     <b-card-text>
@@ -59,7 +59,7 @@
 
   </b-row>
 </b-container>
-  
+
 </div>
 </template>
 <script>
@@ -87,7 +87,7 @@ export default {
       }
     },
     mounted() {
-      
+
     },
     methods: {
         contestLeaderBoard(contestId){
@@ -99,7 +99,7 @@ export default {
           this.$router.push('/winnerboard/'+contestId)
         }
     },
-    
+
     computed: {
         ...mapGetters(['getWinnersOfContest','getNumOfActiveContests','getActiveContests'])
     }
