@@ -50,6 +50,7 @@ public class SchedulerTasks {
             List<ContestLeaderboard> contestLeaderboardList=new ArrayList<ContestLeaderboard>();
             int rank =0;
             int previousScore=-1;
+            int usersWithSameScore=0;
             for(UserScore user:userScoreList){
                 ContestLeaderboard contestLeaderboard=new ContestLeaderboard();
                 contestLeaderboard.setContestId(user.getContestId());
@@ -57,9 +58,12 @@ public class SchedulerTasks {
                 contestLeaderboard.setUserId(user.getUserId());
                 contestLeaderboard.setUsername(user.getUsername());
                 if(contestLeaderboard.getScore()!=previousScore){
+                    rank+=usersWithSameScore;
                     contestLeaderboard.setUserRank(++rank);
+                    usersWithSameScore=0;
                 }else {
                     contestLeaderboard.setUserRank(rank);
+                    usersWithSameScore++;
                 }
                 previousScore=user.getScore();
                 contestLeaderboardList.add(contestLeaderboard);
