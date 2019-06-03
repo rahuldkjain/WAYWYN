@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -32,11 +33,15 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
     @Override
     public List<Winner> getStaticLeaderboard(Integer userId, Integer contestId, Integer noOfRecords) {
 
-        List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllBycontestIdOrderByUserRankAsc(contestId);
+        List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllByOrderByScoreDesc(contestId);
         List<Winner> winnerList=new ArrayList<Winner>();
         Winner userRecord=new Winner();
         int noOfRecordsCopied=0;
         boolean isUserFound=false;
+        int rank=0;
+        int previousScore=-1;
+        int usersWithSameScore=0;
+
         for(ContestLeaderboard user:contestLeaderboardList){
             if(noOfRecordsCopied>=noOfRecords && isUserFound){
                 break;
@@ -44,10 +49,20 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
             Winner winner=new Winner();
             winner.setScore(user.getScore());
             winner.setUsername(user.getUsername());
-            winner.setUserRank(user.getUserRank());
+
+            if(user.getScore()!=previousScore){
+                rank+=usersWithSameScore;
+                winner.setUserRank(++rank);
+                usersWithSameScore=0;
+            }else{
+                winner.setUserRank(rank);
+                usersWithSameScore++;
+            }
+            previousScore=winner.getScore();
+
             if(userId==user.getUserId()){
                 userRecord.setUsername(user.getUsername());
-                userRecord.setUserRank(user.getUserRank());
+                userRecord.setUserRank(winner.getUserRank());
                 userRecord.setScore(user.getScore());
                 isUserFound=true;
             }
@@ -95,4 +110,25 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
 
         return "success";
     }
+//    private List<Integer> findRank(List<Integer> scores) {
+//        List<Integer> rankList=new ArrayList<Integer>();
+//        int rank=0;
+//        int previousScore=-1;
+//        int usersWithSameScore=0;
+//        Integer newRank;
+//        for (Integer score:scores){
+//            if(score!=previousScore){
+//                rank+=usersWithSameScore;
+//                newRank=++rank;
+//                rankList.add(newRank);
+//                usersWithSameScore=0;
+//            }else{
+//                newRank=rank;
+//                rankList.add(newRank);
+//                usersWithSameScore++;
+//            }
+//            previousScore=score;
+//        }
+//        return rankList;
+//    }
 }

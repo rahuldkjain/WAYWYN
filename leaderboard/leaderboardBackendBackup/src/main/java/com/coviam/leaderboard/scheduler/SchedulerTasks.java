@@ -48,24 +48,12 @@ public class SchedulerTasks {
         for(Integer contest:contests){
             List<UserScore> userScoreList=userScoreRepository.findAllByOrderByScoreDescByContestId(contest);
             List<ContestLeaderboard> contestLeaderboardList=new ArrayList<ContestLeaderboard>();
-            int rank =0;
-            int previousScore=-1;
-            int usersWithSameScore=0;
             for(UserScore user:userScoreList){
                 ContestLeaderboard contestLeaderboard=new ContestLeaderboard();
                 contestLeaderboard.setContestId(user.getContestId());
                 contestLeaderboard.setScore(user.getScore());
                 contestLeaderboard.setUserId(user.getUserId());
                 contestLeaderboard.setUsername(user.getUsername());
-                if(contestLeaderboard.getScore()!=previousScore){
-                    rank+=usersWithSameScore;
-                    contestLeaderboard.setUserRank(++rank);
-                    usersWithSameScore=0;
-                }else {
-                    contestLeaderboard.setUserRank(rank);
-                    usersWithSameScore++;
-                }
-                previousScore=user.getScore();
                 contestLeaderboardList.add(contestLeaderboard);
             }
             System.out.println("\n\nupdateContestLeaderboardThread: ");
@@ -101,24 +89,12 @@ public class SchedulerTasks {
 
         long epoch=System.currentTimeMillis()/1000/60/60/24;
         List<DailyLeaderboard> dailyLeaderboards=new ArrayList<DailyLeaderboard>();
-        int rank=0;
-        int previousScore=-1;
-        int usersWithSameScore=0;
         //setting the daily leaderboard table
         for(UserAggregateScore userScore:userScoreList){
             DailyLeaderboard dailyLeaderboard=new DailyLeaderboard();
             dailyLeaderboard.setDayId((int)epoch);
             dailyLeaderboard.setUsername(userScore.getUsername());
             dailyLeaderboard.setScore(userScore.getScore());
-            if(dailyLeaderboard.getScore()!=previousScore){
-                rank+=usersWithSameScore;
-                dailyLeaderboard.setUserRank(++rank);
-                usersWithSameScore=0;
-            }else{
-                dailyLeaderboard.setUserRank(rank);
-                usersWithSameScore++;
-            }
-            previousScore=dailyLeaderboard.getScore();
             dailyLeaderboards.add(dailyLeaderboard);
         }
         System.out.println("\n\nupdateDailyLeaderboardThread: ");
@@ -141,24 +117,12 @@ public class SchedulerTasks {
         Iterator iterator=dailyLeaderboardlist.iterator();
         List<WeeklyLeaderboard> weeklyLeaderboardList=new ArrayList<WeeklyLeaderboard>();
 
-        int rank=0;
-        int previousScore=-1;
-        int usersWithSameScore=0;
         while (iterator.hasNext()){
             Object[] object=(Object[]) iterator.next();
             WeeklyLeaderboard weeklyLeaderboard=new WeeklyLeaderboard();
             weeklyLeaderboard.setUsername(String.valueOf(object[0]));
             weeklyLeaderboard.setScore(Integer.parseInt(String.valueOf(object[1])));
             weeklyLeaderboard.setWeekId((int)weekId);
-            if(Integer.parseInt(String.valueOf(object[1]))!=previousScore){
-                rank+=usersWithSameScore;
-                weeklyLeaderboard.setUserRank(++rank);
-                usersWithSameScore=0;
-            }else{
-                weeklyLeaderboard.setUserRank(rank);
-                usersWithSameScore++;
-            }
-            previousScore=weeklyLeaderboard.getScore();
             weeklyLeaderboardList.add(weeklyLeaderboard);
         }
         System.out.println("\n\nupdateWeeklyLeaderboardThread: ");
@@ -181,24 +145,12 @@ public class SchedulerTasks {
         Iterator iterator=weeklyLeaderboardlist.iterator();
         List<MonthlyLeaderboard> monthlyLeaderboardList=new ArrayList<MonthlyLeaderboard>();
 
-        int rank=0;
-        int previousScore=-1;
-        int usersWithSameScore=0;
         while (iterator.hasNext()){
             Object[] object=(Object[]) iterator.next();
             MonthlyLeaderboard monthlyLeaderboard=new MonthlyLeaderboard();
             monthlyLeaderboard.setUsername(String.valueOf(object[0]));
             monthlyLeaderboard.setScore(Integer.parseInt(String.valueOf(object[1])));
             monthlyLeaderboard.setMonthId((int)monthId);
-            if(Integer.parseInt(String.valueOf(object[1]))!=previousScore){
-                rank+=usersWithSameScore;
-                monthlyLeaderboard.setUserRank(++rank);
-                usersWithSameScore=0;
-            }else{
-                monthlyLeaderboard.setUserRank(rank);
-                usersWithSameScore++;
-            }
-            previousScore=monthlyLeaderboard.getScore();
             monthlyLeaderboardList.add(monthlyLeaderboard);
         }
         System.out.println("\n\nupdateMonthlyLeaderboardThread: ");

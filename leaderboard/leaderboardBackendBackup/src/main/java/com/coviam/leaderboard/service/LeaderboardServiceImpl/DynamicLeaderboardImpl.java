@@ -71,35 +71,47 @@ public class DynamicLeaderboardImpl implements DynamicLeaderboardService {
     }
 
     @Override
-    public List<Winner> getDynamicLeaderboard(Integer userId, Integer contestId, Integer noOfrecords ) {
-        List<ContestLeaderboard> contestLeaderboardList=contestLeaderboardRepository.findAllBycontestIdOrderByUserRankAsc(contestId);
-        List<Winner> winnerList=new ArrayList<Winner>();
-        Winner userRecord=new Winner();
-        int noOfRecordsCopied=0;
-        boolean isUserFound=false;
-        for(ContestLeaderboard user:contestLeaderboardList){
-            if(noOfRecordsCopied>=noOfrecords && isUserFound){
+    public List<Winner> getDynamicLeaderboard(Integer userId, Integer contestId, Integer noOfRecords ) {
+        List<ContestLeaderboard> contestLeaderboardList = contestLeaderboardRepository.findAllByOrderByScoreDesc(contestId);
+        List<Winner> winnerList = new ArrayList<Winner>();
+        Winner userRecord = new Winner();
+        int noOfRecordsCopied = 0;
+        boolean isUserFound = false;
+        int rank = 0;
+        int previousScore = -1;
+        int usersWithSameScore = 0;
+
+        for (ContestLeaderboard user : contestLeaderboardList) {
+            if (noOfRecordsCopied >= noOfRecords && isUserFound) {
                 break;
             }
-            Winner winner=new Winner();
+            Winner winner = new Winner();
             winner.setScore(user.getScore());
             winner.setUsername(user.getUsername());
-            winner.setUserRank(user.getUserRank());
-            if(userId==user.getUserId()){
-                userRecord.setUsername(user.getUsername());
-                userRecord.setUserRank(user.getUserRank());
-                userRecord.setScore(user.getScore());
-                isUserFound=true;
+
+            if (user.getScore() != previousScore) {
+                rank += usersWithSameScore;
+                winner.setUserRank(++rank);
+                usersWithSameScore = 0;
+            } else {
+                winner.setUserRank(rank);
+                usersWithSameScore++;
             }
-            if(noOfRecordsCopied<noOfrecords){
+            previousScore = winner.getScore();
+
+            if (userId == user.getUserId()) {
+                userRecord.setUsername(user.getUsername());
+                userRecord.setUserRank(winner.getUserRank());
+                userRecord.setScore(user.getScore());
+                isUserFound = true;
+            }
+            if (noOfRecordsCopied < noOfRecords) {
                 winnerList.add(winner);
             }
             noOfRecordsCopied++;
         }
-        if(userRecord!=null){
-            winnerList.add(userRecord);
-        }
-        return winnerList;
 
+        winnerList.add(userRecord);
+        return winnerList;
     }
 }

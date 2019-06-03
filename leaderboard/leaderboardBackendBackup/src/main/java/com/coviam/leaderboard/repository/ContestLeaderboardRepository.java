@@ -11,11 +11,9 @@ import java.util.List;
 @Repository
 public interface ContestLeaderboardRepository extends CrudRepository<ContestLeaderboard,ContestLeaderboardPK> {
 
-        @Query(value = "select * from contest_leaderboard where user_rank=1 and contest_id=?1",nativeQuery = true)
-        List<ContestLeaderboard> findAllByUserRank(Integer contestId);
-
-        @Query(value="select * from contest_leaderboard where contest_id=?1 order by user_rank asc",nativeQuery = true)
-        List<ContestLeaderboard> findAllBycontestIdOrderByUserRankAsc(Integer contestId);
 
         List<ContestLeaderboard> findAllByContestId(Integer contestId);
+
+        @Query(value = "select * from contest_leaderboard where contest_id=?1 order by score desc",nativeQuery = true)
+        List<ContestLeaderboard> findAllByOrderByScoreDesc(Integer contestId);
 }
