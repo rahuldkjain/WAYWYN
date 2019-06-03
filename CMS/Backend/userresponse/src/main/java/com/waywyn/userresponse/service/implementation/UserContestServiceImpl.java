@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -29,7 +30,7 @@ public class UserContestServiceImpl implements UserContestService {
 
     @Override
     public UserResultDTO userResult(UserResultRecieveDTO userResultRecieveDTO) throws Exception {
-        HashMap<Integer,AnswerDTO> answerDTOHashMap;
+        HashMap<Integer,AnswerDTO> answerDTOHashMap = new HashMap<>();
         UserResultDTO userResultDTO = new UserResultDTO();
         UserResultToLeaderboardDTO userResultToLeaderboardDTO = new UserResultToLeaderboardDTO();
         UserResponseLeaderboardDTO userResponseLeaderboardDTO = new UserResponseLeaderboardDTO();
@@ -43,7 +44,11 @@ public class UserContestServiceImpl implements UserContestService {
         ObjectMapper mapper = new ObjectMapper();
         //Rest template for getting answers from contest
         String url = "http://10.177.7.130:8080/contest/answers?contestId="+userResultRecieveDTO.getContestId();
-        answerDTOHashMap = restTemplate.getForObject(url,HashMap.class);
+        try {
+            answerDTOHashMap = restTemplate.getForObject(url, HashMap.class);
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+        }
 
         UserContest userContest = userContestRepository.getByUserIdAndContestId(userResultRecieveDTO.getUserId(),userResultRecieveDTO.getContestId());
         ArrayList<UserResponse> responses = userResponseRepository.getByUcId(userContest.getUcId());
@@ -59,11 +64,14 @@ public class UserContestServiceImpl implements UserContestService {
                     throw new Exception("User has a skipped response");
                 } else {
                     answerDTO = mapper.convertValue(answerDTOHashMap.get(String.valueOf(it.getQuestionId())),AnswerDTO.class);
-                    if (it.getResponse().equals(answerDTO.getAnswer().toLowerCase())) {
+                    System.out.println("!"+it.getResponse().toLowerCase()+"!");
+                    System.out.println("!"+answerDTO.getAnswer().toLowerCase()+"!");
+                    System.out.println(" ");
+                    if (it.getResponse().toLowerCase().equals(answerDTO.getAnswer().toLowerCase())) {
                         difficulty = answerDTO.getDifficultyType();
                         if (difficulty.toLowerCase().equals("easy"))
                             it.setScore(1);
-                        else if (difficulty.toLowerCase().equals("average"))
+                        else if (difficulty.toLowerCase().equals("medium"))
                             it.setScore(3);
                         else if (difficulty.toLowerCase().equals("hard"))
                             it.setScore(5);
@@ -103,7 +111,11 @@ public class UserContestServiceImpl implements UserContestService {
         userResultToLeaderboardDTO.setQuestions(userResponseLeaderboardDTOS);
         HttpEntity<UserResultToLeaderboardDTO> request = new HttpEntity<>(userResultToLeaderboardDTO);
         url = "http://10.177.7.144:8080/leaderboard/static";
-        URI location = restTemplate.postForLocation(url,request);
+        try {
+            URI location = restTemplate.postForLocation(url, request);
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+        }
 
         userResultDTO.setCorrectAnswers(correctAnswer);
         userResultDTO.setTotalScore(totalScore);
@@ -129,11 +141,11 @@ public class UserContestServiceImpl implements UserContestService {
                 throw new Exception("response is either null or or skipped");
             }
             else {
-                if (userResponse.getResponse().equals(dynamicTimeTrack.getAnswer().toLowerCase()) && userResponse.getTime().compareTo(dynamicTimeTrack.getStartTime()) >= 0 && userResponse.getTime().compareTo(dynamicTimeTrack.getEndTime()) <= 0) {
+                if (userResponse.getResponse().toLowerCase().equals(dynamicTimeTrack.getAnswer().toLowerCase()) && userResponse.getTime().compareTo(dynamicTimeTrack.getStartTime()) >= 0 && userResponse.getTime().compareTo(dynamicTimeTrack.getEndTime()) <= 0) {
                     difficulty = dynamicTimeTrack.getDifficulty();
                     if (difficulty.toLowerCase().equals("easy"))
                         userResponse.setScore(1);
-                    else if (difficulty.toLowerCase().equals("average"))
+                    else if (difficulty.toLowerCase().equals("medium"))
                         userResponse.setScore(3);
                     else if (difficulty.toLowerCase().equals("hard"))
                         userResponse.setScore(5);
@@ -156,7 +168,11 @@ public class UserContestServiceImpl implements UserContestService {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<DynamicQuesResultToLeaderboardDTO> request = new HttpEntity<>(dynamicQuesResultToLeaderboardDTO);
         String url = "http://10.177.7.144:8080/leaderboard/dynamic";
-        URI location = restTemplate.postForLocation(url,request);
+        try {
+            URI location = restTemplate.postForLocation(url, request);
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("Calculating and send of score successful in dynamicQuestion");
         return "Calculating and send of score successful in dynamicQuestion";
@@ -166,13 +182,17 @@ public class UserContestServiceImpl implements UserContestService {
     public ArrayList<ContestDefinitionDTO> userActive(int userId) {
         ArrayList<UserContest> contestIds = userContestRepository.getByUserId(userId);
         ArrayList<ContestDefinitionDTO> contestObjectsArray = new ArrayList<>();
-        ContestDefinitionDTO contestDefinitionDTO;
+        ContestDefinitionDTO contestDefinitionDTO = new ContestDefinitionDTO();
         for (UserContest it: contestIds) {
 
             //Rest Template to get contests using ContestIds
             String url = "http://10.177.7.130:8080/contest/getcontestdefinition?contestId="+it.getContestId();
             RestTemplate restTemplate = new RestTemplate();
-            contestDefinitionDTO = restTemplate.getForObject(url,ContestDefinitionDTO.class);
+            try {
+                contestDefinitionDTO = restTemplate.getForObject(url, ContestDefinitionDTO.class);
+            } catch (HttpClientErrorException e) {
+                e.printStackTrace();
+            }
             if(it.getEndDate() == null) {
                 contestDefinitionDTO.setEnded("incomplete");
             }

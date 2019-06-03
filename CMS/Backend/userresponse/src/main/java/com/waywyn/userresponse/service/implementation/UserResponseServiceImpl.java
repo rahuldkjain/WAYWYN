@@ -12,6 +12,7 @@ import com.waywyn.userresponse.service.UserResponseService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -48,10 +49,14 @@ public class UserResponseServiceImpl implements UserResponseService {
 
 
             //Rest template to add type and category from contest microservice
-            ContestDefinitionDTO contestDefinitionDTO;
+            ContestDefinitionDTO contestDefinitionDTO = new ContestDefinitionDTO();
             url = "http://10.177.7.130:8080/contest/getcontestdefinition?contestId="+userContest.getContestId();
             RestTemplate restTemplate = new RestTemplate();
-            contestDefinitionDTO = restTemplate.getForObject(url,ContestDefinitionDTO.class);
+            try {
+                contestDefinitionDTO = restTemplate.getForObject(url, ContestDefinitionDTO.class);
+            } catch (HttpClientErrorException e) {
+                e.printStackTrace();
+            }
             userContest.setCategory(contestDefinitionDTO.getCategoryName());
             userContest.setType(contestDefinitionDTO.getContestType());
             userContest.setUcId(counterService.genNextSequence("userContest"));
@@ -126,6 +131,6 @@ public class UserResponseServiceImpl implements UserResponseService {
             }
             return userResponses;
         }
-        throw new Exception("User does not have any contest");
+        return null;
     }
 }

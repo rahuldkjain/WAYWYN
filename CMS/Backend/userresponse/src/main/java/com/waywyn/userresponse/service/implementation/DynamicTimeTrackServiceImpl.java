@@ -39,7 +39,7 @@ public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
     @Override
     public DynamicTimeTrack getQuestion () {
         Date date = new Date();
-        DynamicTimeTrack dynamicTimeTrack = dynamicTimeTrackRepository.findByResultDoneAndStartTimeLessThanAndEndTimeGreaterThan(false,date,date);
+        DynamicTimeTrack dynamicTimeTrack = dynamicTimeTrackRepository.findFirst1ByResultDoneAndStartTimeLessThanAndEndTimeLessThan(false,date,date);
         if(dynamicTimeTrack == null) {
             System.out.println("throw error in getQuestion");
         }
