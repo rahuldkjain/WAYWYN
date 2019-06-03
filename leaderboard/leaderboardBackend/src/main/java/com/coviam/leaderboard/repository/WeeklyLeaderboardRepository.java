@@ -16,4 +16,7 @@ public interface WeeklyLeaderboardRepository extends CrudRepository<WeeklyLeader
 
     @Query(value = "select * from weekly_leaderboard where week_id = ?1 order by user_rank asc", nativeQuery = true)
     List<WeeklyLeaderboard> findAllByOrderByUserRankAsc(long weekId);
+
+    @Query(value = "select distinct week_id from weekly_leaderboard",nativeQuery = true)
+    List<Integer> findDistinctWeekId();
 }

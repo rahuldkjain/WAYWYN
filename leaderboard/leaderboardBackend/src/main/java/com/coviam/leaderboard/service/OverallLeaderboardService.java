@@ -16,4 +16,16 @@ public interface OverallLeaderboardService {
     List<MonthlyLeaderboard> getMonthlyLeaderboard();
 
     List<ContestLeaderboard> getContestLeaderboard(Integer contestId);
+
+    List<WeeklyLeaderboard> getWeeklyLeaderboardByWeekId(Integer weekId);
+
+    List<MonthlyLeaderboard> getMonthlyLeaderboardByMonthId(Integer monthId);
+
+    List<Integer> getWeekIds();
+
+    List<Integer> getDayIds();
+
+    List<Integer> getMonthIds();
+
+    List<DailyLeaderboard> getDailyLeaderboardByDayId(Integer dayId);
 }

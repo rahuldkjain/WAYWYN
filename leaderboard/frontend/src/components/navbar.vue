@@ -1,9 +1,9 @@
 <template>
 <nav class='navbar' >
     <div class="wrapper">
-
+       
         <i @click="toggleSidebar" class="material-icons navbar__toggle">menu</i>
-
+        <span style="position:relative;right:420px;color:white" > {{date}}</span>
         <router-link  class="navbar__logo" to="/">
             <img src="https://badgeos.org/wp-content/uploads/edd/2013/11/leaderboard.png" alt="BB Logo" style="height:70px;width:70px;">
         </router-link>
@@ -29,7 +29,8 @@ export default {
             signedIn: false,
             username: null,
             error: null,
-            mapName: ""
+            mapName: "",
+            date: null,
         }
     },
     created () {
@@ -44,18 +45,6 @@ export default {
         toggleSidebar(){
             document.querySelector('.sidebar').classList.toggle('sidebar--active');
         },
-        // fetchUser() {
-        //     let url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=7BA7B2ACDDBDD5D85F4109CB6FCB30DA&steamids=' + this.user.steamId;
-        //     fetch(url)
-        //     .catch(err => this.error = err)
-        //     .then(res => {
-        //         return res.json();
-        //     })
-        //     .then(results => {
-        //         this.username = results.response.players['0'].personaname;
-        //         this.signedIn = true;
-        //     });
-        // },
         getMapName() {
             this.mapName = "";
             if(this.$route.query.mapid) {
@@ -75,14 +64,22 @@ export default {
                     this.mapName = result.data['map_name'].replace('surf_', '').charAt(0).toUpperCase() + result.data['map_name'].replace('surf_', '').slice(1)
                 })
             } else {
-                this.mapName = "WAYWYN";
+                this.mapName = "QuizHum";
             }
+        },
+        updateTime(){
+            this.date=new Date()
         }
     },
     components: {
         PlayerImage
+    },
+    mounted(){
+        setInterval(()=>{
+            this.updateTime()
+        },1000)
     }
-};
+}
 </script>
  
 <style lang='scss' scoped>

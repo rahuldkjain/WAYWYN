@@ -5,6 +5,16 @@
             <h1>Weekly</h1>
         </header>
         <!-- <div v-if="loading">Loading...</div> -->
+        
+        <LeaderboardCard
+        class='map-leaderboard__weekly--card' 
+        :rank="rank "
+        :player="name"
+        :score="score"
+        style="color:gray"
+         />
+
+
 
         <LeaderboardCard
         class='map-leaderboard__weekly--card' v-for="(record, index) in getWeeklyLeaderBoard.data" 
@@ -21,6 +31,14 @@
         </header>
         <!-- <div v-if="loading">Loading...</div> -->
 
+
+        <LeaderboardCard
+        class='map-leaderboard__weekly--card' 
+        :rank="rank "
+        :player="name"
+        :score="score"
+        style="color:gray"
+         />
         <LeaderboardCard  
         class='map-leaderboard__all-time--card' v-for="(record, index) in getDailyLeaderBoard.data" 
         :key="'allTime' + index" 
@@ -36,6 +54,14 @@
         </header>
         <!-- <div v-if="loading">Loading...</div> -->
 
+
+        <LeaderboardCard
+        class='map-leaderboard__weekly--card' 
+        :rank="rank "
+        :player="name"
+        :score="score"
+        style="color:gray"
+         />
         <LeaderboardCard  
         class='map-leaderboard__monthly--card' v-for="(record, index) in getMonthlyLeaderBoard.data" 
         :key="'allTime' + index" 
@@ -54,6 +80,13 @@ import {mapGetters, mapActions} from 'vuex';
 
 export default {
     name: 'mapLeaderboard',
+    data(){
+        return {
+            rank: "rank",
+            name: "name",
+            score: "score"
+        }
+    },
     mounted(){
         this.$store.dispatch('fetchDailyLeaderBoard')
         this.$store.dispatch('fetchWeeklyLeaderBoard')

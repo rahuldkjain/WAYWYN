@@ -2,19 +2,20 @@ package com.coviam.leaderboard.entity;
 
 import com.coviam.leaderboard.pkclasses.MonthlyLeaderboardPK;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity @IdClass(MonthlyLeaderboardPK.class)
 @Table(name="MonthlyLeaderboard")
 public class MonthlyLeaderboard {
     @Id
+    @Column(name = "month_id")
     int monthId;
     @Id
+    @Column(name="username")
     String username;
+    @Column(name="score")
     int score;
+    @Column(name="user_rank")
     int userRank;
 
     public MonthlyLeaderboard(int monthId, String username, int score, int userRank) {

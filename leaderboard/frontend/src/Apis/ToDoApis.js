@@ -16,8 +16,8 @@ export default {
     getWeeklyLeaderBoard(callback){
         MakeApis.makeGetOverallRequest("/api/leaderboard/weekly",callback)
     },
-    getNumOfActiveUsers(callback){
-        MakeApis.makeGetOverallRequest("/api/leaderboard/activeusers?contestId=",callback)
+    getNumOfActiveUsers(callback, contestId){
+        MakeApis.makeGetOverallRequest("/api/leaderboard/reports/activeusers?contestId="+contestId,callback)
     },
     getNumOfActiveContests(callback){
         MakeApis.makeGetOverallRequest("/api/leaderboard/reports/activecontests",callback)

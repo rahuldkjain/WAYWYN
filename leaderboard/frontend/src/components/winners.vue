@@ -5,12 +5,8 @@
   <b-row>
 
     <b-col cols="3" v-for="(item,index) in activeContests" v-bind:key="index">
-      <b-card title="Contest" style="text-align:center"   :header="item.contest_name"  border-variant="success">
+      <b-card  style="text-align:center"   :header="item.contestName"  border-variant="success">
 
-      <b-card-text>
-    <b>Contest Name :</b> {{item.contestname}}
-    {{item.score}}
-    </b-card-text>
     <b-card-text>
       <b>Contest ID :</b> {{item.contestId}}
       {{item.score}}
@@ -59,7 +55,7 @@
 
   </b-row>
 </b-container>
-  
+
 </div>
 </template>
 <script>
@@ -87,7 +83,7 @@ export default {
       }
     },
     mounted() {
-      
+
     },
     methods: {
         contestLeaderBoard(contestId){
@@ -99,7 +95,7 @@ export default {
           this.$router.push('/winnerboard/'+contestId)
         }
     },
-    
+
     computed: {
         ...mapGetters(['getWinnersOfContest','getNumOfActiveContests','getActiveContests'])
     }

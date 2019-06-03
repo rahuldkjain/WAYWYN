@@ -13,4 +13,7 @@ public interface MonthlyLeaderboardRepository extends CrudRepository<MonthlyLead
 
     @Query(value = "select * from monthly_leaderboard where month_id = ?1 order by user_rank asc", nativeQuery = true)
     List<MonthlyLeaderboard> findAllByOrderByUserRankAsc(long monthId);
+
+    @Query(value = "select distinct month_id from monthly_leaderboard",nativeQuery = true)
+    List<Integer> findDistinctMonthId();
 }
