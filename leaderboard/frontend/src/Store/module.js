@@ -88,10 +88,10 @@ export default {
                 context.commit('SET_WEEKLY_LEADER_BOARD',result)
         })
         },
-        fetchNumOfActiveUsers: (context) => {
+        fetchNumOfActiveUsers: (context, contestId) => {
             ToDoApis.getNumOfActiveUsers((result)=>{
                 context.commit('SET_NUM_OF_ACTIVE_USERS',result)
-            })
+            }, contestId)
         },
         fetchNumOfActiveContests: (context) => {
             ToDoApis.getNumOfActiveContests((result)=>{

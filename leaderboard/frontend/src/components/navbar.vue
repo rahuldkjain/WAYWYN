@@ -1,9 +1,9 @@
 <template>
 <nav class='navbar' >
     <div class="wrapper">
-
+       
         <i @click="toggleSidebar" class="material-icons navbar__toggle">menu</i>
-
+        <span style="position:relative;right:420px;color:white" > {{date}}</span>
         <router-link  class="navbar__logo" to="/">
             <img src="https://badgeos.org/wp-content/uploads/edd/2013/11/leaderboard.png" alt="BB Logo" style="height:70px;width:70px;">
         </router-link>
@@ -29,7 +29,8 @@ export default {
             signedIn: false,
             username: null,
             error: null,
-            mapName: ""
+            mapName: "",
+            date: new Date(),
         }
     },
     created () {
@@ -38,7 +39,10 @@ export default {
     },
     watch: {
         user: "fetchUser",
-        '$route.query.mapid': "getMapName"
+        '$route.query.mapid': "getMapName",
+        date: function(){
+            this.date = new Date
+        }
     },
     methods: {
         toggleSidebar(){
@@ -75,12 +79,25 @@ export default {
                     this.mapName = result.data['map_name'].replace('surf_', '').charAt(0).toUpperCase() + result.data['map_name'].replace('surf_', '').slice(1)
                 })
             } else {
-                this.mapName = "WAYWYN";
+                this.mapName = "QuizHum";
             }
+        },
+        updateTime(){
+            this.date=new Date()
         }
     },
     components: {
         PlayerImage
+    },
+    computed: {
+        now(){
+          return new Date
+        }
+    },
+    mounted(){
+        setInterval(()=>{
+            this.updateTime()
+        },1000)
     }
 };
 </script>
