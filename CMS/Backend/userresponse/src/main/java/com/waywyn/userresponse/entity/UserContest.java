@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Document(collection = UserContest.COLLECTION_NAME)
@@ -14,12 +15,18 @@ public class UserContest {
 
     @Id
     private int ucId;
+    @NotNull
     private int userId;
+    @NotNull
     private String username;
+    @NotNull
     private int contestId;
+    @NotNull
     private boolean skipFlag;
     private Date endDate;
+    @NotNull
     private String type;
+    @NotNull
     private String category;
 
     public boolean isSkipFlag() {

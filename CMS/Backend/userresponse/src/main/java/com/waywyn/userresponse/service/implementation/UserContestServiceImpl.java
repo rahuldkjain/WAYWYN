@@ -1,5 +1,6 @@
 package com.waywyn.userresponse.service.implementation;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waywyn.userresponse.DTO.*;
 import com.waywyn.userresponse.entity.DynamicTimeTrack;
 import com.waywyn.userresponse.entity.UserContest;
@@ -27,41 +28,48 @@ public class UserContestServiceImpl implements UserContestService {
     private UserResponseRepository userResponseRepository;
 
     @Override
-    public UserResultDTO userResult(UserResultRecieveDTO userResultRecieveDTO) {
+    public UserResultDTO userResult(UserResultRecieveDTO userResultRecieveDTO) throws Exception {
         HashMap<Integer,AnswerDTO> answerDTOHashMap;
         UserResultDTO userResultDTO = new UserResultDTO();
         UserResultToLeaderboardDTO userResultToLeaderboardDTO = new UserResultToLeaderboardDTO();
-        HashMap<Integer,Integer> questionsScore = new HashMap<>();
+        UserResponseLeaderboardDTO userResponseLeaderboardDTO = new UserResponseLeaderboardDTO();
+        ArrayList<UserResponseLeaderboardDTO> userResponseLeaderboardDTOS = new ArrayList<>();
+        AnswerDTO answerDTO = new AnswerDTO();
         RestTemplate restTemplate = new RestTemplate();
         Date date = new Date();
         String difficulty;
         int totalScore = 0;
         int correctAnswer = 0;
-
+        ObjectMapper mapper = new ObjectMapper();
         //Rest template for getting answers from contest
-        String url = "http://ip:port/ontest/answers?contestId="+userResultRecieveDTO.getContestId();
+        String url = "http://10.177.7.130:8080/contest/answers?contestId="+userResultRecieveDTO.getContestId();
         answerDTOHashMap = restTemplate.getForObject(url,HashMap.class);
 
         UserContest userContest = userContestRepository.getByUserIdAndContestId(userResultRecieveDTO.getUserId(),userResultRecieveDTO.getContestId());
         ArrayList<UserResponse> responses = userResponseRepository.getByUcId(userContest.getUcId());
-        if(userContest.getType()=="static") {
+        if(userContest.getType().toLowerCase().equals("static")) {
             for (UserResponse it : responses) {
-                if (it.getResponse() == null)
+                if (it.getResponse() == null) {
                     System.out.println("Handle NullPointer Exception in userResult");
-                else if (it.getResponse().equals("S")) {
+                    throw new Exception("User response is absent");
+                }
+                else if (it.getResponse().equals("s")) {
                     //to add skip exception
                     System.out.println("Handle Skip response error in userResult");
+                    throw new Exception("User has a skipped response");
                 } else {
-                    if (it.getResponse().equals(answerDTOHashMap.get(it.getQuestionId()).getAnswer())) {
-                        difficulty = answerDTOHashMap.get(it.getQuestionId()).getDifficultyLevel();
-                        if (difficulty == "easy")
+                    answerDTO = mapper.convertValue(answerDTOHashMap.get(String.valueOf(it.getQuestionId())),AnswerDTO.class);
+                    if (it.getResponse().equals(answerDTO.getAnswer().toLowerCase())) {
+                        difficulty = answerDTO.getDifficultyType();
+                        if (difficulty.toLowerCase().equals("easy"))
                             it.setScore(1);
-                        else if (difficulty == "average")
+                        else if (difficulty.toLowerCase().equals("average"))
                             it.setScore(3);
-                        else if (difficulty == "hard")
+                        else if (difficulty.toLowerCase().equals("hard"))
                             it.setScore(5);
                         else {
                             System.out.println("Handle wrong difficulty type exception in userResult");
+                            throw new Exception("Wrong difficulty for question");
                         }
                         ++correctAnswer;
                     }
@@ -69,15 +77,21 @@ public class UserContestServiceImpl implements UserContestService {
                         it.setScore(0);
                     }
                 }
-                questionsScore.put(it.getQuestionId(), it.getScore());
+                userResponseLeaderboardDTO = new UserResponseLeaderboardDTO();
+                userResponseLeaderboardDTO.setqId(it.getQuestionId());
+                userResponseLeaderboardDTO.setScore(it.getScore());
+                userResponseLeaderboardDTOS.add(userResponseLeaderboardDTO);
+                //questionsScore.put(it.getQuestionId(), it.getScore());
                 totalScore += it.getScore();
+                userResponseRepository.save(it);
             }
         }
-        else if(userContest.getType() == "dynamic") {
+        else if(userContest.getType().toLowerCase().equals("dynamic")) {
             for (UserResponse it : responses) {
                 if(it.getScore() != 0)
                     correctAnswer++;
                 totalScore += it.getScore();
+                userResponseRepository.save(it);
             }
         }
         userContest.setEndDate(date);
@@ -86,12 +100,10 @@ public class UserContestServiceImpl implements UserContestService {
 
         //Rest template to send data to leader board
         BeanUtils.copyProperties(userContest,userResultToLeaderboardDTO);
-        userResultToLeaderboardDTO.setQuestions(questionsScore);
+        userResultToLeaderboardDTO.setQuestions(userResponseLeaderboardDTOS);
         HttpEntity<UserResultToLeaderboardDTO> request = new HttpEntity<>(userResultToLeaderboardDTO);
-        url = "http://ip:port/leaderboard/static";
+        url = "http://10.177.7.144:8080/leaderboard/static";
         URI location = restTemplate.postForLocation(url,request);
-        System.out.println("in userResult exception handling of location"+ location);
-
 
         userResultDTO.setCorrectAnswers(correctAnswer);
         userResultDTO.setTotalScore(totalScore);
@@ -99,7 +111,7 @@ public class UserContestServiceImpl implements UserContestService {
     }
 
     @Override
-    public String dynamicQuesResult(DynamicTimeTrack dynamicTimeTrack) {
+    public String dynamicQuesResult(DynamicTimeTrack dynamicTimeTrack) throws Exception {
         DynamicQuesResultToLeaderboardDTO dynamicQuesResultToLeaderboardDTO = new DynamicQuesResultToLeaderboardDTO();
         DynamicResponseDTO dynamicResponseDTO = new DynamicResponseDTO();
         ArrayList<DynamicResponseDTO> dynamicResponseDTOS = new ArrayList<>();
@@ -112,20 +124,22 @@ public class UserContestServiceImpl implements UserContestService {
         for (UserContest it: userContests) {
             BeanUtils.copyProperties(it,dynamicResponseDTO);
             userResponse = userResponseRepository.getByUcIdAndQuestionId(it.getUcId(),dynamicTimeTrack.getQuestionId());
-            if(userResponse.getResponse() == null || userResponse.getResponse() == "S") {
+            if(userResponse.getResponse() == null || userResponse.getResponse() == "s") {
                 System.out.println("Handle null or skip exception in dynamicQuesResult");
+                throw new Exception("response is either null or or skipped");
             }
             else {
-                if (userResponse.getResponse().equals(dynamicTimeTrack.getAnswer()) && userResponse.getTime().compareTo(dynamicTimeTrack.getStartTime()) >= 0 && userResponse.getTime().compareTo(dynamicTimeTrack.getEndTime()) <= 0) {
+                if (userResponse.getResponse().equals(dynamicTimeTrack.getAnswer().toLowerCase()) && userResponse.getTime().compareTo(dynamicTimeTrack.getStartTime()) >= 0 && userResponse.getTime().compareTo(dynamicTimeTrack.getEndTime()) <= 0) {
                     difficulty = dynamicTimeTrack.getDifficulty();
-                    if (difficulty == "easy")
+                    if (difficulty.toLowerCase().equals("easy"))
                         userResponse.setScore(1);
-                    else if (difficulty == "average")
+                    else if (difficulty.toLowerCase().equals("average"))
                         userResponse.setScore(3);
-                    else if (difficulty == "hard")
+                    else if (difficulty.toLowerCase().equals("hard"))
                         userResponse.setScore(5);
                     else {
                         System.out.println("Handle wrong difficulty type exception in dynamicQuestion");
+                        throw new Exception("Wrong difficulty for question");
                     }
                 }
                 else {
@@ -141,10 +155,10 @@ public class UserContestServiceImpl implements UserContestService {
         //Rest Template to send score to Leaderboard
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<DynamicQuesResultToLeaderboardDTO> request = new HttpEntity<>(dynamicQuesResultToLeaderboardDTO);
-        String url = "http://ip:port/leaderboard/dynamic";
+        String url = "http://10.177.7.144:8080/leaderboard/dynamic";
         URI location = restTemplate.postForLocation(url,request);
-        System.out.println("in dynamicQuestion exception handling of location"+ location);
 
+        System.out.println("Calculating and send of score successful in dynamicQuestion");
         return "Calculating and send of score successful in dynamicQuestion";
     }
 
@@ -159,8 +173,13 @@ public class UserContestServiceImpl implements UserContestService {
             String url = "http://10.177.7.130:8080/contest/getcontestdefinition?contestId="+it.getContestId();
             RestTemplate restTemplate = new RestTemplate();
             contestDefinitionDTO = restTemplate.getForObject(url,ContestDefinitionDTO.class);
+            if(it.getEndDate() == null) {
+                contestDefinitionDTO.setEnded("incomplete");
+            }
+            else {
+                contestDefinitionDTO.setEnded("complete");
+            }
             contestObjectsArray.add(contestDefinitionDTO);
-
         }
         return contestObjectsArray;
     }

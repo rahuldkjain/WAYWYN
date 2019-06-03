@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Document(collection = UserResponse.COLLECTION_NAME)
@@ -15,11 +16,14 @@ public class UserResponse {
     public static final String SEQUENCE_NAME = "usercontest";
     @Id
     private int urId;
+    @NotNull
     private int ucId;
+    @NotNull
     private int questionId;
+    @NotNull
     private String response;
     private int score;
-    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private Date time;
 
     @Override

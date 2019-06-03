@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public interface UserResponseService {
 
-    String updateUserResponse(UserResponseDTO userResponseDTO);
-    String saveUserResponse(UserResponseDTO userResponseDTO);
-    HashMap<Integer, String> contestresponse(int contestId, int userId);
+    String updateUserResponse(UserResponseDTO userResponseDTO) throws Exception;
+    String saveUserResponse(UserResponseDTO userResponseDTO) throws Exception;
+    HashMap<Integer, String> contestresponse(int contestId, int userId) throws Exception;
 }

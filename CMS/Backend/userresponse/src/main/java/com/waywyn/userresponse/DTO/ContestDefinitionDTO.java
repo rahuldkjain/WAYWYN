@@ -1,5 +1,7 @@
 package com.waywyn.userresponse.DTO;
 
+import java.util.Date;
+
 public class ContestDefinitionDTO {
     private int contestId;
     private String contestName;
@@ -7,17 +9,27 @@ public class ContestDefinitionDTO {
     private int totalQuestionsInContest;
     private String contestType;
     private String categoryName;
+    private String ended;
 
     @Override
     public String toString() {
         return "ContestDefinitionDTO{" +
                 "contestId=" + contestId +
                 ", contestName='" + contestName + '\'' +
-                ", numberOfskipsAllowed=" + skipsAllowed +
-                ", totalQuestions=" + totalQuestionsInContest +
+                ", skipsAllowed=" + skipsAllowed +
+                ", totalQuestionsInContest=" + totalQuestionsInContest +
                 ", contestType='" + contestType + '\'' +
-                ", categoryOfContest='" + categoryName + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", ended='" + ended + '\'' +
                 '}';
+    }
+
+    public String getEnded() {
+        return ended;
+    }
+
+    public void setEnded(String ended) {
+        this.ended = ended;
     }
 
     public String getContestType() {

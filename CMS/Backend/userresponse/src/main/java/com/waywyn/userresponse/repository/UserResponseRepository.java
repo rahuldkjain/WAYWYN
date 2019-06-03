@@ -11,4 +11,6 @@ public interface UserResponseRepository extends MongoRepository<UserResponse, In
     UserResponse getByUcIdAndQuestionId(int ucId, int questionId);
 
     ArrayList<UserResponse> getByUcId(int ucId);
+
+    UserResponse findByUcIdAndQuestionId(int ucId, int questionId);
 }

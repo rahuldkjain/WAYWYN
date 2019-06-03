@@ -19,7 +19,7 @@ public class TaskScheduler {
     UserContestService userContestService;
 
     @Scheduled(fixedDelay = 60000)
-    public void scheduleToCalcScore() {
+    public void scheduleToCalcScore() throws Exception {
         DynamicTimeTrack dynamicTimeTrack = dynamicTimeTrackService.getQuestion();
         if(dynamicTimeTrack != null) {
             userContestService.dynamicQuesResult(dynamicTimeTrack);

@@ -2,7 +2,6 @@ package com.waywyn.userresponse.service.implementation;
 
 import com.waywyn.userresponse.DTO.ContestDefinitionDTO;
 import com.waywyn.userresponse.DTO.UserResponseDTO;
-import com.waywyn.userresponse.entity.Counter;
 import com.waywyn.userresponse.entity.UserContest;
 import com.waywyn.userresponse.entity.UserResponse;
 import com.waywyn.userresponse.repository.CounterRepository;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 @Service
@@ -31,7 +31,11 @@ public class UserResponseServiceImpl implements UserResponseService {
     private CounterService counterService;
 
     @Override
-    public String saveUserResponse(UserResponseDTO userResponseDTO) {
+    public String saveUserResponse(UserResponseDTO userResponseDTO) throws Exception {
+        if(userResponseDTO == null || userResponseDTO.getResponse() == null || userResponseDTO.getResponse().equals("")) {
+            System.out.println("handle empty response exception");
+            throw new Exception("Your Response Object is null");
+        }
         UserResponse userResponse = new UserResponse();
         UserContest userContest = userContestRepository.getByUserIdAndContestId(userResponseDTO.getUserId(),userResponseDTO.getContestId());
         String url;
@@ -54,29 +58,39 @@ public class UserResponseServiceImpl implements UserResponseService {
         }
         BeanUtils.copyProperties(userResponseDTO,userResponse);
         userResponse.setUcId(userContest.getUcId());
-        if(userResponse.getResponse()=="S")
+        if(userResponse.getResponse()=="s")
             userContest.setSkipFlag(true);
         userContestRepository.save(userContest);
+        UserResponse userResponse1 = userResponseRepository.findByUcIdAndQuestionId(userResponse.getUcId(),userResponse.getQuestionId());
+        if(userResponse1 != null) {
+            System.out.println("Handle response already here exception");
+            throw new Exception("Your Response is already present");
+        }
         userResponse.setUrId(counterService.genNextSequence("userResponse"));
+        userResponse.setTime(new Date());
         if(userResponseRepository.save(userResponse)!=null) {
-            return "Response stored in saveUserResponse";
+            System.out.println("Response stored in saveUserResponse");
+            return "Response is stored";
         }
         else {
-            return "Failed to store response in saveUserResponse";
+            System.out.println("Failed to store response in saveUserResponse");
+            throw new Exception("Failed to save response");
         }
     }
 
     @Override
-    public String updateUserResponse(UserResponseDTO userResponseDTO) {
+    public String updateUserResponse(UserResponseDTO userResponseDTO) throws Exception {
         UserContest userContest = userContestRepository.getByUserIdAndContestId(userResponseDTO.getUserId(),userResponseDTO.getContestId());
         UserResponse userResponse;
         if(userContest == null) {
-            return "Wrong response update in updateUserResponse";
+            System.out.println("Wrong response update in updateUserResponse");
+            throw new Exception("No such contest is present");
         }
         else {
             userResponse = userResponseRepository.getByUcIdAndQuestionId(userContest.getUcId(),userResponseDTO.getQuestionId());
-            if(!userResponse.getResponse().equals("S")) {
-                return "Question is not Skipped in updateUserResponse";
+            if(!userResponse.getResponse().equals("s")) {
+                System.out.println("Question is not Skipped in updateUserResponse");
+                throw new Exception("Question is not skipped earlier");
             }
             else {
                 userResponse.setResponse(userResponseDTO.getResponse());
@@ -84,26 +98,34 @@ public class UserResponseServiceImpl implements UserResponseService {
             }
         }
         if(userResponse == null) {
-            return "Unable to update response in updateUserResponse";
+            System.out.println("Unable to update response in updateUserResponse");
+            throw new Exception("Failed to update response");
         }
         else {
+            System.out.println("Response Updated in updateUserResponse");
             return "Response Updated in updateUserResponse";
         }
     }
 
     @Override
-    public HashMap<Integer, String> contestresponse(int contestId, int userId) {
+    public HashMap<Integer, String> contestresponse(int contestId, int userId) throws Exception {
         UserContest userContest = userContestRepository.getByUserIdAndContestId(userId,contestId);
+        HashMap<Integer, String> userResponses = new HashMap<>();
+
         if(userContest != null) {
-            ArrayList<UserResponse> responses = userResponseRepository.getByUcId(userContest.getUcId());
-            if (responses != null) {
-                HashMap<Integer, String> userResponses = new HashMap<>();
-                for (UserResponse it : responses) {
-                    userResponses.put(it.getQuestionId(), it.getResponse());
+            if(userContest.getEndDate() != null && userContest.getEndDate().compareTo(new Date()) < 0)
+                userResponses.put(0,"Ended");
+            else {
+                ArrayList<UserResponse> responses = userResponseRepository.getByUcId(userContest.getUcId());
+                if (responses != null) {
+
+                    for (UserResponse it : responses) {
+                        userResponses.put(it.getQuestionId(), it.getResponse());
+                    }
                 }
-                return userResponses;
             }
+            return userResponses;
         }
-        return null;
+        throw new Exception("User does not have any contest");
     }
 }

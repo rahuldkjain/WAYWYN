@@ -31,6 +31,7 @@ public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
             return "Error in addTime";
         }
         else {
+            System.out.println("Data Successfully Stored in addTime");
             return "Data Successfully Stored in addTime";
         }
     }
@@ -50,9 +51,11 @@ public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
         ArrayList<DynamicTimeTrack> dynamicTimeTrack = dynamicTimeTrackRepository.findByResultDone(false);
         if(dynamicTimeTrack == null) {
             dynamicTimeTrackRepository.deleteAll();
+            System.out.println("Entries Deleted in deleteAll");
             return "Entries Deleted in deleteAll";
         }
         else {
+            System.out.println("Few Question remaining to delete in deleteAll");
             return "Few Question remaining to delete in deleteAll";
         }
     }

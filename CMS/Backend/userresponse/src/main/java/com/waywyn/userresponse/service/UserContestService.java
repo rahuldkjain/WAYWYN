@@ -16,9 +16,9 @@ public interface UserContestService {
     //UserContestDTO getUserContest(int ucId);
 
 
-    UserResultDTO userResult(UserResultRecieveDTO userResultRecieveDTO);
+    UserResultDTO userResult(UserResultRecieveDTO userResultRecieveDTO) throws Exception;
 
-    String dynamicQuesResult(DynamicTimeTrack dynamicTimeTrack);
+    String dynamicQuesResult(DynamicTimeTrack dynamicTimeTrack) throws Exception;
 
     ArrayList<ContestDefinitionDTO> userActive(int userId);
 }

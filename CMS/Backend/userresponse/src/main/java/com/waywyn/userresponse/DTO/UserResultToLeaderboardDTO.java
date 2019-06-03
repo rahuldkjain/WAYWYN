@@ -1,5 +1,6 @@
 package com.waywyn.userresponse.DTO;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ public class UserResultToLeaderboardDTO {
     private Date endDate;
     private String type = "static";
     private String category;
-    private HashMap<Integer,Integer> questions;
+    private ArrayList<UserResponseLeaderboardDTO> questions;
 
     @Override
     public String toString() {
@@ -83,11 +84,11 @@ public class UserResultToLeaderboardDTO {
         this.category = category;
     }
 
-    public HashMap<Integer, Integer> getQuestions() {
+    public ArrayList<UserResponseLeaderboardDTO> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(HashMap<Integer, Integer> questions) {
+    public void setQuestions(ArrayList<UserResponseLeaderboardDTO> questions) {
         this.questions = questions;
     }
 }
