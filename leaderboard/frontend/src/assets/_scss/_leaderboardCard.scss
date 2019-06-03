@@ -10,7 +10,7 @@
         display: flex;
         align-items: center;
         width: 100%;
-        text-align: left;
+        text-align: center;
     }
     &__place {
         width: 37px;
@@ -34,6 +34,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        
     }
     &__image {
         height: 100%;
