@@ -1,5 +1,9 @@
 package com.coviam.leaderboard.service;
 
+import com.coviam.leaderboard.dto.ContestLeaderboardDTO;
+import com.coviam.leaderboard.dto.DailyLeaderboardDTO;
+import com.coviam.leaderboard.dto.MonthlyLeaderboardDTO;
+import com.coviam.leaderboard.dto.WeeklyLeaderboardDTO;
 import com.coviam.leaderboard.entity.ContestLeaderboard;
 import com.coviam.leaderboard.entity.DailyLeaderboard;
 import com.coviam.leaderboard.entity.MonthlyLeaderboard;
@@ -9,17 +13,17 @@ import java.util.List;
 
 public interface OverallLeaderboardService {
 
-    List<DailyLeaderboard> getDailyLeaderboard();
+    List<DailyLeaderboardDTO> getDailyLeaderboard();
 
-    List<WeeklyLeaderboard> getWeeklyLeaderboard();
+    List<WeeklyLeaderboardDTO> getWeeklyLeaderboard();
 
-    List<MonthlyLeaderboard> getMonthlyLeaderboard();
+    List<MonthlyLeaderboardDTO> getMonthlyLeaderboard();
 
-    List<ContestLeaderboard> getContestLeaderboard(Integer contestId);
+    List<ContestLeaderboardDTO> getContestLeaderboard(Integer contestId);
 
-    List<WeeklyLeaderboard> getWeeklyLeaderboardByWeekId(Integer weekId);
+    List<WeeklyLeaderboardDTO> getWeeklyLeaderboardByWeekId(Integer weekId);
 
-    List<MonthlyLeaderboard> getMonthlyLeaderboardByMonthId(Integer monthId);
+    List<MonthlyLeaderboardDTO> getMonthlyLeaderboardByMonthId(Integer monthId);
 
     List<Integer> getWeekIds();
 
@@ -27,5 +31,5 @@ public interface OverallLeaderboardService {
 
     List<Integer> getMonthIds();
 
-    List<DailyLeaderboard> getDailyLeaderboardByDayId(Integer dayId);
+    List<DailyLeaderboardDTO> getDailyLeaderboardByDayId(Integer dayId);
 }

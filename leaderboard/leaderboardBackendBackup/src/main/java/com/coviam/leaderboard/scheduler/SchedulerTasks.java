@@ -5,6 +5,7 @@ import com.coviam.leaderboard.queryresult.UserAggregateScore;
 import com.coviam.leaderboard.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.joda.time.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,29 +44,19 @@ public class SchedulerTasks {
     @Scheduled(fixedRate = 2000)
     public void updateContestLeaderboard(){
         // logger.info("Current Thread : {}", Thread.currentThread().getName());
-        //todo for each contest
+
+
+
         List<Integer> contests=userScoreRepository.findAllContests();
         for(Integer contest:contests){
             List<UserScore> userScoreList=userScoreRepository.findAllByOrderByScoreDescByContestId(contest);
             List<ContestLeaderboard> contestLeaderboardList=new ArrayList<ContestLeaderboard>();
-            int rank =0;
-            int previousScore=-1;
-            int usersWithSameScore=0;
             for(UserScore user:userScoreList){
                 ContestLeaderboard contestLeaderboard=new ContestLeaderboard();
                 contestLeaderboard.setContestId(user.getContestId());
                 contestLeaderboard.setScore(user.getScore());
                 contestLeaderboard.setUserId(user.getUserId());
                 contestLeaderboard.setUsername(user.getUsername());
-                if(contestLeaderboard.getScore()!=previousScore){
-                    rank+=usersWithSameScore;
-                    contestLeaderboard.setUserRank(++rank);
-                    usersWithSameScore=0;
-                }else {
-                    contestLeaderboard.setUserRank(rank);
-                    usersWithSameScore++;
-                }
-                previousScore=user.getScore();
                 contestLeaderboardList.add(contestLeaderboard);
             }
             System.out.println("\n\nupdateContestLeaderboardThread: ");
@@ -99,26 +90,20 @@ public class SchedulerTasks {
             userScoreList.add(aggregateScore);
         }
 
-        long epoch=System.currentTimeMillis()/1000/60/60/24;
+
+        MutableDateTime epoch = new MutableDateTime();
+        epoch.setDate(0); //Set to Epoch time
+        DateTime now = new DateTime();
+        Days days = Days.daysBetween(epoch, now);
+        System.out.println("Days Since Epoch: " + days.getDays());
+
         List<DailyLeaderboard> dailyLeaderboards=new ArrayList<DailyLeaderboard>();
-        int rank=0;
-        int previousScore=-1;
-        int usersWithSameScore=0;
         //setting the daily leaderboard table
         for(UserAggregateScore userScore:userScoreList){
             DailyLeaderboard dailyLeaderboard=new DailyLeaderboard();
-            dailyLeaderboard.setDayId((int)epoch);
+            dailyLeaderboard.setDayId(days.getDays());
             dailyLeaderboard.setUsername(userScore.getUsername());
             dailyLeaderboard.setScore(userScore.getScore());
-            if(dailyLeaderboard.getScore()!=previousScore){
-                rank+=usersWithSameScore;
-                dailyLeaderboard.setUserRank(++rank);
-                usersWithSameScore=0;
-            }else{
-                dailyLeaderboard.setUserRank(rank);
-                usersWithSameScore++;
-            }
-            previousScore=dailyLeaderboard.getScore();
             dailyLeaderboards.add(dailyLeaderboard);
         }
         System.out.println("\n\nupdateDailyLeaderboardThread: ");
@@ -132,33 +117,31 @@ public class SchedulerTasks {
     @Scheduled(fixedRate = 6000)
     public void updateWeeklyLeaderboard(){
 //        System.out.println("hi i am in update weekly");
-        long today=System.currentTimeMillis()/1000/60/60/24;
-        long weekId=System.currentTimeMillis()/1000/60/60/24/7;
-        long startdate=weekId*7;
+        long today;
+        long weekId;
+        long startdate;
 //        System.out.println(today+"   -------"+startdate);
+        MutableDateTime epoch = new MutableDateTime();
+        epoch.setDate(0); //Set to Epoch time
+        DateTime now = new DateTime();
+
+        Days days = Days.daysBetween(epoch, now);
+        Weeks weeks = Weeks.weeksBetween(epoch, now);
+        Months months = Months.monthsBetween(epoch, now);
+        today=days.getDays();
+        startdate=weeks.getWeeks()*7;
+        weekId=weeks.getWeeks();
 
         List<Object> dailyLeaderboardlist=dailyLeaderboardRepository.findByUserIdGroupByDateRange(startdate,today);
         Iterator iterator=dailyLeaderboardlist.iterator();
         List<WeeklyLeaderboard> weeklyLeaderboardList=new ArrayList<WeeklyLeaderboard>();
 
-        int rank=0;
-        int previousScore=-1;
-        int usersWithSameScore=0;
         while (iterator.hasNext()){
             Object[] object=(Object[]) iterator.next();
             WeeklyLeaderboard weeklyLeaderboard=new WeeklyLeaderboard();
             weeklyLeaderboard.setUsername(String.valueOf(object[0]));
             weeklyLeaderboard.setScore(Integer.parseInt(String.valueOf(object[1])));
-            weeklyLeaderboard.setWeekId((int)weekId);
-            if(Integer.parseInt(String.valueOf(object[1]))!=previousScore){
-                rank+=usersWithSameScore;
-                weeklyLeaderboard.setUserRank(++rank);
-                usersWithSameScore=0;
-            }else{
-                weeklyLeaderboard.setUserRank(rank);
-                usersWithSameScore++;
-            }
-            previousScore=weeklyLeaderboard.getScore();
+            weeklyLeaderboard.setWeekId(weeks.getWeeks());
             weeklyLeaderboardList.add(weeklyLeaderboard);
         }
         System.out.println("\n\nupdateWeeklyLeaderboardThread: ");
@@ -172,33 +155,32 @@ public class SchedulerTasks {
     @Scheduled(fixedRate = 8000)
     public void updateMonthlyLeaderboard(){
 //        System.out.println("hi i am in update monthly");
-        long todayWeek=System.currentTimeMillis()/1000/60/60/24/7;
-        long monthId=System.currentTimeMillis()/1000/60/60/24/7/4;
-        long startWeek=monthId*4;
-        System.out.println(todayWeek+"   -------"+startWeek);
+        long todayWeek;
+        long monthId;
+        long startWeek;
+
+        MutableDateTime epoch = new MutableDateTime();
+        epoch.setDate(0); //Set to Epoch time
+        DateTime now = new DateTime();
+
+        Days days = Days.daysBetween(epoch, now);
+        Weeks weeks = Weeks.weeksBetween(epoch, now);
+        Months months = Months.monthsBetween(epoch, now);
+
+        todayWeek=weeks.getWeeks();
+        startWeek=months.getMonths()*4;
+        monthId=months.getMonths();
 
         List<Object> weeklyLeaderboardlist=weeklyLeaderboardRepository.findByUserIdGroupByDateRange(startWeek,todayWeek);
         Iterator iterator=weeklyLeaderboardlist.iterator();
         List<MonthlyLeaderboard> monthlyLeaderboardList=new ArrayList<MonthlyLeaderboard>();
 
-        int rank=0;
-        int previousScore=-1;
-        int usersWithSameScore=0;
         while (iterator.hasNext()){
             Object[] object=(Object[]) iterator.next();
             MonthlyLeaderboard monthlyLeaderboard=new MonthlyLeaderboard();
             monthlyLeaderboard.setUsername(String.valueOf(object[0]));
             monthlyLeaderboard.setScore(Integer.parseInt(String.valueOf(object[1])));
             monthlyLeaderboard.setMonthId((int)monthId);
-            if(Integer.parseInt(String.valueOf(object[1]))!=previousScore){
-                rank+=usersWithSameScore;
-                monthlyLeaderboard.setUserRank(++rank);
-                usersWithSameScore=0;
-            }else{
-                monthlyLeaderboard.setUserRank(rank);
-                usersWithSameScore++;
-            }
-            previousScore=monthlyLeaderboard.getScore();
             monthlyLeaderboardList.add(monthlyLeaderboard);
         }
         System.out.println("\n\nupdateMonthlyLeaderboardThread: ");
@@ -288,7 +270,7 @@ public class SchedulerTasks {
 
 
     private ResponseEntity addDynamicContestsToDB() {
-        System.out.println("\n\naddDynamicConteststoDBThread: ");
+        System.out.println("\n\naddDynamicConteststoDBThread: ----dddd----");
         RestTemplate restTemplate = new RestTemplate();
         String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;
@@ -313,7 +295,7 @@ public class SchedulerTasks {
                 java.sql.Date endDate=new Date(date.getTime());
                 contest.setDate(endDate);
                 contest.setContestName(j.get("contestName").toString());
-                System.out.println(contest.toString());
+                System.out.println(contest.toString()+"----dddd----");
                 contestList.add(contest);
             }
             contestRepository.save(contestList);
@@ -325,7 +307,7 @@ public class SchedulerTasks {
     }
 
     private ResponseEntity addStaticContestsToDB() {
-        System.out.println("\n\naddStaticConteststoDBThread: ");
+        System.out.println("\n\naddStaticConteststoDBThread: -------sssss--------");
         RestTemplate restTemplate = new RestTemplate();
         String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;
@@ -350,7 +332,7 @@ public class SchedulerTasks {
                 java.sql.Date endDate=new Date(date.getTime());
                 contest.setDate(endDate);
                 contest.setContestName(j.get("contestName").toString().replaceAll("^\"|\"$", ""));
-                System.out.println(contest.toString());
+                System.out.println(contest.toString()+"-----ssss------");
                 contestList.add(contest);
             }
             contestRepository.save(contestList);
@@ -360,7 +342,5 @@ public class SchedulerTasks {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
 }

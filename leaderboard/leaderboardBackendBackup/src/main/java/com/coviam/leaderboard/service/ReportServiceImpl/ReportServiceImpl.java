@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -59,16 +60,45 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<Winner> getWinners(Integer contestId) {
-        List<ContestLeaderboard> winnerList = contestLeaderboardRepository.findAllByUserRank(contestId);
+        List<ContestLeaderboard> winnerList = contestLeaderboardRepository.findAllByOrderByScoreDesc(contestId);
+        List<Integer> scores=new ArrayList<>();
+        for(ContestLeaderboard contestLeaderboard:winnerList){
+            Integer score =contestLeaderboard.getScore();
+            scores.add(score);
+        }
+        List<Integer> ranks=findRank(scores);
         List<Winner> winners=new ArrayList<Winner>();
+        int rankIndex=0;
         for(ContestLeaderboard winner:winnerList){
             Winner winnerObject=new Winner();
             winnerObject.setScore(winner.getScore());
             winnerObject.setUsername(winner.getUsername());
-            winnerObject.setUserRank(winner.getUserRank());
+            winnerObject.setUserRank(ranks.get(rankIndex++));
             winners.add(winnerObject);
         }
 
         return winners;
+    }
+
+    private List<Integer> findRank(List<Integer> scores) {
+        List<Integer> rankList=new ArrayList<Integer>();
+        int rank=0;
+        int previousScore=-1;
+        int usersWithSameScore=0;
+        Integer newRank;
+        for (Integer score:scores){
+            if(score!=previousScore){
+                rank+=usersWithSameScore;
+                newRank=++rank;
+                rankList.add(newRank);
+                usersWithSameScore=0;
+            }else{
+                newRank=rank;
+                rankList.add(newRank);
+                usersWithSameScore++;
+            }
+            previousScore=score;
+        }
+        return rankList;
     }
 }

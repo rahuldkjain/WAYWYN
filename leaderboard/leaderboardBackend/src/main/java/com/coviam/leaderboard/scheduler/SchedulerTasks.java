@@ -5,6 +5,7 @@ import com.coviam.leaderboard.queryresult.UserAggregateScore;
 import com.coviam.leaderboard.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.joda.time.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -99,7 +100,12 @@ public class SchedulerTasks {
             userScoreList.add(aggregateScore);
         }
 
-        long epoch=System.currentTimeMillis()/1000/60/60/24;
+        MutableDateTime epoch = new MutableDateTime();
+        epoch.setDate(0); //Set to Epoch time
+        DateTime now = new DateTime();
+        Days days = Days.daysBetween(epoch, now);
+        System.out.println("Days Since Epoch: " + days.getDays());
+
         List<DailyLeaderboard> dailyLeaderboards=new ArrayList<DailyLeaderboard>();
         int rank=0;
         int previousScore=-1;
@@ -107,7 +113,7 @@ public class SchedulerTasks {
         //setting the daily leaderboard table
         for(UserAggregateScore userScore:userScoreList){
             DailyLeaderboard dailyLeaderboard=new DailyLeaderboard();
-            dailyLeaderboard.setDayId((int)epoch);
+            dailyLeaderboard.setDayId(days.getDays());
             dailyLeaderboard.setUsername(userScore.getUsername());
             dailyLeaderboard.setScore(userScore.getScore());
             if(dailyLeaderboard.getScore()!=previousScore){
@@ -132,14 +138,26 @@ public class SchedulerTasks {
     @Scheduled(fixedRate = 6000)
     public void updateWeeklyLeaderboard(){
 //        System.out.println("hi i am in update weekly");
-        long today=System.currentTimeMillis()/1000/60/60/24;
-        long weekId=System.currentTimeMillis()/1000/60/60/24/7;
-        long startdate=weekId*7;
+        long today;
+        long weekId;
+        long startdate;
 //        System.out.println(today+"   -------"+startdate);
+        MutableDateTime epoch = new MutableDateTime();
+        epoch.setDate(0); //Set to Epoch time
+        DateTime now = new DateTime();
+
+        Days days = Days.daysBetween(epoch, now);
+        Weeks weeks = Weeks.weeksBetween(epoch, now);
+
+        today=days.getDays();
+        startdate=weeks.getWeeks()*7;
+        weekId=weeks.getWeeks();
 
         List<Object> dailyLeaderboardlist=dailyLeaderboardRepository.findByUserIdGroupByDateRange(startdate,today);
         Iterator iterator=dailyLeaderboardlist.iterator();
         List<WeeklyLeaderboard> weeklyLeaderboardList=new ArrayList<WeeklyLeaderboard>();
+
+
 
         int rank=0;
         int previousScore=-1;
@@ -172,14 +190,24 @@ public class SchedulerTasks {
     @Scheduled(fixedRate = 8000)
     public void updateMonthlyLeaderboard(){
 //        System.out.println("hi i am in update monthly");
-        long todayWeek=System.currentTimeMillis()/1000/60/60/24/7;
-        long monthId=System.currentTimeMillis()/1000/60/60/24/7/4;
-        long startWeek=monthId*4;
-        System.out.println(todayWeek+"   -------"+startWeek);
+        long todayWeek;
+        long monthId;
+        long startWeek;
+        MutableDateTime epoch = new MutableDateTime();
+        epoch.setDate(0); //Set to Epoch time
+        DateTime now = new DateTime();
+
+        Weeks weeks = Weeks.weeksBetween(epoch, now);
+        Months months = Months.monthsBetween(epoch, now);
+
+        todayWeek=weeks.getWeeks();
+        startWeek=months.getMonths()*4;
+        monthId=months.getMonths();
 
         List<Object> weeklyLeaderboardlist=weeklyLeaderboardRepository.findByUserIdGroupByDateRange(startWeek,todayWeek);
         Iterator iterator=weeklyLeaderboardlist.iterator();
         List<MonthlyLeaderboard> monthlyLeaderboardList=new ArrayList<MonthlyLeaderboard>();
+
 
         int rank=0;
         int previousScore=-1;
