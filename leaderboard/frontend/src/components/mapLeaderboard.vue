@@ -5,7 +5,7 @@
             <h1>Weekly</h1>
         </header>
         <!-- <div v-if="loading">Loading...</div> -->
-        <!-- <div v-if="loading">Loading...</div> -->
+      
         <LeaderboardCard 
         class='map-leaderboard__weekly--card' 
         :rank="rank "
@@ -14,7 +14,18 @@
         style="color:gray"
 
          />
-      
+       <div v-if="isWeeklyLeaderBoardNull" class="text-center">
+       
+                <!-- <b-button variant="primary" disabled>
+            <b-spinner small></b-spinner>
+            <span class="sr-only">Loading...</span>
+        </b-button> -->
+
+        <b-button variant="primary" disabled>
+            <b-spinner small type="grow"></b-spinner>
+            Loading...
+        </b-button>
+        </div>
 
 
 
@@ -43,6 +54,16 @@
         :score="score"
         style="color:gray"
          />
+          <div v-if="isDailyLeaderBoardNull" class="text-center">
+        
+        <!-- <b-spinner variant="primary" label="Spinning"></b-spinner>
+        <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner> -->
+        <b-button variant="warning" disabled>
+            <b-spinner small type="grow"></b-spinner>
+            Loading...
+        </b-button>
+      
+        </div>
         <LeaderboardCard  
         class='map-leaderboard__all-time--card' v-for="(record, index) in dailyLeaderBoard" 
         :key="'allTime' + index" 
@@ -66,6 +87,16 @@
         :score="score"
         style="color:gray"
          />
+
+          <div v-if="isMonthlyLeaderBoardNull" class="text-center">
+        <!-- <b-spinner variant="danger" label="Spinning"></b-spinner>
+        <b-spinner variant="danger" type="grow" label="Spinning"></b-spinner> -->
+        <b-button variant="secondary" disabled>
+            <b-spinner small type="grow"></b-spinner>
+            Loading...
+        </b-button>
+        </div>
+
         <LeaderboardCard  
         class='map-leaderboard__monthly--card' v-for="(record, index) in monthlyLeaderBoard" 
         :key="'allTime' + index" 
@@ -91,15 +122,11 @@ export default {
             score: "Score",
             dailyLeaderBoard: [],
             weeklyLeaderBoard: [],
-            monthlyLeaderBoard: [],
-            loading: true
+            monthlyLeaderBoard: []
 
         }
     },
     mounted(){
-        this.$store.dispatch('fetchDailyLeaderBoard')
-        this.$store.dispatch('fetchWeeklyLeaderBoard')
-        this.$store.dispatch('fetchMonthlyLeaderBoard')
         setInterval(()=>{
                 this.$store.dispatch('fetchDailyLeaderBoard')
             },1000)
@@ -116,7 +143,16 @@ export default {
         LeaderboardCard
     },
     computed: {
-        ...mapGetters(['getDailyLeaderBoard','getWeeklyLeaderBoard','getMonthlyLeaderBoard'])
+        ...mapGetters(['getDailyLeaderBoard','getWeeklyLeaderBoard','getMonthlyLeaderBoard']),
+        isWeeklyLeaderBoardNull(){
+            return this.weeklyLeaderBoard.length==0 ;
+        },
+        isDailyLeaderBoardNull(){
+            return this.dailyLeaderBoard.length==0 ;
+        },
+        isMonthlyLeaderBoardNull(){
+            return this.monthlyLeaderBoard.length==0;
+        }
     },
     watch: {
       getDailyLeaderBoard: function(newValue, oldValue){
