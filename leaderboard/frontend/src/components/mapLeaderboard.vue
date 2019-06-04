@@ -5,7 +5,7 @@
             <h1>Weekly</h1>
         </header>
         <!-- <div v-if="loading">Loading...</div> -->
-        
+        <div v-if="loading">Loading...</div>
         <LeaderboardCard 
         class='map-leaderboard__weekly--card' 
         :rank="rank "
@@ -91,7 +91,8 @@ export default {
             score: "Score",
             dailyLeaderBoard: [],
             weeklyLeaderBoard: [],
-            monthlyLeaderBoard: []
+            monthlyLeaderBoard: [],
+            loading: true
 
         }
     },
@@ -101,13 +102,13 @@ export default {
         this.$store.dispatch('fetchMonthlyLeaderBoard')
         setInterval(()=>{
                 this.$store.dispatch('fetchDailyLeaderBoard')
-            },2000)
+            },1000)
         setInterval(()=>{
             this.$store.dispatch('fetchWeeklyLeaderBoard')
-        },2000)
+        },1000)
         setInterval(()=>{
             this.$store.dispatch('fetchMonthlyLeaderBoard')
-        },2000)
+        },1000)
         //this.weeklyLeaderBoardFetch()
 
     },
@@ -119,26 +120,26 @@ export default {
     },
     watch: {
       getDailyLeaderBoard: function(newValue, oldValue){
-        newValue.data.forEach(day => {
-            if(this.dailyLeaderBoard.length < 10){
-                this.dailyLeaderBoard.push(day)
-            }
-        });
+          newValue = newValue.data
+          if(newValue.length > 10){
+              newValue = newValue.slice(0,10)
+          }
+          this.dailyLeaderBoard = newValue
       },
       getWeeklyLeaderBoard: function(newValue, oldValue){
-        newValue.data.forEach(week => {
-            if(this.weeklyLeaderBoard.length < 10){
-                this.weeklyLeaderBoard.push(week)
-            }
-        });
+        newValue = newValue.data
+          if(newValue.length > 10){
+              newValue = newValue.slice(0,10)
+          }
+          this.weeklyLeaderBoard = newValue
         
       },
       getMonthlyLeaderBoard: function(newValue, oldValue){
-        newValue.data.forEach(month => {
-            if(this.monthlyLeaderBoard.length < 10){
-                this.monthlyLeaderBoard.push(month)
-            }
-        });
+        newValue = newValue.data
+          if(newValue.length > 10){
+              newValue = newValue.slice(0,10)
+          }
+        this.monthlyLeaderBoard = newValue
       }
       
     },

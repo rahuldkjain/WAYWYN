@@ -18,7 +18,8 @@ export default {
         monthlyDashBoard: [],
         dailyIds: [],
         weeklyIds: [],
-        monthlyIds: []
+        monthlyIds: [],
+        allCategories: []
     },
     getters: {
         getContestLeaderBoard : (state) =>state.contest_leader_board,
@@ -37,7 +38,8 @@ export default {
         getMonthlyDashBoard: (state)=> state.monthlyDashBoard,
         getDailyIds: (state) => state.dailyIds,
         getWeeklyIds: (state) => state.weeklyIds,
-        getMonthlyIds: (state) => state.monthlyIds
+        getMonthlyIds: (state) => state.monthlyIds,
+        getAllCategories: (state) => state.allCategories
     },
     mutations: {
         SET_CONTEST_LEADER_BOARD: (state,result)=>{
@@ -94,6 +96,9 @@ export default {
         },
         SET_MONTHLY_IDS: (state, result)=>{
             state.monthlyIds = result.data
+        },
+        SET_ALL_CATEGORIES: (state, result) => {
+            state.allCategories = result
         }
 
 
@@ -182,6 +187,11 @@ export default {
           fetchMonthlyIds: (context) => {
               ToDoApis.getMonthlyIds((result) => {
                   context.commit('SET_MONTHLY_IDS', result.data)
+              })
+          },
+          fetchAllCategories: (context) => {
+              ToDoApis.getAllCategories((result) => {
+                  context.commit('SET_ALL_CATEGORIES', result.data)
               })
           }
   }

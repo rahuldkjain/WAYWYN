@@ -8,6 +8,9 @@ import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import store from './Store/index1.js'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
+
+Vue.use(Vuetify)
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)

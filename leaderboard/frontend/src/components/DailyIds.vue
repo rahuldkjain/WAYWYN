@@ -5,7 +5,7 @@
         <b-row>
         <b-col v-for ="(ids,index) in dailyIdsArray.length" :key="index" style="text-align:center">
           <b-button variant="primary" @click="callDailyDashBoard(index)">Day {{index+1}}</b-button>
-           <!-- <p>{{formatToDate(index)}}</p> -->
+           <p>{{formatToDate(index)}}</p>
 
 
         </b-col>
@@ -34,10 +34,8 @@ export default {
     },
     methods: {
         formatToDate(index){
-            var utcSeconds = this.dailyIdsArray[index];
-            var date = new Date(0); // The 0 there is the key, which sets the date to the epoch
-            date.setUTCDate(utcSeconds);
-            return date.getUTCDate()+"/"+date.getUTCMonth()+"/"+date.getUTCFullYear()
+            var date = new Date(this.dailyIdsArray[index] * 24 * 60 * 60 *1000);
+            return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
         },
         callDailyDashBoard(dayId){
             this.$store.dispatch('fetchDailyDashBoard',this.dailyIdsArray[dayId])

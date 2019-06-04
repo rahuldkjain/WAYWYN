@@ -53,5 +53,9 @@ export default {
     },
     getMonthlyDashBoard(callback,monthId){
         MakeApis.makeGetOverallRequest("/api/leaderboard/monthlylb?monthId="+monthId,callback)
+    },
+    getAllCategories(callback){
+        MakeApis.makeGetOverallRequest("/category/contest/getallcategory", callback)
+        
     }
 }

@@ -5,7 +5,7 @@
         <b-row>
         <b-col v-for ="(ids,index) in weeklyIdsArray.length" :key="index" style="text-align:center">
           <b-button variant="primary" @click="callWeeklyDashBoard(index)">Week {{index+1}}</b-button>
-           <!-- <p>{{formatToDate(index)}}</p> -->
+           <p><b>Week Start Date: </b>{{formatToDate(index)}}</p>
 
         </b-col>
         </b-row>
@@ -33,10 +33,8 @@ export default {
     },
     methods: {
         formatToDate(index){
-            var utcSeconds = this.weeklyIdsArray[index];
-            var date = new Date(0); // The 0 there is the key, which sets the date to the epoch
-            date.setUTCDate(utcSeconds);
-            return date.getUTCDate()+"/"+date.getUTCMonth()+"/"+date.getUTCFullYear()
+            var week = new Date(this.weeklyIdsArray[index] * 7 * 24 * 60 * 60 * 1000);
+            return week.getDate()+"/"+(week.getMonth() + 1) + "/" + week.getFullYear()
         },
         callWeeklyDashBoard(weekId){
             this.$store.dispatch('fetchWeeklyDashBoard',this.weeklyIdsArray[weekId])

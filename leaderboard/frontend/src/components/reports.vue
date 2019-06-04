@@ -4,7 +4,7 @@
   
 <b-container class="bv-example-row">
   <b-row>
-    <b-col>
+    <b-col cols="8">
     <b-card title="Currently Active Contests">
       <b-card-text >
         <b-table striped hover :items="activeContests"></b-table>
@@ -15,7 +15,7 @@
     </b-card>
 </b-col>
 
-  <b-col v-if="dynamicExist">
+  <b-col v-if="dynamicExist" >
     <b-card title="User registered">
       <b-card-text >
         <b>Contest Name: </b>{{this.dynamicContestName}}
@@ -24,19 +24,16 @@
        <b>Contest ID: </b>{{this.dynamicId}}
         </b-card-text>
         <b-card-text >
-       <b>Contest Date: </b>{{getNumOfActiveUsers.data[0].userEndDate}}
+       <b>Contest Date: </b>{{getNumOfActiveUsers.data.userEndDate}}
       </b-card-text>
       <b-card-text >
        <b>Number of active users: </b>{{getNumOfActiveUsers.data.length}}
-      </b-card-text>
+             </b-card-text>
       <b-card-text>
-
       </b-card-text>
     </b-card>
   </b-col>
   </b-row>
-  <br>
-
   <b-row>
       <b-card title="Most Correctly answered Questions">
       <b-card-text>
@@ -82,7 +79,7 @@ export default {
             category: newValue[index].category,
             contestEndDate: newValue[index].date
           }
-          if(contest.type === "dynamic"){
+          if(contest.type === "dynamic" || contest.type==="Dynamic"){
             contest.category = "mix"
             this.dynamicExist =true
             this.dynamicId = contest.contestId
