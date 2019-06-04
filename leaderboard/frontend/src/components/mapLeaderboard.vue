@@ -5,7 +5,7 @@
             <h1>Weekly</h1>
         </header>
         <!-- <div v-if="loading">Loading...</div> -->
-        <!-- <div v-if="loading">Loading...</div> -->
+        <div v-if="loading">Loading...</div>
         <LeaderboardCard 
         class='map-leaderboard__weekly--card' 
         :rank="rank "

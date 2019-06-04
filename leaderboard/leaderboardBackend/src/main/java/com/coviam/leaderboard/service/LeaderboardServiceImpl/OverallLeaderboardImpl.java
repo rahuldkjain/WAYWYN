@@ -55,12 +55,9 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
 
     @Override
     public List<MonthlyLeaderboard> getMonthlyLeaderboard() {
-        MutableDateTime epoch = new MutableDateTime();
         epoch.setDate(0);
-        DateTime now = new DateTime();
         Months months = Months.monthsBetween(epoch, now);
         long monthId = months.getMonths();
-        System.out.println(monthId+"+++++++++++++++++++++");
         List<MonthlyLeaderboard> monthlyLeaderboardList = monthlyLeaderboardRepository.findAllByOrderByUserRankAsc(monthId);
 
         return monthlyLeaderboardList;
