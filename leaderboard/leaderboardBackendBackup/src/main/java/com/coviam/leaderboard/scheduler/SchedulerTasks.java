@@ -240,7 +240,7 @@ public class SchedulerTasks {
 
 
     private ResponseEntity addDynamicContestsToDB() {
-        System.out.println("\n\naddDynamicConteststoDBThread: ");
+        System.out.println("\n\naddDynamicConteststoDBThread: ----dddd----");
         RestTemplate restTemplate = new RestTemplate();
         String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;
@@ -265,7 +265,7 @@ public class SchedulerTasks {
                 java.sql.Date endDate=new Date(date.getTime());
                 contest.setDate(endDate);
                 contest.setContestName(j.get("contestName").toString());
-                System.out.println(contest.toString());
+                System.out.println(contest.toString()+"----dddd----");
                 contestList.add(contest);
             }
             contestRepository.save(contestList);
@@ -277,7 +277,7 @@ public class SchedulerTasks {
     }
 
     private ResponseEntity addStaticContestsToDB() {
-        System.out.println("\n\naddStaticConteststoDBThread: ");
+        System.out.println("\n\naddStaticConteststoDBThread: -------sssss--------");
         RestTemplate restTemplate = new RestTemplate();
         String cmsContesturl = "http://10.177.7.130:8080/contest/getbytype";
         ResponseEntity<String> response;
@@ -302,7 +302,7 @@ public class SchedulerTasks {
                 java.sql.Date endDate=new Date(date.getTime());
                 contest.setDate(endDate);
                 contest.setContestName(j.get("contestName").toString().replaceAll("^\"|\"$", ""));
-                System.out.println(contest.toString());
+                System.out.println(contest.toString()+"-----ssss------");
                 contestList.add(contest);
             }
             contestRepository.save(contestList);

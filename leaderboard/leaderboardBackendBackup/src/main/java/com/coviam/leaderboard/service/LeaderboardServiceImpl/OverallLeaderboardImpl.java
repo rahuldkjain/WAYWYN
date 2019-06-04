@@ -49,6 +49,7 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
         int rankIndex=0;
         for(DailyLeaderboard dailyLeaderboard:dailyLeaderboardList){
             DailyLeaderboardDTO dailyLeaderboardDTO=new DailyLeaderboardDTO();
+            dailyLeaderboardDTO.setDayId(dailyLeaderboard.getDayId());
             dailyLeaderboardDTO.setScore(dailyLeaderboard.getScore());
             dailyLeaderboardDTO.setUsername(dailyLeaderboard.getUsername());
             dailyLeaderboardDTO.setUserRank(ranks.get(rankIndex++));
@@ -71,6 +72,7 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
         int rankIndex=0;
         for(WeeklyLeaderboard weeklyLeaderboard:weeklyLeaderboardList){
             WeeklyLeaderboardDTO weeklyLeaderboardDTO=new WeeklyLeaderboardDTO();
+            weeklyLeaderboardDTO.setWeekId(weeklyLeaderboard.getWeekId());
             weeklyLeaderboardDTO.setScore(weeklyLeaderboard.getScore());
             weeklyLeaderboardDTO.setUsername(weeklyLeaderboard.getUsername());
             weeklyLeaderboardDTO.setUserRank(ranks.get(rankIndex++));
@@ -93,6 +95,7 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
         int rankIndex=0;
         for(MonthlyLeaderboard monthlyLeaderboard:monthlyLeaderboardList){
             MonthlyLeaderboardDTO monthlyLeaderboardDTO=new MonthlyLeaderboardDTO();
+            monthlyLeaderboardDTO.setMonthId(monthlyLeaderboard.getMonthId());
             monthlyLeaderboardDTO.setScore(monthlyLeaderboard.getScore());
             monthlyLeaderboardDTO.setUsername(monthlyLeaderboard.getUsername());
             monthlyLeaderboardDTO.setUserRank(ranks.get(rankIndex++));
@@ -114,6 +117,7 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
         int rankIndex=0;
         for(ContestLeaderboard contestLeaderboard:contestLeaderboardList){
             ContestLeaderboardDTO contestLeaderboardDTO=new ContestLeaderboardDTO();
+            contestLeaderboardDTO.setContestId(contestLeaderboard.getContestId());
             contestLeaderboardDTO.setScore(contestLeaderboard.getScore());
             contestLeaderboardDTO.setUsername(contestLeaderboard.getUsername());
             contestLeaderboardDTO.setUserRank(ranks.get(rankIndex++));
@@ -135,6 +139,7 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
         int rankIndex=0;
         for(WeeklyLeaderboard weeklyLeaderboard:weeklyLeaderboardList){
             WeeklyLeaderboardDTO weeklyLeaderboardDTO=new WeeklyLeaderboardDTO();
+            weeklyLeaderboardDTO.setWeekId(weeklyLeaderboard.getScore());
             weeklyLeaderboardDTO.setScore(weeklyLeaderboard.getScore());
             weeklyLeaderboardDTO.setUsername(weeklyLeaderboard.getUsername());
             weeklyLeaderboardDTO.setUserRank(ranks.get(rankIndex++));
@@ -156,6 +161,7 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
         int rankIndex=0;
         for(MonthlyLeaderboard monthlyLeaderboard:monthlyLeaderboardList){
             MonthlyLeaderboardDTO monthlyLeaderboardDTO=new MonthlyLeaderboardDTO();
+            monthlyLeaderboardDTO.setMonthId(monthlyLeaderboard.getMonthId());
             monthlyLeaderboardDTO.setScore(monthlyLeaderboard.getScore());
             monthlyLeaderboardDTO.setUsername(monthlyLeaderboard.getUsername());
             monthlyLeaderboardDTO.setUserRank(ranks.get(rankIndex++));
@@ -195,6 +201,7 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
         int rankIndex=0;
         for(DailyLeaderboard dailyLeaderboard:dailyLeaderboardList){
             DailyLeaderboardDTO dailyLeaderboardDTO=new DailyLeaderboardDTO();
+            dailyLeaderboardDTO.setDayId(dailyLeaderboard.getDayId());
             dailyLeaderboardDTO.setScore(dailyLeaderboard.getScore());
             dailyLeaderboardDTO.setUsername(dailyLeaderboard.getUsername());
             dailyLeaderboardDTO.setUserRank(ranks.get(rankIndex++));

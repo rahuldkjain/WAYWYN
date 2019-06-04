@@ -110,25 +110,5 @@ public class StaticLeaderboardImpl implements StaticLeaderboardService {
 
         return "success";
     }
-//    private List<Integer> findRank(List<Integer> scores) {
-//        List<Integer> rankList=new ArrayList<Integer>();
-//        int rank=0;
-//        int previousScore=-1;
-//        int usersWithSameScore=0;
-//        Integer newRank;
-//        for (Integer score:scores){
-//            if(score!=previousScore){
-//                rank+=usersWithSameScore;
-//                newRank=++rank;
-//                rankList.add(newRank);
-//                usersWithSameScore=0;
-//            }else{
-//                newRank=rank;
-//                rankList.add(newRank);
-//                usersWithSameScore++;
-//            }
-//            previousScore=score;
-//        }
-//        return rankList;
-//    }
+
 }
