@@ -13,6 +13,7 @@ import com.coviam.leaderboard.repository.DailyLeaderboardRepository;
 import com.coviam.leaderboard.repository.MonthlyLeaderboardRepository;
 import com.coviam.leaderboard.repository.WeeklyLeaderboardRepository;
 import com.coviam.leaderboard.service.OverallLeaderboardService;
+import org.joda.time.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +35,17 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
 
     @Autowired
     ContestLeaderboardRepository contestLeaderboardRepository;
+    MutableDateTime epoch = new MutableDateTime();
+    DateTime now = new DateTime();
+
 
     @Override
     public List<DailyLeaderboardDTO> getDailyLeaderboard() {
-        long dayId = System.currentTimeMillis()/1000/60/60/24;
+        epoch.setDate(0); //Set to Epoch time
+        Days days = Days.daysBetween(epoch, now);
+        long dayId = days.getDays();
+
+
         List<DailyLeaderboard> dailyLeaderboardList= dailyLeaderboardRepository.findAllByOrderByUserScoreDesc(dayId);
         List<DailyLeaderboardDTO> dailyLeaderboardDTOList=new ArrayList<>();
         List<Integer> scores=new ArrayList<>();
@@ -60,7 +68,9 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
 
     @Override
     public List<WeeklyLeaderboardDTO> getWeeklyLeaderboard() {
-        long weekId = System.currentTimeMillis()/1000/60/60/24/7;
+        epoch.setDate(0);
+        Weeks weeks = Weeks.weeksBetween(epoch, now);
+        long weekId = weeks.getWeeks();
         List<WeeklyLeaderboard> weeklyLeaderboardList= weeklyLeaderboardRepository.findAllByOrderByUserScoreDesc(weekId);
         List<WeeklyLeaderboardDTO> weeklyLeaderboardDTOList=new ArrayList<>();
         List<Integer> scores=new ArrayList<>();
@@ -83,7 +93,9 @@ public class OverallLeaderboardImpl implements OverallLeaderboardService {
 
     @Override
     public List<MonthlyLeaderboardDTO> getMonthlyLeaderboard() {
-        long monthId = System.currentTimeMillis()/1000/60/60/24/7/4;
+        epoch.setDate(0);
+        Months months = Months.monthsBetween(epoch, now);
+        long monthId = months.getMonths();
         List<MonthlyLeaderboard> monthlyLeaderboardList= monthlyLeaderboardRepository.findAllByOrderByScoreDesc(monthId);
         List<MonthlyLeaderboardDTO> monthlyLeaderboardDTOList=new ArrayList<>();
         List<Integer> scores=new ArrayList<>();

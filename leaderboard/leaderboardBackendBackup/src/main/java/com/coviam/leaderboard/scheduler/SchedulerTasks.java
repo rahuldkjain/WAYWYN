@@ -117,9 +117,9 @@ public class SchedulerTasks {
     @Scheduled(fixedRate = 6000)
     public void updateWeeklyLeaderboard(){
 //        System.out.println("hi i am in update weekly");
-        long today=System.currentTimeMillis()/1000/60/60/24;
-        long weekId=System.currentTimeMillis()/1000/60/60/24/7;
-        long startdate=weekId*7;
+        long today;
+        long weekId;
+        long startdate;
 //        System.out.println(today+"   -------"+startdate);
         MutableDateTime epoch = new MutableDateTime();
         epoch.setDate(0); //Set to Epoch time
@@ -155,10 +155,9 @@ public class SchedulerTasks {
     @Scheduled(fixedRate = 8000)
     public void updateMonthlyLeaderboard(){
 //        System.out.println("hi i am in update monthly");
-        long todayWeek=System.currentTimeMillis()/1000/60/60/24/7;
-        long monthId=System.currentTimeMillis()/1000/60/60/24/7/4;
-        long startWeek=monthId*4;
-        System.out.println(todayWeek+"   -------"+startWeek);
+        long todayWeek;
+        long monthId;
+        long startWeek;
 
         MutableDateTime epoch = new MutableDateTime();
         epoch.setDate(0); //Set to Epoch time
