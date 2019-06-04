@@ -44,20 +44,8 @@ public class SchedulerTasks {
     @Scheduled(fixedRate = 2000)
     public void updateContestLeaderboard(){
         // logger.info("Current Thread : {}", Thread.currentThread().getName());
-        System.out.println("=========================================================");
-        MutableDateTime epoch = new MutableDateTime();
-        epoch.setDate(0); //Set to Epoch time
-        DateTime now = new DateTime();
 
-        Days days = Days.daysBetween(epoch, now);
-        Weeks weeks = Weeks.weeksBetween(epoch, now);
-        Months months = Months.monthsBetween(epoch, now);
 
-        System.out.println("Days Since Epoch: " + days.getDays());
-        System.out.println("Weeks Since Epoch: " + weeks.getWeeks());
-        System.out.println("Months Since Epoch: " + months.getMonths());
-
-        System.out.println("=========================================================");
 
         List<Integer> contests=userScoreRepository.findAllContests();
         for(Integer contest:contests){
@@ -143,7 +131,7 @@ public class SchedulerTasks {
         today=days.getDays();
         startdate=weeks.getWeeks()*7;
         weekId=weeks.getWeeks();
-        
+
         List<Object> dailyLeaderboardlist=dailyLeaderboardRepository.findByUserIdGroupByDateRange(startdate,today);
         Iterator iterator=dailyLeaderboardlist.iterator();
         List<WeeklyLeaderboard> weeklyLeaderboardList=new ArrayList<WeeklyLeaderboard>();
@@ -153,7 +141,7 @@ public class SchedulerTasks {
             WeeklyLeaderboard weeklyLeaderboard=new WeeklyLeaderboard();
             weeklyLeaderboard.setUsername(String.valueOf(object[0]));
             weeklyLeaderboard.setScore(Integer.parseInt(String.valueOf(object[1])));
-            weeklyLeaderboard.setWeekId((int)weeks.getWeeks());
+            weeklyLeaderboard.setWeekId(weeks.getWeeks());
             weeklyLeaderboardList.add(weeklyLeaderboard);
         }
         System.out.println("\n\nupdateWeeklyLeaderboardThread: ");
