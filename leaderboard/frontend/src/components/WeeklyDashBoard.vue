@@ -19,11 +19,16 @@ export default {
     },
     watch:{
     getWeeklyDashBoard: function(newValue, oldValue){
-          this.weeklyDashBoards = newValue
-      },
+          for(var index =0; index<newValue.length;index++){
+              let leaderBoard = {
+                  username: newValue[index].username,
+                  score: newValue[index].score,
+                  userRank: newValue[index].userRank
+              }
+              this.weeklyDashBoards.push(leaderBoard)
+          }
+      }
     }
 }
 </script>
 <style>
-
-</style>

@@ -10,7 +10,7 @@ export default {
     console.log('PATH:', path)
     Axios.get(path)
       .then(callback)
-      .catch((error) => { console.log(error) })
+      .catch((error) => {console.log(error) })
   },
   makeDeleteRequest (path, callback, payload) {
     console.log('PATH:', path)

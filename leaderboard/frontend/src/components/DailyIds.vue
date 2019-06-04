@@ -28,9 +28,9 @@ export default {
         ...mapGetters(['getDailyIds'])
     },
     watch: {
-      getDailyIds: function(newValue, oldValue){
-          this.dailyIdsArray = newValue
-      },
+        getDailyIds: function(newValue, oldValue){
+        this.dailyIdsArray = newValue
+      }
     },
     methods: {
         formatToDate(index){

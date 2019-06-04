@@ -18,7 +18,14 @@ export default {
     },
     watch:{
     getMonthlyDashBoard: function(newValue, oldValue){
-          this.monthlyDashBoards = newValue
+          for(var index=0;index<newValue.length;index++){
+              let leaderBoard = {
+                  username: newValue[index].username,
+                  score: newValue[index].score,
+                  userRank: newValue[index].userRank
+              }
+              this.monthlyDashBoards.push(leaderBoard)
+          }
       },
     }
 }

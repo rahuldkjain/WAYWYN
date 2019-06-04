@@ -18,7 +18,15 @@ export default {
     },
     watch:{
     getDailyDashBoard: function(newValue, oldValue){
-          this.dailyDashBoards = newValue
+          for(var index=0;index<newValue.length;index++)
+            {
+                let daily = {
+                    username: newValue[index].username,
+                    score: newValue[index].score,
+                    userRank: newValue[index].userRank
+                }
+                this.dailyDashBoards.push(daily)
+            }
       },
     }
 }
