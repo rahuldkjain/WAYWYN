@@ -18,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class UserResponseServiceImpl implements UserResponseService {
@@ -31,10 +33,13 @@ public class UserResponseServiceImpl implements UserResponseService {
     @Autowired
     private CounterService counterService;
 
+    private final static Logger LOGGER =
+            Logger.getLogger(UserResponseServiceImpl.class.getName());
+
     @Override
     public String saveUserResponse(UserResponseDTO userResponseDTO) throws Exception {
         if(userResponseDTO == null || userResponseDTO.getResponse() == null || userResponseDTO.getResponse().equals("")) {
-            System.out.println("handle empty response exception");
+            LOGGER.log(Level.WARNING,"Null Pointer in saveUserResponse"+ userResponseDTO.toString());
             throw new Exception("Your Response Object is null");
         }
         UserResponse userResponse = new UserResponse();
@@ -60,25 +65,28 @@ public class UserResponseServiceImpl implements UserResponseService {
             userContest.setCategory(contestDefinitionDTO.getCategoryName());
             userContest.setType(contestDefinitionDTO.getContestType());
             userContest.setUcId(counterService.genNextSequence("userContest"));
+            userContest = userContestRepository.save(userContest);
         }
         BeanUtils.copyProperties(userResponseDTO,userResponse);
         userResponse.setUcId(userContest.getUcId());
-        if(userResponse.getResponse()=="s")
+        if(userResponse.getResponse().equals("s")) {
             userContest.setSkipFlag(true);
-        userContestRepository.save(userContest);
+            userContest = userContestRepository.save(userContest);
+            LOGGER.log(Level.INFO, "Skip Flag updated : " + userContest.getSkipFlag() + ":");
+        }
         UserResponse userResponse1 = userResponseRepository.findByUcIdAndQuestionId(userResponse.getUcId(),userResponse.getQuestionId());
         if(userResponse1 != null) {
-            System.out.println("Handle response already here exception");
+            LOGGER.log(Level.WARNING,"Response for user and contest is already in Database");
             throw new Exception("Your Response is already present");
         }
         userResponse.setUrId(counterService.genNextSequence("userResponse"));
         userResponse.setTime(new Date());
         if(userResponseRepository.save(userResponse)!=null) {
-            System.out.println("Response stored in saveUserResponse");
+            LOGGER.log(Level.INFO,"Response stored in Database");
             return "Response is stored";
         }
         else {
-            System.out.println("Failed to store response in saveUserResponse");
+            LOGGER.log(Level.WARNING,"Failed to save response in saveUserResponse");
             throw new Exception("Failed to save response");
         }
     }
@@ -88,13 +96,13 @@ public class UserResponseServiceImpl implements UserResponseService {
         UserContest userContest = userContestRepository.getByUserIdAndContestId(userResponseDTO.getUserId(),userResponseDTO.getContestId());
         UserResponse userResponse;
         if(userContest == null) {
-            System.out.println("Wrong response update in updateUserResponse");
+            LOGGER.log(Level.WARNING,"Wrong userContest in updateUserResponse");
             throw new Exception("No such contest is present");
         }
         else {
             userResponse = userResponseRepository.getByUcIdAndQuestionId(userContest.getUcId(),userResponseDTO.getQuestionId());
             if(!userResponse.getResponse().equals("s")) {
-                System.out.println("Question is not Skipped in updateUserResponse");
+                LOGGER.log(Level.WARNING,"Question is not skipped one");
                 throw new Exception("Question is not skipped earlier");
             }
             else {
@@ -103,11 +111,11 @@ public class UserResponseServiceImpl implements UserResponseService {
             }
         }
         if(userResponse == null) {
-            System.out.println("Unable to update response in updateUserResponse");
+            LOGGER.log(Level.WARNING,"Failed to update response in updateUserResponse");
             throw new Exception("Failed to update response");
         }
         else {
-            System.out.println("Response Updated in updateUserResponse");
+            LOGGER.log(Level.INFO,"Response Updated");
             return "Response Updated in updateUserResponse";
         }
     }

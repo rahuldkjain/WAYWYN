@@ -19,6 +19,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class UserContestServiceImpl implements UserContestService {
@@ -28,8 +30,13 @@ public class UserContestServiceImpl implements UserContestService {
     @Autowired
     private UserResponseRepository userResponseRepository;
 
+    private final static Logger LOGGER =
+            Logger.getLogger(UserContestServiceImpl.class.getName());
+
     @Override
     public UserResultDTO userResult(UserResultRecieveDTO userResultRecieveDTO) throws Exception {
+
+        LOGGER.log(Level.INFO,"Generating result for"+userResultRecieveDTO.getUsername()+" Contest ID "+userResultRecieveDTO.toString());
         HashMap<Integer,AnswerDTO> answerDTOHashMap = new HashMap<>();
         UserResultDTO userResultDTO = new UserResultDTO();
         UserResultToLeaderboardDTO userResultToLeaderboardDTO = new UserResultToLeaderboardDTO();
@@ -55,18 +62,14 @@ public class UserContestServiceImpl implements UserContestService {
         if(userContest.getType().toLowerCase().equals("static")) {
             for (UserResponse it : responses) {
                 if (it.getResponse() == null) {
-                    System.out.println("Handle NullPointer Exception in userResult");
+                    LOGGER.log(Level.WARNING,"Null Pointer in userResult it.getResponse()");
                     throw new Exception("User response is absent");
                 }
                 else if (it.getResponse().equals("s")) {
-                    //to add skip exception
-                    System.out.println("Handle Skip response error in userResult");
+                    LOGGER.log(Level.WARNING,"Skip response is still present in userResult");
                     throw new Exception("User has a skipped response");
                 } else {
                     answerDTO = mapper.convertValue(answerDTOHashMap.get(String.valueOf(it.getQuestionId())),AnswerDTO.class);
-                    System.out.println("!"+it.getResponse().toLowerCase()+"!");
-                    System.out.println("!"+answerDTO.getAnswer().toLowerCase()+"!");
-                    System.out.println(" ");
                     if (it.getResponse().toLowerCase().equals(answerDTO.getAnswer().toLowerCase())) {
                         difficulty = answerDTO.getDifficultyType();
                         if (difficulty.toLowerCase().equals("easy"))
@@ -76,7 +79,7 @@ public class UserContestServiceImpl implements UserContestService {
                         else if (difficulty.toLowerCase().equals("hard"))
                             it.setScore(5);
                         else {
-                            System.out.println("Handle wrong difficulty type exception in userResult");
+                            LOGGER.log(Level.WARNING,"Wrong difficulty in userResult");
                             throw new Exception("Wrong difficulty for question");
                         }
                         ++correctAnswer;
@@ -104,7 +107,8 @@ public class UserContestServiceImpl implements UserContestService {
         }
         userContest.setEndDate(date);
         userContestRepository.save(userContest);
-
+        if(!userContest.getSkipFlag())
+            totalScore+=5;
 
         //Rest template to send data to leader board
         BeanUtils.copyProperties(userContest,userResultToLeaderboardDTO);
@@ -113,7 +117,9 @@ public class UserContestServiceImpl implements UserContestService {
         url = "http://10.177.7.144:8080/leaderboard/static";
         try {
             URI location = restTemplate.postForLocation(url, request);
+            LOGGER.log(Level.INFO,"Rest template to static leaderboard");
         } catch (HttpClientErrorException e) {
+            LOGGER.log(Level.WARNING,"Rest template to static leaderboard ERROR");
             e.printStackTrace();
         }
 
@@ -124,6 +130,7 @@ public class UserContestServiceImpl implements UserContestService {
 
     @Override
     public String dynamicQuesResult(DynamicTimeTrack dynamicTimeTrack) throws Exception {
+        LOGGER.log(Level.INFO,"Generating result for "+dynamicTimeTrack.getContestId()+" Question Id "+dynamicTimeTrack.getQuestionId());
         DynamicQuesResultToLeaderboardDTO dynamicQuesResultToLeaderboardDTO = new DynamicQuesResultToLeaderboardDTO();
         DynamicResponseDTO dynamicResponseDTO = new DynamicResponseDTO();
         ArrayList<DynamicResponseDTO> dynamicResponseDTOS = new ArrayList<>();
@@ -136,8 +143,8 @@ public class UserContestServiceImpl implements UserContestService {
         for (UserContest it: userContests) {
             BeanUtils.copyProperties(it,dynamicResponseDTO);
             userResponse = userResponseRepository.getByUcIdAndQuestionId(it.getUcId(),dynamicTimeTrack.getQuestionId());
-            if(userResponse.getResponse() == null || userResponse.getResponse() == "s") {
-                System.out.println("Handle null or skip exception in dynamicQuesResult");
+            if(userResponse.getResponse() == null || userResponse.getResponse().equals("s")) {
+                LOGGER.log(Level.WARNING,"Null pointer exception in dynamicQuesResult in getResponse");
                 throw new Exception("response is either null or or skipped");
             }
             else {
@@ -150,7 +157,7 @@ public class UserContestServiceImpl implements UserContestService {
                     else if (difficulty.toLowerCase().equals("hard"))
                         userResponse.setScore(5);
                     else {
-                        System.out.println("Handle wrong difficulty type exception in dynamicQuestion");
+                        LOGGER.log(Level.WARNING,"Wrong difficulty in dynamicQuesResult");
                         throw new Exception("Wrong difficulty for question");
                     }
                 }
@@ -170,11 +177,13 @@ public class UserContestServiceImpl implements UserContestService {
         String url = "http://10.177.7.144:8080/leaderboard/dynamic";
         try {
             URI location = restTemplate.postForLocation(url, request);
+            LOGGER.log(Level.INFO,"Rest template to static leaderboard");
         } catch (HttpClientErrorException e) {
+            LOGGER.log(Level.WARNING,"Rest template to static leaderboard ERROR");
             e.printStackTrace();
         }
 
-        System.out.println("Calculating and send of score successful in dynamicQuestion");
+        LOGGER.log(Level.INFO,"Calculation and sending of score success");
         return "Calculating and send of score successful in dynamicQuestion";
     }
 

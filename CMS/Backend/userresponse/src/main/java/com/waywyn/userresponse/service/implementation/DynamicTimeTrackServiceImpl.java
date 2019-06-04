@@ -10,12 +10,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
 
     @Autowired
     private DynamicTimeTrackRepository dynamicTimeTrackRepository;
+
+    private final static Logger LOGGER =
+            Logger.getLogger(DynamicTimeTrackRepository.class.getName());
 
     @Override
     public String addTime(DynamicTimeTrackDTO dynamicTimeTrackDTO) {
@@ -27,11 +32,11 @@ public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
         dynamicTimeTrack.setResultDone(false);
         dynamicTimeTrack = dynamicTimeTrackRepository.save(dynamicTimeTrack);
         if(dynamicTimeTrack == null) {
-            System.out.println("throw error in addTime");
+            LOGGER.log(Level.WARNING, "Null Pointer Error in addTime");
             return "Error in addTime";
         }
         else {
-            System.out.println("Data Successfully Stored in addTime");
+            LOGGER.log(Level.INFO,"Data Stored : "+dynamicTimeTrack.toString());
             return "Data Successfully Stored in addTime";
         }
     }
@@ -41,7 +46,7 @@ public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
         Date date = new Date();
         DynamicTimeTrack dynamicTimeTrack = dynamicTimeTrackRepository.findFirst1ByResultDoneAndStartTimeLessThanAndEndTimeLessThan(false,date,date);
         if(dynamicTimeTrack == null) {
-            System.out.println("throw error in getQuestion");
+            LOGGER.log(Level.WARNING,"Null Pointer in getQuestion");
         }
         return dynamicTimeTrack;
     }
@@ -51,11 +56,11 @@ public class DynamicTimeTrackServiceImpl implements DynamicTimeTrackService {
         ArrayList<DynamicTimeTrack> dynamicTimeTrack = dynamicTimeTrackRepository.findByResultDone(false);
         if(dynamicTimeTrack == null) {
             dynamicTimeTrackRepository.deleteAll();
-            System.out.println("Entries Deleted in deleteAll");
+            LOGGER.log(Level.INFO,"All entries deleted in deleteAll");
             return "Entries Deleted in deleteAll";
         }
         else {
-            System.out.println("Few Question remaining to delete in deleteAll");
+            LOGGER.log(Level.INFO,"Few Questions remaining to delete");
             return "Few Question remaining to delete in deleteAll";
         }
     }

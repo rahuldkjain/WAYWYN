@@ -29,7 +29,7 @@ public class UserContest {
     @NotNull
     private String category;
 
-    public boolean isSkipFlag() {
+    public boolean getSkipFlag() {
         return skipFlag;
     }
 
@@ -106,4 +106,5 @@ public class UserContest {
     public void setCategory(String category) {
         this.category = category;
     }
+
 }
